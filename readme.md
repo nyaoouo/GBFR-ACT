@@ -1,6 +1,8 @@
 # GBFR-ACT
 ## Granblue Fantasy Relink - Analytics for Combat Tracking
 
+![]('demo.png')
+
 ### 步骤
 
 1. **安装python311**
