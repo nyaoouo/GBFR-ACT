@@ -1806,11 +1806,15 @@ class Act:
         return res
 
     def _on_enter_area(self, hook, a1, a2, a3):
-        actor_base_name.cache_clear()
-        actor_type_id.cache_clear()
-        actor_idx.cache_clear()
-        self.on_enter_area()
-        return hook.original(a1, a2, a3)
+        res = hook.original(a1, a2, a3)
+        try:
+            actor_base_name.cache_clear()
+            actor_type_id.cache_clear()
+            actor_idx.cache_clear()
+            self.on_enter_area()
+        except:
+            logging.error('on_enter_area', exc_info=True)
+        return res
 
     def on_damage(self, source, target, damage, flags, action_id):
         pass
