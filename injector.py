@@ -1741,10 +1741,6 @@ def actor_idx(a1):
     return u32_from(a1 + 0x170)
 
 
-def actor_data(a1):
-    return actor_base_name(a1), actor_idx(a1), actor_type_id(a1)
-
-
 class Act:
     _sys_key = '_act_'
 
@@ -1772,9 +1768,36 @@ class Act:
             ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t
         )
 
+        self.p_qword_1467572B0, = scanner.find_val("48 ? ? * * * * 83 66 ? ? 48 ? ?")
+
+        self.i_ui_comp_name = ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.c_size_t)
+        self.team_map = None
+
+    def actor_data(self, a1):
+        return actor_base_name(a1), actor_idx(a1), actor_type_id(a1), self.team_map.get(a1, -1) if self.team_map else -1
+
+    def build_team_map(self):
+        if self.team_map is not None: return
+        res = {}
+        qword_1467572B0 = size_t_from(self.p_qword_1467572B0)
+        p_party_base = size_t_from(qword_1467572B0 + 0x20)
+        p_party_tbl = size_t_from(p_party_base + 0x10 * (size_t_from(qword_1467572B0 + 0x38) & 0x6C4F1B4D) + 8)
+        if p_party_tbl != size_t_from(qword_1467572B0 + 0x10) and (p_party_data := size_t_from(p_party_tbl + 0x30)):
+            party_start = size_t_from(p_party_data + 0x18)
+            party_end = size_t_from(p_party_data + 0x20)
+            for i, p_data in enumerate(range(party_start, party_end, 0x10)):
+                a1 = size_t_from(p_data + 8)
+                if (self.i_ui_comp_name(v_func(a1, 0x8))(a1) == b'ui::component::ControllerPlParameter01' and
+                        (p_actor := size_t_from(a1 + 0x5D0))):
+                    p_actor_data = size_t_from(p_actor + 0x70)
+                    res[p_actor_data] = i
+                    print(f'[{i}] {p_actor=:#x}')
+        self.team_map = res
+
     def _on_process_damage_evt(self, hook, a1, a2, a3, a4):
         source = target = 0
         try:
+            self.build_team_map()
             target = size_t_from(size_t_from(a1 + 8))
             source = size_t_from(size_t_from(a2 + 0x18) + 0x70)
             flag = not (a4 or self.i_a1_0x40(v_func(a1, 0x40))(a1, a2, 0, target, source))
@@ -1800,7 +1823,7 @@ class Act:
                 action_id = -2  # limit break
             else:
                 action_id = u32_from(a2 + 0x154)
-            self.on_damage(actor_data(source), actor_data(target), dmg, flags_, action_id)
+            self.on_damage(self.actor_data(source), self.actor_data(target), dmg, flags_, action_id)
         except:
             logging.error('on_process_damage_evt', exc_info=True)
         return res
@@ -1808,6 +1831,7 @@ class Act:
     def _on_enter_area(self, hook, a1, a2, a3):
         res = hook.original(a1, a2, a3)
         try:
+            self.team_map = None
             actor_base_name.cache_clear()
             actor_type_id.cache_clear()
             actor_idx.cache_clear()
