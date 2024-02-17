@@ -1706,7 +1706,7 @@ def run_admin():
     except:
         pass
     ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
-    os._exit(0)
+    raise PermissionError("Need admin permission, a new process should be started, if not, please run it as admin manually")
 
 
 def get_server() -> RpcServer:
