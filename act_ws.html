@@ -82,7 +82,13 @@
                         v-for="item in records" :key="item.name" :label="item.name" :name="item.name"
                 >
                     <el-table :data="Object.values(item.actors)" style="width: 100%" :default-sort="{ prop: 'dps', order: 'descending' }">
-                        <el-table-column prop="name" label="name"></el-table-column>
+                        <el-table-column prop="name" label="name">
+                            <template #default="scope">
+                                <span>
+                                    <el-icon :style="{'color':scope.row.color}"><Avatar/></el-icon> {{ scope.row.name }}
+                                </span>
+                            </template>
+                        </el-table-column>
                         <el-table-column prop="damage" label="damage" sortable></el-table-column>
                         <el-table-column prop="damage_in_minute" label="damage_in_minute" sortable></el-table-column>
                         <el-table-column prop="dps" label="dps" sortable></el-table-column>
@@ -149,8 +155,8 @@
     }
 
     const colors = [
-        '#ff5555',
         '#55ff55',
+        '#ff5555',
         '#5555ff',
         '#ffff55',
         '#ff55ff',
@@ -286,13 +292,12 @@
                 if (records.value.length === 0) new_record();
                 return records.value[records.value.length - 1];
             }
-            const get_actor = (source_idx, source_id) => {
+            const get_actor = (source_idx, source_id, party_idx) => {
                 const current_record = get_latest_record();
                 if (!current_record.actors[source_idx]) {
-                    const exists_actor_cnt = Object.keys(current_record.actors).length;
                     current_record.actors[source_idx] = {
-                        name: `${actor_names[source_id] || numberToHexStringWithZFill(source_id, 8)}[${source_idx}]`,
-                        color: colors[exists_actor_cnt % colors.length], // assume no more than 6 actors
+                        name: `[${party_idx}]${actor_names[source_id] || numberToHexStringWithZFill(source_id, 8)}#${source_idx}`,
+                        color: colors[party_idx], // assume no more than 6 actors
                         damage: 0,
                         damage_in_minute: 0,
                         dps: 0,
@@ -304,15 +309,15 @@
             }
             const on_damage = (evt) => {
                 const {source, target, damage, flags} = evt;
-                const [source_type, source_idx, source_id, ..._] = source;
-                const [target_type, target_idx, target_id, ...__] = target;
+                const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
+                const [target_type, target_idx, target_id, target_party_idx, ...__] = target;
                 // if (target_type === "BehaviorAppBase") return;
                 // if (source_type !== "BehaviorPlayerBase") return;
                 const now = new Date().getTime()
                 const current_record = get_latest_record();
                 current_record.last_record_at = now;
-                if (!(source_id in actor_names)) return;
-                const actor = get_actor(source_idx, source_id);
+                if (source_party_idx === -1) return;
+                const actor = get_actor(source_idx, source_id, source_party_idx);
                 current_record.events_in_minute.push({
                     time: now,
                     type: "damage",
