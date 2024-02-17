@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Remote</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://unpkg.com/element-plus"></script>
-    <script src="https://unpkg.com/@element-plus/icons-vue"></script>
+    <script>
+        function cdnError(el) {
+            alert(`${el.src || el.href} is not loaded, check your network or try to refresh the page`)
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" onerror="cdnError(this)"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css" onerror="cdnError(this)"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" onerror="cdnError(this)"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js" onerror="cdnError(this)"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js" onerror="cdnError(this)"></script>
+    <script src="https://unpkg.com/element-plus" onerror="cdnError(this)"></script>
+    <script src="https://unpkg.com/@element-plus/icons-vue" onerror="cdnError(this)"></script>
 </head>
 <style>
     body {
@@ -249,6 +255,10 @@
                     if (records.value.length === 0) new_record();
                     view_record_value.value = records.value[records.value.length - 1].name;
                 }
+                if (name in dpsCharts) {
+                    dpsCharts[name].chart.destroy();
+                    delete dpsCharts[name];
+                }
             }
             const fmt_time = (ms) => {
                 if (ms < 1000) return ms + "ms";
@@ -262,7 +272,7 @@
                 records.value.push({
                     name: `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
                     time: now.getTime(),
-                    last_record_at: new Date().getTime(),
+                    last_record_at: 0,
                     actors: {},
                     events_in_minute: [],
                     canvas: null,
@@ -315,8 +325,7 @@
                 actor.targets[target_key] += damage;
             }
 
-            const process_old_records = () => {
-                const current_record = get_latest_record();
+            const process_old_records = (current_record) => {
                 const min_time = new Date().getTime() - 60000;
                 while (current_record.events_in_minute.length > 0) {
                     const first_evt = current_record.events_in_minute[0];
@@ -335,8 +344,7 @@
 
             let last_chart_evt = 0
 
-            const calc_damages = () => {
-                const current_record = get_latest_record();
+            const calc_damages = (current_record) => {
                 const full_time = (current_record.last_record_at - current_record.time) / 1000;
                 const real_time = (new Date().getTime() - current_record.time) / 1000
                 const full_time_in_minute = Math.min(60, real_time);
@@ -360,8 +368,11 @@
 
 
             const update = () => {
-                process_old_records();
-                calc_damages();
+                const current_record = get_latest_record();
+                if (current_record.last_record_at > 0) {
+                    process_old_records(current_record);
+                    calc_damages(current_record);
+                }
                 if (update_period > 0) setTimeout(update, update_period);
             }
 
