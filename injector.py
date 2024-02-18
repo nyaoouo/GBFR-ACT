@@ -1819,7 +1819,7 @@ class Act:
             flags_ = u64_from(a2 + 0xd8)
             if 1 << 7 & flags_:
                 action_id = -1  # link attack
-            elif 1 << 13 & flags_:
+            elif (1 << 13 | 1 << 14) & flags_:
                 action_id = -2  # limit break
             else:
                 action_id = u32_from(a2 + 0x154)
