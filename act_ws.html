@@ -4,20 +4,93 @@
     <meta charset="UTF-8">
     <title>Remote</title>
     <script>
-        function cdnError(el) {
-            alert(`${el.src || el.href} is not loaded, check your network or try to refresh the page`)
-        }
+        const cdn_loader = (async (data) => {
+            for (const {key, type, choices} of data) await new Promise((resolve, reject) => {
+                const cdn_like = JSON.parse(localStorage.getItem('cdnLike') || '{}');
+                choices.sort((a, b) => cdn_like[key] === a ? -1 : cdn_like[key] === b ? 1 : 0);
+                (function try_one_by_one(idx) {
+                    if (idx >= choices.length) return reject(`all cdn of ${key} is not available`);
+                    let el;
+                    new Promise((resolve_, reject_) => {
+                        if (type === 'css') {
+                            el = document.createElement('link');
+                            el.rel = 'stylesheet';
+                            el.href = choices[idx];
+                        } else {
+                            el = document.createElement('script');
+                            el.src = choices[idx];
+                        }
+                        el.onerror = reject_
+                        el.onload = resolve_
+                        document.head.appendChild(el);
+                    }).then(() => {
+                        console.log(`cdn of ${key} is loaded from ${choices[idx]}`);
+                        cdn_like[key] = choices[idx];
+                        localStorage.setItem('cdnLike', JSON.stringify(cdn_like));
+                        resolve();
+                    }).catch(e => {
+                        console.error(`cdn of ${key} is not loaded from ${choices[idx]}`, e);
+                        el.remove();
+                        try_one_by_one(idx + 1);
+                    });
+                })(0);
+            })
+        })([{
+            key: 'css/element-plus', type: 'css',
+            choices: [
+                "https://unpkg.com/element-plus/dist/index.css",
+                "https://s4.zstatic.net/npm/element-plus/dist/index.css",
+            ]
+        },
+            {
+                key: 'css/bootstrap', type: 'css',
+                choices: [
+                    "https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css",
+                    "https://s4.zstatic.net/npm/bootstrap@latest/dist/css/bootstrap.min.css",
+                ]
+            },
+            {
+                key: 'js/chart.js', type: 'js',
+                choices: [
+                    "https://cdn.jsdelivr.net/npm/chart.js",
+                    "https://s4.zstatic.net/npm/chart.js",
+                ]
+            },
+            {
+                key: 'js/bootstrap', type: 'js',
+                choices: [
+                    "https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js",
+                    "https://s4.zstatic.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js",
+                ]
+            },
+            {
+                key: 'js/vue', type: 'js',
+                choices: [
+                    "https://unpkg.com/vue@3/dist/vue.global.js",
+                    "https://s4.zstatic.net/npm/vue@3/dist/vue.global.js",
+                ]
+            },
+            {
+                key: 'js/element-plus', type: 'js',
+                choices: [
+                    "https://unpkg.com/element-plus",
+                    "https://s4.zstatic.net/npm/element-plus@latest/dist/index.full.min.js",
+                ]
+            },
+            {
+                key: 'js/element-plus-icons-vue', type: 'js',
+                choices: [
+                    "https://unpkg.com/@element-plus/icons-vue",
+                    "https://s4.zstatic.net/npm/@element-plus/icons-vue",
+                ]
+            },])
     </script>
-
-    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" onerror="cdnError(this)"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css" onerror="cdnError(this)"/>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" onerror="cdnError(this)"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js" onerror="cdnError(this)"></script>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js" onerror="cdnError(this)"></script>
-    <script src="https://unpkg.com/element-plus" onerror="cdnError(this)"></script>
-    <script src="https://unpkg.com/@element-plus/icons-vue" onerror="cdnError(this)"></script>
 </head>
 <style>
+    [v-cloak] {
+        display: none;
+    }
+
     body {
         font-family: -apple-system,
         'Nimbus Roman No9 L',
@@ -67,8 +140,11 @@
 </style>
 <body>
 <div id="app" class="main-0">
-    <div class="main-1">
-        <div class="main-2 shadow rounded p-3">
+    <div class="main-1" v-cloak>
+        <div class="main-2" v-if="0">
+            resource is loading, please wait...
+        </div>
+        <div class="main-2 shadow rounded p-3" v-cloak>
             <div v-if="!is_socket_connected" class="p-3">
                 <el-alert title="socket is not connect, check inject status" type="error" effect="dark" :closable="false"></el-alert>
             </div>
@@ -245,198 +321,200 @@
     }
 
     const dpsCharts = {};
-
-    const App = Vue.createApp({
-        setup() {
-            const is_socket_connected = Vue.ref(false);
-            const drawer = Vue.ref(false);
-            const records = Vue.ref([]);
-            const view_record_value = Vue.ref("");
-            var want_new = false;
-            var update_period = 0;
-            const remove_record = (name) => {
-                console.log('remove_record', name);
-                records.value = records.value.filter((item) => item.name !== name);
-                if (view_record_value.value === name) {
-                    if (records.value.length === 0) new_record();
+    cdn_loader.then(() => {
+        const App = Vue.createApp({
+            setup() {
+                const is_socket_connected = Vue.ref(false);
+                const drawer = Vue.ref(false);
+                const records = Vue.ref([]);
+                const view_record_value = Vue.ref("");
+                var want_new = false;
+                var update_period = 0;
+                const remove_record = (name) => {
+                    console.log('remove_record', name);
+                    records.value = records.value.filter((item) => item.name !== name);
+                    if (view_record_value.value === name) {
+                        if (records.value.length === 0) new_record();
+                        view_record_value.value = records.value[records.value.length - 1].name;
+                    }
+                    if (name in dpsCharts) {
+                        dpsCharts[name].chart.destroy();
+                        delete dpsCharts[name];
+                    }
+                }
+                const fmt_time = (ms) => {
+                    if (ms < 1000) return ms + "ms";
+                    const sec = Math.floor(ms / 1000);
+                    if (sec < 60) return sec + "s";
+                    const min = Math.floor(sec / 60);
+                    return min + "m";
+                }
+                const new_record = () => {
+                    const now = new Date();
+                    records.value.push({
+                        name: `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
+                        time: now.getTime(),
+                        last_record_at: 0,
+                        actors: {},
+                        events_in_minute: [],
+                        canvas: null,
+                        show_chart: false,
+                    });
                     view_record_value.value = records.value[records.value.length - 1].name;
+                    want_new = false;
                 }
-                if (name in dpsCharts) {
-                    dpsCharts[name].chart.destroy();
-                    delete dpsCharts[name];
-                }
-            }
-            const fmt_time = (ms) => {
-                if (ms < 1000) return ms + "ms";
-                const sec = Math.floor(ms / 1000);
-                if (sec < 60) return sec + "s";
-                const min = Math.floor(sec / 60);
-                return min + "m";
-            }
-            const new_record = () => {
-                const now = new Date();
-                records.value.push({
-                    name: `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
-                    time: now.getTime(),
-                    last_record_at: 0,
-                    actors: {},
-                    events_in_minute: [],
-                    canvas: null,
-                    show_chart: false,
-                });
-                view_record_value.value = records.value[records.value.length - 1].name;
-                want_new = false;
-            }
 
-            const get_latest_record = () => {
-                if (records.value.length === 0) new_record();
-                return records.value[records.value.length - 1];
-            }
-            const get_actor = (source_idx, source_id, party_idx) => {
-                const current_record = get_latest_record();
-                if (!current_record.actors[source_idx]) {
-                    current_record.actors[source_idx] = {
-                        name: `[${party_idx}]${actor_names[source_id] || numberToHexStringWithZFill(source_id, 8)}#${source_idx}`,
-                        color: colors[party_idx], // assume no more than 6 actors
-                        damage: 0,
-                        damage_in_minute: 0,
-                        dps: 0,
-                        dps_in_minute: 0,
-                        targets: {},
-                    };
+                const get_latest_record = () => {
+                    if (records.value.length === 0) new_record();
+                    return records.value[records.value.length - 1];
                 }
-                return current_record.actors[source_idx];
-            }
-            const on_damage = (evt) => {
-                const {source, target, damage, flags} = evt;
-                const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
-                const [target_type, target_idx, target_id, target_party_idx, ...__] = target;
-                // if (target_type === "BehaviorAppBase") return;
-                // if (source_type !== "BehaviorPlayerBase") return;
-                const now = new Date().getTime()
-                const current_record = get_latest_record();
-                current_record.last_record_at = now;
-                if (source_party_idx === -1) return;
-                const actor = get_actor(source_idx, source_id, source_party_idx);
-                current_record.events_in_minute.push({
-                    time: now,
-                    type: "damage",
-                    data: evt
-                });
-                actor.damage += damage;
-                actor.damage_in_minute += damage;
-                const target_key = `${numberToHexStringWithZFill(target_id, 8)}[${target_idx}]`;
-                if (!(target_key in actor.targets)) actor.targets[target_key] = 0;
-                actor.targets[target_key] += damage;
-            }
-
-            const process_old_records = (current_record) => {
-                const min_time = new Date().getTime() - 60000;
-                while (current_record.events_in_minute.length > 0) {
-                    const first_evt = current_record.events_in_minute[0];
-                    if (first_evt.time > min_time) break;
-                    current_record.events_in_minute.shift();
-                    switch (first_evt.type) {
-                        case "damage":
-                            const {source, target, damage, flags} = first_evt.data;
-                            const [source_type, source_idx, source_id, ..._] = source;
-                            const actor = get_actor(source_idx, source_id);
-                            actor.damage_in_minute -= damage;
-                            break;
+                const get_actor = (source_idx, source_id, party_idx) => {
+                    const current_record = get_latest_record();
+                    if (!current_record.actors[source_idx]) {
+                        current_record.actors[source_idx] = {
+                            name: `[${party_idx}]${actor_names[source_id] || numberToHexStringWithZFill(source_id, 8)}#${source_idx}`,
+                            color: colors[party_idx], // assume no more than 6 actors
+                            damage: 0,
+                            damage_in_minute: 0,
+                            dps: 0,
+                            dps_in_minute: 0,
+                            targets: {},
+                        };
                     }
+                    return current_record.actors[source_idx];
                 }
-            }
-
-            let last_chart_evt = 0
-
-            const calc_damages = (current_record) => {
-                const full_time = (current_record.last_record_at - current_record.time) / 1000;
-                const real_time = (new Date().getTime() - current_record.time) / 1000
-                const full_time_in_minute = Math.min(60, real_time);
-                for (const actor of Object.values(current_record.actors)) {
-                    actor.dps = Math.floor(actor.damage / full_time);
-                    actor.dps_in_minute = Math.floor(actor.damage_in_minute / full_time_in_minute);
+                const on_damage = (evt) => {
+                    const {source, target, damage, flags} = evt;
+                    const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
+                    const [target_type, target_idx, target_id, target_party_idx, ...__] = target;
+                    // if (target_type === "BehaviorAppBase") return;
+                    // if (source_type !== "BehaviorPlayerBase") return;
+                    const now = new Date().getTime()
+                    const current_record = get_latest_record();
+                    current_record.last_record_at = now;
+                    if (source_party_idx === -1) return;
+                    const actor = get_actor(source_idx, source_id, source_party_idx);
+                    current_record.events_in_minute.push({
+                        time: now,
+                        type: "damage",
+                        data: evt
+                    });
+                    actor.damage += damage;
+                    actor.damage_in_minute += damage;
+                    const target_key = `${numberToHexStringWithZFill(target_id, 8)}[${target_idx}]`;
+                    if (!(target_key in actor.targets)) actor.targets[target_key] = 0;
+                    actor.targets[target_key] += damage;
                 }
-                if (real_time > 10) {
-                    current_record.show_chart = true;
-                    if (current_record.canvas && last_chart_evt !== current_record.last_record_at) {
-                        if (!dpsCharts[current_record.name]) dpsCharts[current_record.name] = new DpsChart(current_record.canvas);
-                        const chart = dpsCharts[current_record.name];
-                        for (const [idx, actor] of Object.entries(current_record.actors)) {
-                            chart.set_key_color(actor.name, actor.color);
+
+                const process_old_records = (current_record) => {
+                    const min_time = new Date().getTime() - 60000;
+                    while (current_record.events_in_minute.length > 0) {
+                        const first_evt = current_record.events_in_minute[0];
+                        if (first_evt.time > min_time) break;
+                        current_record.events_in_minute.shift();
+                        switch (first_evt.type) {
+                            case "damage":
+                                const {source, target, damage, flags} = first_evt.data;
+                                const [source_type, source_idx, source_id, ..._] = source;
+                                const actor = get_actor(source_idx, source_id);
+                                actor.damage_in_minute -= damage;
+                                break;
                         }
-                        chart.append_frame(real_time, Object.fromEntries(Object.entries(current_record.actors).map(([idx, actor]) => [actor.name, actor.dps_in_minute])));
-                        last_chart_evt = current_record.last_record_at;
                     }
                 }
-            }
 
+                let last_chart_evt = 0
 
-            const update = () => {
-                const current_record = get_latest_record();
-                if (current_record.last_record_at > 0) {
-                    process_old_records(current_record);
-                    calc_damages(current_record);
-                }
-                if (update_period > 0) setTimeout(update, update_period);
-            }
-
-            const create_socket = () => {
-                const socket_ = new WebSocket("ws://localhost:24399");
-                socket_.addEventListener("message", evt_ => {
-                    if (log_evt) log(evt_.data);
-                    const evt = JSON.parse(evt_.data);
-                    switch (evt.type) {
-                        case "enter_area":
-                            want_new = true;
-                            break;
-                        case "damage":
-                            if (want_new) new_record();
-                            on_damage(evt.data);
-                            break;
+                const calc_damages = (current_record) => {
+                    const full_time = (current_record.last_record_at - current_record.time) / 1000;
+                    const real_time = (new Date().getTime() - current_record.time) / 1000
+                    const full_time_in_minute = Math.min(60, real_time);
+                    for (const actor of Object.values(current_record.actors)) {
+                        actor.dps = Math.floor(actor.damage / full_time);
+                        actor.dps_in_minute = Math.floor(actor.damage_in_minute / full_time_in_minute);
                     }
+                    if (real_time > 10) {
+                        current_record.show_chart = true;
+                        if (current_record.canvas && last_chart_evt !== current_record.last_record_at) {
+                            if (!dpsCharts[current_record.name]) dpsCharts[current_record.name] = new DpsChart(current_record.canvas);
+                            const chart = dpsCharts[current_record.name];
+                            for (const [idx, actor] of Object.entries(current_record.actors)) {
+                                chart.set_key_color(actor.name, actor.color);
+                            }
+                            chart.append_frame(real_time, Object.fromEntries(Object.entries(current_record.actors).map(([idx, actor]) => [actor.name, actor.dps_in_minute])));
+                            last_chart_evt = current_record.last_record_at;
+                        }
+                    }
+                }
+
+
+                const update = () => {
+                    const current_record = get_latest_record();
+                    if (current_record.last_record_at > 0) {
+                        process_old_records(current_record);
+                        calc_damages(current_record);
+                    }
+                    if (update_period > 0) setTimeout(update, update_period);
+                }
+
+                const create_socket = () => {
+                    const socket_ = new WebSocket("ws://localhost:24399");
+                    socket_.addEventListener("message", evt_ => {
+                        if (log_evt) log(evt_.data);
+                        const evt = JSON.parse(evt_.data);
+                        switch (evt.type) {
+                            case "enter_area":
+                                want_new = true;
+                                break;
+                            case "damage":
+                                if (want_new) new_record();
+                                on_damage(evt.data);
+                                break;
+                        }
+                    });
+                    socket_.addEventListener("open", () => {
+                        is_socket_connected.value = true;
+                        socket = socket_;
+                    });
+                    socket_.addEventListener("close", () => {
+                        is_socket_connected.value = false;
+                        socket = null;
+                    });
+                    socket_.addEventListener("error", evt => {
+                        console.error("Ws Error", evt);
+                        is_socket_connected.value = false;
+                        socket = null;
+                        if (update_period > 0)
+                            setTimeout(create_socket, update_period);
+                    });
+                }
+
+                Vue.onMounted(() => {
+                    update_period = 1000;
+                    create_socket();
+                    update();
                 });
-                socket_.addEventListener("open", () => {
-                    is_socket_connected.value = true;
-                    socket = socket_;
+
+                Vue.onUnmounted(() => {
+                    update_period = -1;
+                    if (socket) socket.close();
                 });
-                socket_.addEventListener("close", () => {
-                    is_socket_connected.value = false;
-                    socket = null;
-                });
-                socket_.addEventListener("error", evt => {
-                    console.error("Ws Error", evt);
-                    is_socket_connected.value = false;
-                    socket = null;
-                    if (update_period > 0)
-                        setTimeout(create_socket, update_period);
-                });
+
+                return {
+                    view_record_value,
+                    drawer,
+                    is_socket_connected,
+                    records,
+                    fmt_time,
+                    remove_record,
+                }
             }
+        })
+        App.use(ElementPlus);
+        for (const [key, component] of Object.entries(ElementPlusIconsVue)) App.component(key, component);
+        App.mount('#app');
+    }).catch(alert)
 
-            Vue.onMounted(() => {
-                update_period = 1000;
-                create_socket();
-                update();
-            });
-
-            Vue.onUnmounted(() => {
-                update_period = -1;
-                if (socket) socket.close();
-            });
-
-            return {
-                view_record_value,
-                drawer,
-                is_socket_connected,
-                records,
-                fmt_time,
-                remove_record,
-            }
-        }
-    })
-    App.use(ElementPlus);
-    for (const [key, component] of Object.entries(ElementPlusIconsVue)) App.component(key, component);
-    App.mount('#app');
 
 </script>
 </html>
