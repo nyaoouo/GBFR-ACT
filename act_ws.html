@@ -149,13 +149,41 @@
                 <el-alert title="socket is not connect, check inject status" type="error" effect="dark" :closable="false"></el-alert>
             </div>
 
+            <el-dialog v-model="actor_dialog.visible" :title="actor_dialog.actor?actor_dialog.actor.name:''" width="800">
+                <el-tabs
+                        v-model="actor_dialog.page"
+                        type="card"
+                >
+                    <el-tab-pane label="targets" name="targets">
+                        <el-table :data="Object.values(actor_dialog.actor.targets)" style="width: 100%" :default-sort="{ prop: 'damage', order: 'descending' }">
+                            <el-table-column prop="name" label="name"></el-table-column>
+                            <el-table-column prop="damage" label="damage" sortable></el-table-column>
+                        </el-table>
+                    </el-tab-pane>
+                    <el-tab-pane label="actions" name="actions">
+                        <el-table :data="Object.values(actor_dialog.actor.actions)" style="width: 100%" :default-sort="{ prop: 'damage', order: 'descending' }">
+                            <el-table-column prop="name" label="name"></el-table-column>
+                            <el-table-column prop="hit" label="hit" sortable></el-table-column>
+                            <el-table-column prop="damage" label="damage" sortable></el-table-column>
+                            <el-table-column prop="min" label="min" sortable></el-table-column>
+                            <el-table-column prop="max" label="max" sortable></el-table-column>
+                            <el-table-column label="damage(avg)">
+                                <template #default="scope">
+                                    <span v-if="scope.row.hit > 0">{{Math.floor(scope.row.damage / scope.row.hit)}}</span>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-tab-pane>
+                </el-tabs>
+            </el-dialog>
+
             <el-tabs
                     v-model="view_record_value"
                     type="card"
                     closable @tab-remove="remove_record"
             >
                 <el-tab-pane
-                        v-for="item in records" :key="item.name" :label="item.name" :name="item.name"
+                        v-for="item in records" :key="item.name" :label="item.last_record_at?`${item.name} [${fmt_time(item.last_record_at-item.time)}]`:item.name" :name="item.name"
                 >
                     <el-table :data="Object.values(item.actors)" style="width: 100%" :default-sort="{ prop: 'dps', order: 'descending' }">
                         <el-table-column prop="name" label="name">
@@ -169,11 +197,10 @@
                         <el-table-column prop="damage_in_minute" label="damage_in_minute" sortable></el-table-column>
                         <el-table-column prop="dps" label="dps" sortable></el-table-column>
                         <el-table-column prop="dps_in_minute" label="dps_in_minute" sortable></el-table-column>
-                        <el-table-column type="expand">
-                            <template #default="props">
-                                {{props.row.targets}}
+                        <el-table-column label="detail">
+                            <template #default="scope">
+                                <el-button @click="set_actor_dialog(scope.row)" type="text" size="small">detail</el-button>
                             </template>
-                        </el-table-column>
                     </el-table>
                     </el-table>
                     <div v-if="item.show_chart">
@@ -190,7 +217,7 @@
         const now = new Date();
         f(`[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}]`, ...args);
     }
-    let log_evt = false
+    let log_evt = 1
     let log_render = false
     const log = _with_time(console.log);
     const err = _with_time(console.error);
@@ -328,8 +355,24 @@
                 const drawer = Vue.ref(false);
                 const records = Vue.ref([]);
                 const view_record_value = Vue.ref("");
+                const actor_dialog = Vue.reactive({
+                    visible: false,
+                    actor: null,
+                    page: 'targets',
+                });
                 var want_new = false;
                 var update_period = 0;
+
+                const set_actor_dialog = (actor) => {
+                    if (actor) {
+                        actor_dialog.actor = actor;
+                        actor_dialog.visible = true;
+                    } else {
+                        actor_dialog.visible = false;
+                        actor_dialog.actor = null;
+                    }
+                }
+
                 const remove_record = (name) => {
                     console.log('remove_record', name);
                     records.value = records.value.filter((item) => item.name !== name);
@@ -379,12 +422,48 @@
                             dps: 0,
                             dps_in_minute: 0,
                             targets: {},
+                            actions: {},
                         };
                     }
                     return current_record.actors[source_idx];
                 }
+                const get_actor_target = (actor, target_idx, target_id) => {
+                    const target_key = `${numberToHexStringWithZFill(target_id, 8)}#${target_idx}`;
+                    if (!(target_key in actor.targets)) actor.targets[target_key] = {
+                        name: target_key,
+                        damage: 0,
+                    };
+                    return actor.targets[target_key];
+
+                }
+                const get_actor_action = (actor, action_id) => {
+                    let k;
+                    switch (action_id) {
+                        case -1:
+                            k = 'link'
+                            break
+                        case -2:
+                            k = 'LB'
+                            break
+                        case -3:
+                            k = '追击'
+                            break
+                        default:
+                            k = `#${action_id}`
+                    }
+                    if (!actor.actions[k]) {
+                        actor.actions[k] = {
+                            name: k,
+                            hit: 0,
+                            damage: 0,
+                            min: -1,
+                            max: -1,
+                        }
+                    }
+                    return actor.actions[k];
+                }
                 const on_damage = (evt) => {
-                    const {source, target, damage, flags} = evt;
+                    const {source, target, damage, flags, action_id} = evt;
                     const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
                     const [target_type, target_idx, target_id, target_party_idx, ...__] = target;
                     // if (target_type === "BehaviorAppBase") return;
@@ -401,9 +480,13 @@
                     });
                     actor.damage += damage;
                     actor.damage_in_minute += damage;
-                    const target_key = `${numberToHexStringWithZFill(target_id, 8)}[${target_idx}]`;
-                    if (!(target_key in actor.targets)) actor.targets[target_key] = 0;
-                    actor.targets[target_key] += damage;
+                    const target_actor = get_actor_target(actor, target_idx, target_id);
+                    target_actor.damage += damage;
+                    const action = get_actor_action(actor, flags & (1 << 15) ? -3 : action_id);
+                    action.hit += 1;
+                    action.damage += damage;
+                    if (action.min === -1 || action.min > damage) action.min = damage;
+                    if (action.max === -1 || action.max < damage) action.max = damage;
                 }
 
                 const process_old_records = (current_record) => {
@@ -507,6 +590,8 @@
                     records,
                     fmt_time,
                     remove_record,
+                    actor_dialog,
+                    set_actor_dialog,
                 }
             }
         })
