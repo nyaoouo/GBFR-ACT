@@ -1244,12 +1244,7 @@ except:
         f.write(traceback.format_exc())
 '''
             compile(shell_code, 's', 'exec')
-            try:
-                self.process.exec_shell_code(shell_code, auto_inject=True)
-            except Exception as e:
-                with open('shell.py', 'w', encoding='utf-8') as f:
-                    f.write(shell_code)
-                raise
+            self.process.exec_shell_code(shell_code, auto_inject=True)
             if self.exc_file.exists():
                 self.logger.error('error occurred in injection:\n' + self.exc_file.read_text('utf-8'))
                 self.exc_file.unlink(missing_ok=True)
@@ -1491,11 +1486,40 @@ except:
         return kernel32.GetProcAddress(dll, func_name)
 
     def load_library(self, filepath):
+        if isinstance(filepath, pathlib.Path): filepath = str(filepath)
         if isinstance(filepath, str): filepath = filepath.encode(DEFAULT_CODING)
-        res = self.call(self.get_proc_address('kernel32.dll', "LoadLibraryA"), filepath)
-        if res == 0:
-            raise ValueError(f'LoadLibrary failed: {filepath!r}')
-        return res
+        with self.name_space() as name_space:
+            result_at = name_space.take(0x10)
+            shell = (
+                    b"\x55"  # push rbp
+                    b"\x48\x89\xe5"  # mov rbp, rsp
+                    b"\x48\x83\xec\x28"  # sub rsp, 0x28
+                    b"\x53"  # push rbx
+                    b"\x48\xbb" + struct.pack('<Q', result_at) +  # movabs rbx, result_at
+                    b"\x48\xb8" + struct.pack('<Q', self.get_proc_address('kernel32.dll', "LoadLibraryA")) +  # movabs rax, LoadLibraryA
+                    b"\x48\xb9" + struct.pack('<Q', name_space.store(filepath + b'\0')) +  # movabs rcx, filepath
+                    b"\xff\xd0"  # call rax
+                    b"\x48\x85\xc0"  # test rax, rax
+                    b"\x74\x0c"  # je fail
+                    b"\x48\x89\x43\x08"  # mov qword ptr [rbx + 8], rax
+                    b"\x48\x31\xc0"  # xor rax, rax
+                    b"\x48\x89\x03"  # mov qword ptr [rbx], rax
+                    b"\xeb\x16"  # jmp end
+                    # fail:
+                    b"\x48\xb8" + struct.pack('<Q', self.get_proc_address('kernel32.dll', "GetLastError")) +  # movabs rax, GetLastError
+                    b"\xff\xd0"  # call rax
+                    b"\x48\x89\x03"  # mov qword ptr [rbx], rax
+                    b"\x48\x31\xc0"  # xor rax, rax
+                    b"\x48\x89\x43\x08"  # mov qword ptr [rbx + 8], rax
+                    # end:
+                    b"\x5b"  # pop rbx
+                    b"\x48\x83\xc4\x28"  # add rsp, 0x28
+                    b"\x5d"  # pop rbp
+                    b"\xc3"  # ret
+            )
+            self._call(name_space.store(shell), block=True)
+            if err := self.read_u32(result_at): raise ctypes.WinError(err)
+            return self.read_u64(result_at + 8)
 
     def _call(self, call_address, params=None, block=True):
         params = params or 0
