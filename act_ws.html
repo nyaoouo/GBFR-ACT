@@ -163,8 +163,16 @@
                     <el-tab-pane label="actions" name="actions">
                         <el-table :data="Object.values(actor_dialog.actor.actions)" style="width: 100%" :default-sort="{ prop: 'damage', order: 'descending' }">
                             <el-table-column prop="name" label="name"></el-table-column>
-                            <el-table-column prop="hit" label="hit" sortable></el-table-column>
-                            <el-table-column prop="damage" label="damage" sortable></el-table-column>
+                            <el-table-column prop="hit" label="hit" sortable>
+                                <template #default="scope">
+                                    <span>{{scope.row.hit}} ({{(scope.row.hit/actor_dialog.actor.hit*100).toFixed(1)}}%)</span>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="damage" label="damage" sortable>
+                                <template #default="scope">
+                                    <span>{{scope.row.damage}} ({{scope.row.damage?(scope.row.damage/actor_dialog.actor.damage*100).toFixed(1):0}}%)</span>
+                                </template>
+                            </el-table-column>
                             <el-table-column prop="min" label="min" sortable></el-table-column>
                             <el-table-column prop="max" label="max" sortable></el-table-column>
                             <el-table-column label="damage(avg)">
@@ -346,9 +354,22 @@
             if (log_render) log('log_render', this.datas);
             this.chart.update();
         }
+
+        static instances = {};
+
+        static get_instance(name, canvas) {
+            if (!this.instances[name]) this.instances[name] = new this(canvas);
+            return this.instances[name];
+        }
+
+        static destroy_instance(name) {
+            if (name in this.instances) {
+                this.instances[name].chart.destroy();
+                delete this.instances[name];
+            }
+        }
     }
 
-    const dpsCharts = {};
     cdn_loader.then(() => {
         const App = Vue.createApp({
             setup() {
@@ -363,6 +384,7 @@
                 });
                 var want_new = false;
                 var update_period = 0;
+                const evt_buffers = [];
 
                 const set_actor_dialog = (actor) => {
                     if (actor) {
@@ -381,10 +403,7 @@
                         if (records.value.length === 0) new_record();
                         view_record_value.value = records.value[records.value.length - 1].name;
                     }
-                    if (name in dpsCharts) {
-                        dpsCharts[name].chart.destroy();
-                        delete dpsCharts[name];
-                    }
+                    DpsChart.destroy_instance(name);
                 }
                 const fmt_time = (ms) => {
                     if (ms < 1000) return ms + "ms";
@@ -424,6 +443,7 @@
                             dps_in_minute: 0,
                             targets: {},
                             actions: {},
+                            hit: 0,
                         };
                     }
                     return current_record.actors[source_idx];
@@ -479,6 +499,7 @@
                         type: "damage",
                         data: evt
                     });
+                    actor.hit += 1;
                     actor.damage += damage;
                     actor.damage_in_minute += damage;
                     const target_actor = get_actor_target(actor, target_idx, target_id);
@@ -520,19 +541,32 @@
                     if (real_time > 10) {
                         current_record.show_chart = true;
                         if (current_record.canvas && last_chart_evt !== current_record.last_record_at) {
-                            if (!dpsCharts[current_record.name]) dpsCharts[current_record.name] = new DpsChart(current_record.canvas);
-                            const chart = dpsCharts[current_record.name];
-                            for (const [idx, actor] of Object.entries(current_record.actors)) {
-                                chart.set_key_color(actor.name, actor.color);
-                            }
+                            const chart = DpsChart.get_instance(current_record.name, current_record.canvas);
+                            for (const [idx, actor] of Object.entries(current_record.actors)) chart.set_key_color(actor.name, actor.color);
                             chart.append_frame(real_time, Object.fromEntries(Object.entries(current_record.actors).map(([idx, actor]) => [actor.name, actor.dps_in_minute])));
                             last_chart_evt = current_record.last_record_at;
                         }
                     }
                 }
 
+                const process_evt_buffer = () => {
+                    for (const evt of evt_buffers) {
+                        switch (evt.type) {
+                            case "enter_area":
+                                want_new = true;
+                                break;
+                            case "damage":
+                                if (want_new) new_record();
+                                on_damage(evt.data);
+                                break;
+                        }
+                    }
+                    evt_buffers.length = 0;
+                }
+
 
                 const update = () => {
+                    process_evt_buffer();
                     const current_record = get_latest_record();
                     if (current_record.last_record_at > 0) {
                         process_old_records(current_record);
@@ -546,15 +580,7 @@
                     socket_.addEventListener("message", evt_ => {
                         if (log_evt) log(evt_.data);
                         const evt = JSON.parse(evt_.data);
-                        switch (evt.type) {
-                            case "enter_area":
-                                want_new = true;
-                                break;
-                            case "damage":
-                                if (want_new) new_record();
-                                on_damage(evt.data);
-                                break;
-                        }
+                        evt_buffers.push(evt);
                     });
                     socket_.addEventListener("open", () => {
                         is_socket_connected.value = true;
@@ -563,13 +589,13 @@
                     socket_.addEventListener("close", () => {
                         is_socket_connected.value = false;
                         socket = null;
+                        if (update_period > 0)
+                            setTimeout(create_socket, update_period);
                     });
                     socket_.addEventListener("error", evt => {
                         console.error("Ws Error", evt);
                         is_socket_connected.value = false;
                         socket = null;
-                        if (update_period > 0)
-                            setTimeout(create_socket, update_period);
                     });
                 }
 
