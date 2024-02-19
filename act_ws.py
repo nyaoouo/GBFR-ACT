@@ -560,6 +560,7 @@ class WebSocket(object):  # pylint: disable=too-many-instance-attributes
 
 class WebSocketServer(object):
     request_queue_size = 5
+    closing = False
 
     # pylint: disable=too-many-arguments
     def __init__(self, host, port, websocketclass, certfile=None, keyfile=None,
@@ -598,6 +599,7 @@ class WebSocketServer(object):
         return ws
 
     def close(self):
+        self.closing = True
         self.serversocket.close()
 
         for desc, conn in self.connections.items():  # pylint: disable=unused-variable
@@ -682,8 +684,12 @@ class WebSocketServer(object):
             self.listeners.remove(failed)
 
     def serve_forever(self):
-        while True:
-            self.handle_request()
+        try:
+            while True:
+                self.handle_request()
+        except Exception:
+            if not self.closing:  # ignore errors if we are closing
+                raise
 
 
 class BroadcastHandler(WebSocket):
@@ -740,7 +746,7 @@ class ActWs(Act):
 
 def injected_main():
     print(f'i am in pid={os.getpid()}')
-    ActWs.get_or_create()
+    ActWs.reload()
     print('Act installed, if you want to reload, close the game and run this script again.')
 
 
@@ -758,7 +764,7 @@ def main():
     process.injector.wait_inject()
     process.injector.reg_std_out(lambda _, s: print(s, end=''))
     process.injector.reg_std_err(lambda _, s: print(s, end=''))
-    process.injector.run("import importlib;import act_ws;importlib.reload(act_ws).injected_main()")
+    process.injector.run("import importlib;importlib.reload(__import__('injector'));importlib.reload(__import__('act_ws')).injected_main()")
 
 
 if __name__ == '__main__':
