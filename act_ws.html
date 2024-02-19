@@ -153,6 +153,7 @@
                 <el-tabs
                         v-model="actor_dialog.page"
                         type="card"
+                        v-if="actor_dialog.actor"
                 >
                     <el-tab-pane label="targets" name="targets">
                         <el-table :data="actor_dialog.actor.targets" style="width: 100%" :default-sort="{ prop: 'damage', order: 'descending' }">
