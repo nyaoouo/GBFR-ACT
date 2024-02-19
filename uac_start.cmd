@@ -11,11 +11,13 @@ for /f "delims=" %%i in ('where python') do (
         if !errorlevel! equ 0 (
             echo Found Python 3.11 64-bit at %%i
             "%%i" "act_ws.py"
+            echo script ended with exit code !errorlevel!
             goto :end
         )
     )
 )
-
+echo Python 3.11 64-bit not found, please install it or add it to your PATH.
 :end
 endlocal
+pause
 exit
