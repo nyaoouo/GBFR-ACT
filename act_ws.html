@@ -155,13 +155,13 @@
                         type="card"
                 >
                     <el-tab-pane label="targets" name="targets">
-                        <el-table :data="Object.values(actor_dialog.actor.targets)" style="width: 100%" :default-sort="{ prop: 'damage', order: 'descending' }">
+                        <el-table :data="actor_dialog.actor.targets" style="width: 100%" :default-sort="{ prop: 'damage', order: 'descending' }">
                             <el-table-column prop="name" label="name"></el-table-column>
                             <el-table-column prop="damage" label="damage" sortable></el-table-column>
                         </el-table>
                     </el-tab-pane>
                     <el-tab-pane label="actions" name="actions">
-                        <el-table :data="Object.values(actor_dialog.actor.actions)" style="width: 100%" :default-sort="{ prop: 'damage', order: 'descending' }">
+                        <el-table :data="actor_dialog.actor.actions" style="width: 100%" :default-sort="{ prop: 'damage', order: 'descending' }">
                             <el-table-column prop="name" label="name"></el-table-column>
                             <el-table-column prop="hit" label="hit" sortable>
                                 <template #default="scope">
@@ -193,7 +193,7 @@
                 <el-tab-pane
                         v-for="item in records" :key="item.name" :label="item.last_record_at?`${item.name} [${fmt_time(item.last_record_at-item.time)}]`:item.name" :name="item.name"
                 >
-                    <el-table :data="Object.values(item.actors)" style="width: 100%" :default-sort="{ prop: 'dps', order: 'descending' }">
+                    <el-table :data="item.actors" style="width: 100%" :default-sort="{ prop: 'dps', order: 'descending' }">
                         <el-table-column prop="name" label="name">
                             <template #default="scope">
                                 <span>
@@ -210,7 +210,6 @@
                                 <el-button @click="set_actor_dialog(scope.row)" type="text" size="small">detail</el-button>
                             </template>
                         </el-table-column>
-                    </el-table>
                     </el-table>
                     <div v-if="item.show_chart">
                         <canvas :ref="el => { item.canvas = el }" height="500"></canvas>
@@ -417,7 +416,7 @@
                         name: `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
                         time: now.getTime(),
                         last_record_at: 0,
-                        actors: {},
+                        actors: [],
                         events_in_minute: [],
                         canvas: null,
                         show_chart: false,
@@ -432,29 +431,39 @@
                 }
                 const get_actor = (source_idx, source_id, party_idx) => {
                     const current_record = get_latest_record();
-                    if (!current_record.actors[source_idx]) {
-                        current_record.actors[source_idx] = {
-                            name: `[${party_idx}]${actor_names[source_id] || numberToHexStringWithZFill(source_id, 8)}#${source_idx}`,
-                            color: colors[party_idx], // assume no more than 6 actors
-                            damage: 0,
-                            damage_in_minute: 0,
-                            dps: 0,
-                            dps_in_minute: 0,
-                            targets: {},
-                            actions: {},
-                            hit: 0,
-                        };
-                    }
-                    return current_record.actors[source_idx];
+                    return (
+                        current_record.actors.find(
+                            v => v.source_idx === source_idx
+                        ) ||
+                        current_record.actors[
+                            current_record.actors.push({
+                                source_idx,
+                                name: `[${party_idx}]${
+                                    actor_names[source_id] ||
+                                    numberToHexStringWithZFill(
+                                        source_id,
+                                        8
+                                    )
+                                }#${source_idx}`,
+                                color: colors[party_idx], // assume no more than 6 actors
+                                damage: 0,
+                                damage_in_minute: 0,
+                                dps: 0,
+                                dps_in_minute: 0,
+                                targets: [],
+                                actions: [],
+                                hit: 0
+                            }) - 1
+                        ]
+                    );
                 }
                 const get_actor_target = (actor, target_idx, target_id) => {
                     const target_key = `${numberToHexStringWithZFill(target_id, 8)}#${target_idx}`;
-                    if (!(target_key in actor.targets)) actor.targets[target_key] = {
-                        name: target_key,
-                        damage: 0,
-                    };
-                    return actor.targets[target_key];
-
+                    return actor.targets.find(v => v.name === target_key) ||
+                        (actor.targets[actor.targets.push({
+                            name: target_key,
+                            damage: 0
+                        }) - 1]);
                 }
                 const get_actor_action = (actor, action_id) => {
                     let k;
@@ -471,16 +480,13 @@
                         default:
                             k = `#${action_id}`
                     }
-                    if (!actor.actions[k]) {
-                        actor.actions[k] = {
+                    return (actor.actions.find(v=>v.name === k) || actor.actions[actor.actions.push({
                             name: k,
                             hit: 0,
                             damage: 0,
                             min: -1,
                             max: -1,
-                        }
-                    }
-                    return actor.actions[k];
+                        })-1]);
                 }
                 const on_damage = (evt) => {
                     const {source, target, damage, flags, action_id} = evt;
@@ -533,7 +539,7 @@
                     const full_time = (current_record.last_record_at - current_record.time) / 1000;
                     const real_time = (new Date().getTime() - current_record.time) / 1000
                     const full_time_in_minute = Math.min(60, real_time);
-                    for (const actor of Object.values(current_record.actors)) {
+                    for (const actor of current_record.actors) {
                         actor.dps = Math.floor(actor.damage / full_time);
                         actor.dps_in_minute = Math.floor(actor.damage_in_minute / full_time_in_minute);
                     }
@@ -541,8 +547,19 @@
                         current_record.show_chart = true;
                         if (current_record.canvas && last_chart_evt !== current_record.last_record_at) {
                             const chart = DpsChart.get_instance(current_record.name, current_record.canvas);
-                            for (const [idx, actor] of Object.entries(current_record.actors)) chart.set_key_color(actor.name, actor.color);
-                            chart.append_frame(real_time, Object.fromEntries(Object.entries(current_record.actors).map(([idx, actor]) => [actor.name, actor.dps_in_minute])));
+                            for (const { name, color } of current_record.actors) {
+                                chart.set_key_color(name, color);
+                            }
+                            chart.append_frame(
+                                real_time,
+                                current_record.actors.reduce(
+                                    (p, { name, dps_in_minute }) => {
+                                        p[name] = dps_in_minute;
+                                        return p;
+                                    },
+                                    {}
+                                )
+                            );
                             last_chart_evt = current_record.last_record_at;
                         }
                     }
