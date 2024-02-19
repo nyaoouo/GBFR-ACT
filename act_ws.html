@@ -457,14 +457,14 @@
                         ]
                     );
                 }
-				const get_actor_target = (actor, target_idx, target_id) => {
-					const target_key = `${numberToHexStringWithZFill(target_id, 8)}#${target_idx}`;
-					return actor.targets.find(v => v.name === target_key) ||
-						(actor.targets[actor.targets.push({
-							name: target_key,
-							damage: 0
-						}) - 1]);
-				}
+                const get_actor_target = (actor, target_idx, target_id) => {
+                    const target_key = `${numberToHexStringWithZFill(target_id, 8)}#${target_idx}`;
+                    return actor.targets.find(v => v.name === target_key) ||
+                        (actor.targets[actor.targets.push({
+                            name: target_key,
+                            damage: 0
+                        }) - 1]);
+                }
                 const get_actor_action = (actor, action_id) => {
                     let k;
                     switch (action_id) {
