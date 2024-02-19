@@ -1264,7 +1264,7 @@ except:
         def add_path(self, path):
             path = str(path)
             if self.is_active():
-                self.run(f'import sys;if {path!r} not in sys.path:sys.path.append({path!r})')
+                self.run(f'import sys;\nif {path!r} not in sys.path:\n  sys.path.append({path!r})')
             else:
                 self.paths.append(path)
             return self

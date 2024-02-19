@@ -764,6 +764,7 @@ def main():
     process.injector.wait_inject()
     process.injector.reg_std_out(lambda _, s: print(s, end=''))
     process.injector.reg_std_err(lambda _, s: print(s, end=''))
+    process.injector.add_path(os.path.dirname(__file__))
     process.injector.run("import importlib;importlib.reload(__import__('injector'));importlib.reload(__import__('act_ws')).injected_main()")
 
 
