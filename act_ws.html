@@ -149,7 +149,7 @@
                 <el-alert title="socket is not connect, check inject status" type="error" effect="dark" :closable="false"></el-alert>
             </div>
 
-            <el-dialog v-model="actor_dialog.visible" :title="actor_dialog.actor?actor_dialog.actor.name:''" width="800">
+            <el-dialog v-model="actor_dialog.visible" :title="actor_dialog.actor?actor_dialog.actor.name:''" @close="set_actor_dialog()" width="800">
                 <el-tabs
                         v-model="actor_dialog.page"
                         type="card"
@@ -436,25 +436,25 @@
                             v => v.source_idx === source_idx
                         ) ||
                         current_record.actors[
-                            current_record.actors.push({
-                                source_idx,
-                                name: `[${party_idx}]${
-                                    actor_names[source_id] ||
-                                    numberToHexStringWithZFill(
-                                        source_id,
-                                        8
-                                    )
-                                }#${source_idx}`,
-                                color: colors[party_idx], // assume no more than 6 actors
-                                damage: 0,
-                                damage_in_minute: 0,
-                                dps: 0,
-                                dps_in_minute: 0,
-                                targets: [],
-                                actions: [],
-                                hit: 0
-                            }) - 1
-                        ]
+                        current_record.actors.push({
+                            source_idx,
+                            name: `[${party_idx}]${
+                                actor_names[source_id] ||
+                                numberToHexStringWithZFill(
+                                    source_id,
+                                    8
+                                )
+                            }#${source_idx}`,
+                            color: colors[party_idx], // assume no more than 6 actors
+                            damage: 0,
+                            damage_in_minute: 0,
+                            dps: 0,
+                            dps_in_minute: 0,
+                            targets: [],
+                            actions: [],
+                            hit: 0
+                        }) - 1
+                            ]
                     );
                 }
                 const get_actor_target = (actor, target_idx, target_id) => {
@@ -480,13 +480,13 @@
                         default:
                             k = `#${action_id}`
                     }
-                    return (actor.actions.find(v=>v.name === k) || actor.actions[actor.actions.push({
-                            name: k,
-                            hit: 0,
-                            damage: 0,
-                            min: -1,
-                            max: -1,
-                        })-1]);
+                    return (actor.actions.find(v => v.name === k) || actor.actions[actor.actions.push({
+                        name: k,
+                        hit: 0,
+                        damage: 0,
+                        min: -1,
+                        max: -1,
+                    }) - 1]);
                 }
                 const on_damage = (evt) => {
                     const {source, target, damage, flags, action_id} = evt;
@@ -547,13 +547,13 @@
                         current_record.show_chart = true;
                         if (current_record.canvas && last_chart_evt !== current_record.last_record_at) {
                             const chart = DpsChart.get_instance(current_record.name, current_record.canvas);
-                            for (const { name, color } of current_record.actors) {
+                            for (const {name, color} of current_record.actors) {
                                 chart.set_key_color(name, color);
                             }
                             chart.append_frame(
                                 real_time,
                                 current_record.actors.reduce(
-                                    (p, { name, dps_in_minute }) => {
+                                    (p, {name, dps_in_minute}) => {
                                         p[name] = dps_in_minute;
                                         return p;
                                     },
@@ -579,7 +579,7 @@
                     socket_.addEventListener("message", evt_ => {
                         if (log_evt) log(evt_.data);
                         const evt = JSON.parse(evt_.data);
-                       switch (evt.type) {
+                        switch (evt.type) {
                             case "enter_area":
                                 want_new = true;
                                 break;
