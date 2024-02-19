@@ -1841,7 +1841,7 @@ class Act:
             elif source_type_id == 0xf5755c0e:  # 龙人化
                 source = size_t_from(size_t_from(source + 0xD028) + 0x70)
             flags_ = u64_from(a2 + 0xd8)
-            if 1 << 7 & flags_:
+            if (1 << 7 | 1 << 50) & flags_:
                 action_id = -1  # link attack
             elif (1 << 13 | 1 << 14) & flags_:
                 action_id = -2  # limit break
