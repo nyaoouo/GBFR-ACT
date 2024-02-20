@@ -6,6 +6,8 @@
 ### 备注
 1. **关于伤害动作构成**
    - 动作名称来源于群众提供，可能存在错误，错漏欢迎issue或者pr
+2. **关于统计错误**
+   - 统计数据来源于半瓶水逆向分析，如发现错误数据请附带复现步骤（什么环境，什么动作，理论多少记录多少）（f12控制台有事件输出）提issue
 
 
 ### 步骤
@@ -25,6 +27,8 @@
 ### Remarks
 1. **About damage action composition**
    - The action names are provided by the public, and there may be errors. If you find any, please feel free to open an issue or a pull request.
+2. **About statistical errors**
+   - The statistical data is based on incomplete reverse engineering. If you find any incorrect data, please provide the reproduction steps (what environment, what action, how many records are theoretically recorded) (f12 console has event output) to open an issue.
 
 
 ### Steps
