@@ -233,7 +233,7 @@
                         <el-table-column prop="damage_in_minute" :label="$t('damage_in_minute')" sortable></el-table-column>
                         <el-table-column prop="dps" :label="$t('dps')" sortable></el-table-column>
                         <el-table-column prop="dps_in_minute" :label="$t('dps_in_minute')" sortable></el-table-column>
-                        <el-table-column >
+                        <el-table-column :label="$t('detail')">
                             <template #default="scope">
                                 <el-button @click="set_actor_dialog(scope.row)" type="text" size="small">{{$t('detail')}}</el-button>
                             </template>
