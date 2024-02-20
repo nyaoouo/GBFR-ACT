@@ -83,7 +83,15 @@
                     "https://unpkg.com/@element-plus/icons-vue",
                     "https://s4.zstatic.net/npm/@element-plus/icons-vue",
                 ]
-            },])
+            },
+            {
+                key: 'js/vue-i18n', type: 'js',
+                choices: [
+                    "https://unpkg.com/vue-i18n@9",
+                    "https://s4.zstatic.net/npm/vue-i18n@9",
+                ]
+            },
+        ])
     </script>
 </head>
 <style>
@@ -137,6 +145,13 @@
         margin-left: auto;
         margin-right: auto;
     }
+
+    .locale-changer{
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 15px;
+    }
 </style>
 <body>
 <div id="app" class="main-0">
@@ -144,6 +159,11 @@
         <div class="main-2" v-if="0">
             resource is loading, please wait...
         </div>
+        <div class="locale-changer" v-cloak>
+            <select v-model="$i18n.locale" @change="handleSelectChange">
+              <option v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`" :value="locale">{{ getLocaleValue(locale) }}</option>
+            </select>
+          </div>
         <div class="main-2 shadow rounded p-3" v-cloak>
             <div v-if="!is_socket_connected" class="p-3">
                 <el-alert title="socket is not connect, check inject status" type="error" effect="dark" :closable="false"></el-alert>
@@ -154,28 +174,32 @@
                         v-model="actor_dialog.page"
                         type="card"
                 >
-                    <el-tab-pane label="targets" name="targets">
+                    <el-tab-pane :label="$t('targets')" name="targets">
                         <el-table :data="actor_dialog.actor.targets" style="width: 100%" :default-sort="{ prop: 'damage', order: 'descending' }">
-                            <el-table-column prop="name" label="name"></el-table-column>
-                            <el-table-column prop="damage" label="damage" sortable></el-table-column>
+                            <el-table-column prop="name" :label="$t('name')"></el-table-column>
+                            <el-table-column prop="damage" :label="$t('damage')" sortable></el-table-column>
                         </el-table>
                     </el-tab-pane>
-                    <el-tab-pane label="actions" name="actions">
+                    <el-tab-pane :label="$t('actions')" name="actions">
                         <el-table :data="actor_dialog.actor.actions" style="width: 100%" :default-sort="{ prop: 'damage', order: 'descending' }">
-                            <el-table-column prop="name" label="name"></el-table-column>
-                            <el-table-column prop="hit" label="hit" sortable>
+                            <el-table-column :label="$t('name')">
+                                <template #default="scope">
+                                    <span>{{$t(scope.row.action_key)}}</span>
+                                </template>
+                            </el-table-column>
+                            <el-table-column :label="$t('hit')" sortable>
                                 <template #default="scope">
                                     <span>{{scope.row.hit}} ({{(scope.row.hit/actor_dialog.actor.hit*100).toFixed(1)}}%)</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="damage" label="damage" sortable>
+                            <el-table-column :label="$t('damage')" sortable>
                                 <template #default="scope">
                                     <span>{{scope.row.damage}} ({{scope.row.damage?(scope.row.damage/actor_dialog.actor.damage*100).toFixed(1):0}}%)</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="min" label="min" sortable></el-table-column>
-                            <el-table-column prop="max" label="max" sortable></el-table-column>
-                            <el-table-column label="damage(avg)">
+                            <el-table-column prop="min" :label="$t('min')" sortable></el-table-column>
+                            <el-table-column prop="max" :label="$t('max')" sortable></el-table-column>
+                            <el-table-column :label="$t('damage_avg')">
                                 <template #default="scope">
                                     <span v-if="scope.row.hit > 0">{{Math.floor(scope.row.damage / scope.row.hit)}}</span>
                                 </template>
@@ -194,20 +218,23 @@
                         v-for="item in records" :key="item.name" :label="item.last_record_at?`${item.name} [${fmt_time(item.last_record_at-item.time)}]`:item.name" :name="item.name"
                 >
                     <el-table :data="item.actors" style="width: 100%" :default-sort="{ prop: 'dps', order: 'descending' }">
-                        <el-table-column prop="name" label="name">
+                        <el-table-column :label="$t('name')">
                             <template #default="scope">
                                 <span>
-                                    <el-icon :style="{'color':scope.row.color}"><Avatar/></el-icon> {{ scope.row.name }}
+                                    <el-icon :style="{'color':scope.row.color}">
+                                        <Avatar />
+                                    </el-icon> 
+                                    <span>{{scope.row.name}}</span>
                                 </span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="damage" label="damage" sortable></el-table-column>
-                        <el-table-column prop="damage_in_minute" label="damage_in_minute" sortable></el-table-column>
-                        <el-table-column prop="dps" label="dps" sortable></el-table-column>
-                        <el-table-column prop="dps_in_minute" label="dps_in_minute" sortable></el-table-column>
-                        <el-table-column label="detail">
+                        <el-table-column prop="damage" :label="$t('damage')" sortable></el-table-column>
+                        <el-table-column prop="damage_in_minute" :label="$t('damage_in_minute')" sortable></el-table-column>
+                        <el-table-column prop="dps" :label="$t('dps')" sortable></el-table-column>
+                        <el-table-column prop="dps_in_minute" :label="$t('dps_in_minute')" sortable></el-table-column>
+                        <el-table-column >
                             <template #default="scope">
-                                <el-button @click="set_actor_dialog(scope.row)" type="text" size="small">detail</el-button>
+                                <el-button @click="set_actor_dialog(scope.row)" type="text" size="small">{{$t('detail')}}</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -220,6 +247,7 @@
     </div>
 </div>
 </body>
+<script src="./act_ws_i18n.js"></script>
 <script>
     const _with_time = f => (...args) => {
         const now = new Date();
@@ -233,27 +261,27 @@
         .filter(off => val & (1 << off));
 
     const actor_names = {
-        0x9498420d: "姬塔",
-        0x26a4848a: "古兰",
-        0xc3155079: "赛达",
-        0x34d4fd8f: "卡塔莉娜",
-        0xf8d73d33: "拉卡姆",
-        0x7b5934ad: "伊欧",
-        0x443d46bb: "欧根",
-        0xa9d6569e: "萝赛塔",
-        0x2b4aa114: "夏洛特",
-        0xbcc238de: "冈达葛萨",
-        0xfba6615d: "菲莉",
-        0x601aa977: "娜露梅",
-        0x63a7c3f0: "兰斯洛特",
-        0xf96a90c2: "巴恩",
-        0x28ac1108: "珀西瓦尔",
-        0x94e2514e: "齐格飞",
-        0x6fdd6932: "卡莉奥丝特罗",
-        0xc97f3365: "尤达哈拉",
-        0xd16cfbde: "巴萨拉卡",
-        0x8056abcd: "伊德",
-        0xf5755c0e: "伊德（龙人化）",
+        0x9498420d: "zeta", // 姬塔
+        0x26a4848a: "gran", // 古兰
+        0xc3155079: "djeeta", // 赛达
+        0x34d4fd8f: "katalina", // 卡塔莉娜
+        0xf8d73d33: "rackam", // 拉卡姆
+        0x7b5934ad: "io", // 伊欧
+        0x443d46bb: "eugen", // 欧根
+        0xa9d6569e: "rosetta", // 萝赛塔
+        0x2b4aa114: "charlotta", // 夏洛特
+        0xbcc238de: "ghandagoza", // 冈达葛萨
+        0xfba6615d: "ferry", // 菲莉
+        0x601aa977: "narmaya", // 娜露梅
+        0x63a7c3f0: "lancelot", // 兰斯洛特
+        0xf96a90c2: "vane", // 巴恩
+        0x28ac1108: "percival", // 珀西瓦尔
+        0x94e2514e: "siegfried", // 齐格飞
+        0x6fdd6932: "cagliostro", // 卡莉奥丝特罗
+        0xc97f3365: "yodarha", // 尤达哈拉
+        0xd16cfbde: "vaseraga", // 巴萨拉卡
+        0x8056abcd: "id", // 伊德
+        0xf5755c0e: "id(dragon)", //伊德（龙人化）
     }
     var socket = null;
 
@@ -370,6 +398,12 @@
     }
 
     cdn_loader.then(() => {
+        const i18n = VueI18n.createI18n({
+            locale: localStorage.getItem('lang')|| 'zh_CN',
+            fallbackLocale: 'en_US',
+            messages: act_ws_i18n,
+        })
+
         const App = Vue.createApp({
             setup() {
                 const is_socket_connected = Vue.ref(false);
@@ -384,13 +418,17 @@
                 var want_new = false;
                 var update_period = 0;
 
+                const getLocaleValue = (key) => {
+                    return { en_US: 'English', zh_CN: "简体中文" }[key] ?? key;
+                }
+
                 const set_actor_dialog = (actor) => {
                     if (actor) {
                         actor_dialog.actor = actor;
                         actor_dialog.visible = true;
                     } else {
                         actor_dialog.visible = false;
-                        actor_dialog.actor = null;
+                        actor_dialog.actor = null;  
                     }
                 }
 
@@ -437,14 +475,14 @@
                         ) ||
                         current_record.actors[
                         current_record.actors.push({
-                            source_idx,
-                            name: `[${party_idx}]${
-                                actor_names[source_id] ||
+                            source_idx: source_idx,
+                            job: actor_names[source_id],
+                            name: `[${party_idx}]${i18n.global.t(actor_names[source_id]) ||
                                 numberToHexStringWithZFill(
                                     source_id,
                                     8
                                 )
-                            }#${source_idx}`,
+                                }#${source_idx}`,
                             color: colors[party_idx], // assume no more than 6 actors
                             damage: 0,
                             damage_in_minute: 0,
@@ -454,7 +492,7 @@
                             actions: [],
                             hit: 0
                         }) - 1
-                            ]
+                        ]
                     );
                 }
                 const get_actor_target = (actor, target_idx, target_id) => {
@@ -469,18 +507,21 @@
                     let k;
                     switch (action_id) {
                         case -1:
-                            k = 'link'
+                            k = 'Link'
                             break
                         case -2:
-                            k = 'LB'
+                            k = 'Buster'
                             break
                         case -3:
-                            k = '追击'
+                            k = 'Bonus'
                             break
                         default:
                             k = `#${action_id}`
                     }
                     return (actor.actions.find(v => v.name === k) || actor.actions[actor.actions.push({
+                        action_key: action_id < 0 ? k : `skills.${actor.job}.${action_id}`,
+                        action_id: action_id,
+                        job: actor.job,
                         name: k,
                         hit: 0,
                         damage: 0,
@@ -547,13 +588,13 @@
                         current_record.show_chart = true;
                         if (current_record.canvas && last_chart_evt !== current_record.last_record_at) {
                             const chart = DpsChart.get_instance(current_record.name, current_record.canvas);
-                            for (const {name, color} of current_record.actors) {
+                            for (const { name, color } of current_record.actors) {
                                 chart.set_key_color(name, color);
                             }
                             chart.append_frame(
                                 real_time,
                                 current_record.actors.reduce(
-                                    (p, {name, dps_in_minute}) => {
+                                    (p, { name, dps_in_minute }) => {
                                         p[name] = dps_in_minute;
                                         return p;
                                     },
@@ -606,6 +647,10 @@
                     });
                 }
 
+                const handleSelectChange = (event)=>{
+                    localStorage.setItem('lang', event.target.value);
+                }
+
                 Vue.onMounted(() => {
                     update_period = 1000;
                     create_socket();
@@ -626,10 +671,15 @@
                     remove_record,
                     actor_dialog,
                     set_actor_dialog,
+                    i18n,
+                    getLocaleValue,
+                    handleSelectChange,
+                    act_ws_i18n,
                 }
             }
         })
         App.use(ElementPlus);
+        App.use(i18n);
         for (const [key, component] of Object.entries(ElementPlusIconsVue)) App.component(key, component);
         App.mount('#app');
     }).catch(alert)
