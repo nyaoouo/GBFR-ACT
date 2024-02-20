@@ -1,8 +1,7 @@
 const i18nCfg = {
     onLocaleChange: (locale) => {
         localStorage.setItem('locale', locale);
-    },
-    locale: (() => {
+    }, locale: (() => {
         const ls_locale = localStorage.getItem('locale');
         if (ls_locale !== null) return ls_locale;
         const default_locale = (() => {
@@ -50,8 +49,7 @@ const i18nCfg = {
                         "100": "X",
                         "101": "（X）X",
                         "102": "（XX）X",
-                        "102": "（XXX）Y",
-                        "103": "（XXXY）Y",
+                        "103": "（XXX）Y",
                         "104": "收招",
                         "110": "（X）Y",
                         "111": "（XY）Y",
@@ -128,6 +126,51 @@ const i18nCfg = {
                 detail: "detail",
                 dps: "dps",
             },
+            game: {
+                "f96a90c2": {
+                    "100": "X",
+                    "101": "（X）X",
+                    "102": "（XX）X",
+                    "103": "（XXX）Y",
+                    "104": "Y(derive)",
+                    "110": "（X）Y",
+                    "111": "（XY）Y",
+                    "120": "（XX）Y",
+                    "121": "（XXY）Y",
+                    "200": "Y1",
+                    "201": "Y2",
+                    "202": "Y3",
+                    "203": "Y4",
+                    "204": "Y5",
+                    "300": "(jump)X1",
+                    "301": "(jump)X2",
+                    "302": "(jump)X3",
+                    "400": "upward attack",
+                    "410": "(jump)Y",
+                },
+                actors: {
+                    "9498420d": "Zeta",
+                    "26a4848a": "Gran",
+                    "c3155079": "Djeeta",
+                    "34d4fd8f": "Katalina",
+                    "f8d73d33": "Rackam",
+                    "7b5934ad": "Io",
+                    "443d46bb": "Eugen",
+                    "a9d6569e": "Rosetta",
+                    "2b4aa114": "Charlotta",
+                    "bcc238de": "Ghandagoza",
+                    "fba6615d": "Ferry",
+                    "601aa977": "Narmaya",
+                    "63a7c3f0": "Lancelot",
+                    "f96a90c2": "Vane",
+                    "28ac1108": "Percival",
+                    "94e2514e": "Siegfried",
+                    "6fdd6932": "Cagliostro",
+                    "c97f3365": "Yodarha",
+                    "d16cfbde": "Vaseraga",
+                    "8056abcd": "Id",
+                }
+            }
         }
     }
 };
