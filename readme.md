@@ -3,6 +3,11 @@
 
 ![img](./demo.png)
 
+### 备注
+1. **关于伤害动作构成**
+   - 动作名称来源于群众提供，可能存在错误，错漏欢迎issue或者pr
+
+
 ### 步骤
 
 1. **安装python311**
@@ -15,6 +20,12 @@
 
 3. **打开act_ws.html**
    - 建议使用Chrome浏览器打开`act_ws.html`
+
+
+### Remarks
+1. **About damage action composition**
+   - The action names are provided by the public, and there may be errors. If you find any, please feel free to open an issue or a pull request.
+
 
 ### Steps
 
