@@ -232,7 +232,7 @@
                                 </span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="damage" :label="$t('ui.name')" sortable></el-table-column>
+                        <el-table-column prop="damage" :label="$t('ui.damage')" sortable></el-table-column>
                         <el-table-column prop="damage_in_minute" :label="$t('ui.damage_in_minute')" sortable></el-table-column>
                         <el-table-column prop="dps" :label="$t('ui.dps')" sortable></el-table-column>
                         <el-table-column prop="dps_in_minute" :label="$t('ui.dps_in_minute')" sortable></el-table-column>
@@ -332,6 +332,9 @@
                     animation: {
                         y: {
                             duration: 0
+                        },
+                        x: {
+                            duration: 0
                         }
                     },
                     elements: {
@@ -341,7 +344,7 @@
                     }
                 }
             });
-            this.period = 5 * 60;
+            this.period = 10 * 60;
         }
 
         set_key_color(key, color) {
