@@ -257,8 +257,11 @@
         const now = new Date();
         f(`[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}]`, ...args);
     }
-    let log_evt = 1
-    let log_render = false
+    const log_cond = {
+        evt: 1,
+        render: 0,
+        damage: 0,
+    }
     const log = _with_time(console.log);
     const err = _with_time(console.error);
     const flag_offs = (val) => Array.from(Array(val.toString(2).length).keys())
@@ -385,7 +388,7 @@
                 }
                 dataset.data.push({x: timestamp, y: value});
             });
-            if (log_render) log('log_render', this.datas);
+            if (log_cond.render) log('log_render', this.datas);
             this.chart.update();
         }
 
@@ -546,6 +549,7 @@
                     action.damage += damage;
                     if (action.min === -1 || action.min > damage) action.min = damage;
                     if (action.max === -1 || action.max < damage) action.max = damage;
+                    if (log_cond.damage) log(`${actor.display_name} cause ${damage} damage by ${action.display_name} to ${target_actor.name}`);
                 }
 
                 const process_old_records = (current_record) => {
@@ -609,7 +613,7 @@
                 const create_socket = () => {
                     const socket_ = new WebSocket("ws://localhost:24399");
                     socket_.addEventListener("message", evt_ => {
-                        if (log_evt) log(evt_.data);
+                        if (log_cond.evt) log(evt_.data);
                         const evt = JSON.parse(evt_.data);
                         switch (evt.type) {
                             case "enter_area":
