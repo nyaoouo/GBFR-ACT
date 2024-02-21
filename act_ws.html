@@ -521,8 +521,7 @@
                     page: 'targets',
                 });
                 const cfg = Vue.ref(JSON.parse(localStorage.getItem('act_ws_cfg') || "{}"));
-
-                var want_new = cfg.value.keep_record ? !!records.value.length : false;
+                var want_new = false;
                 var update_period = 0;
 
                 const set_actor_dialog = (actor) => {
@@ -790,6 +789,7 @@
                         } catch {
                             records.value = [];
                         }
+                        want_new = !!records.value.length;
                         localStorage.removeItem('latest_record');
                     }
                     Vue.watch(cfg, (v) => localStorage.setItem('act_ws_cfg', JSON.stringify(v)), {deep: true});
