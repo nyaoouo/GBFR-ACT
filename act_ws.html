@@ -180,6 +180,7 @@
                                     :value="k"
                             />
                         </el-select>
+                        <el-switch v-model="cfg.keep_record" :active-text="$t('ui.keep_record')" />
                     </template>
                 </el-popover>
             </div>
@@ -509,7 +510,14 @@
                     page: 'targets',
                 });
                 const cfg = Vue.ref(JSON.parse(localStorage.getItem('act_ws_cfg') || "{}"));
-                var want_new = false;
+                if (cfg.value.keep_record) {
+                    try {
+                        records.value = JSON.parse(localStorage.getItem('latest_record') || '[]');
+                    } catch {
+                        records.value = [];
+                    }
+                }
+                var want_new = cfg.value.keep_record ? !!records.value.length : false;
                 var update_period = 0;
 
                 const set_actor_dialog = (actor) => {
@@ -759,7 +767,14 @@
                         if (!(key in cfg_val)) cfg_val[key] = val;
                     }
                     setdefault('chart', 'dps_min');
+                    setdefault('keep_record', false);
                     cfg.value = cfg_val;
+                }
+
+                const handleBeforeUnload = (e) => {
+                    if (!cfg.value.keep_record) return;
+                    const record = get_latest_record();
+                    localStorage.setItem('latest_record', JSON.stringify([record]));
                 }
 
                 Vue.onMounted(() => {
@@ -769,11 +784,18 @@
                     update_period = 1000;
                     create_socket();
                     update();
+                    window.addEventListener('beforeunload', handleBeforeUnload);
+                    if (cfg.value.keep_record && records.value.length) {
+                        archive_record(get_latest_record());
+                        view_record_value.value = records.value[0].name;
+                        records.value[0].show_chart = false;
+                    }
                 });
 
                 Vue.onUnmounted(() => {
                     update_period = -1;
                     if (socket) socket.close();
+                    window.removeEventListener('beforeunload', handleBeforeUnload);
                 });
 
                 return {

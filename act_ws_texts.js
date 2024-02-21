@@ -39,6 +39,7 @@ const i18nCfg = {
                 detail: "详情",
                 dps: "dps",
                 chart: "图表",
+                keep_record: "保留最后一次记录",
             },
             game: {
                 actions: {
@@ -262,6 +263,7 @@ const i18nCfg = {
                 detail: "詳情",
                 dps: "dps",
                 chart: "圖表",
+                keep_record: "保留最後一次記錄",
             },
             game: {
                 actions: {
@@ -441,6 +443,7 @@ const i18nCfg = {
                 detail: "detail",
                 dps: "dps",
                 chart: "chart",
+                keep_record: "keep the last record",
             },
             game: {
                 actions: {
