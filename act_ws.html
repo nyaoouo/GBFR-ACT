@@ -726,7 +726,6 @@
                         process_old_records(current_record);
                         calc_damages(current_record);
                     }
-                    if (update_period > 0) setTimeout(update, update_period);
                 }
 
                 const on_enter_area = (evt) => {
@@ -780,7 +779,7 @@
                     const record = get_latest_record();
                     localStorage.setItem('latest_record', JSON.stringify([record]));
                 }
-
+                var update_interval = null;
                 Vue.onMounted(() => {
                     init_cfg();
                     if (cfg.value.keep_record) {
@@ -796,7 +795,7 @@
                     Vue.watch(() => i18n.global.locale, i18nCfg.onLocaleChange)
                     update_period = 1000;
                     create_socket();
-                    update();
+                    update_interval = setInterval(update, update_period);
                     window.addEventListener('beforeunload', handleBeforeUnloadStoreRecord);
                     if (cfg.value.keep_record && records.value.length) {
                         archive_record(get_latest_record());
@@ -809,6 +808,7 @@
                     update_period = -1;
                     if (socket) socket.close();
                     handleBeforeUnloadStoreRecord();
+                    clearInterval(update_interval);
                     window.removeEventListener('beforeunload', handleBeforeUnloadStoreRecord);
                 });
 
