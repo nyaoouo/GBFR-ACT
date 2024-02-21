@@ -168,18 +168,30 @@
                         </el-icon>
                     </template>
                     <template #default>
-                        <el-select v-model="cfg.chart" placeholder="Select">
-                            <el-option :label="`${$t('ui.chart')}-${$t('ui.dps_in_minute')}`" value="dps_min"></el-option>
-                            <el-option :label="`${$t('ui.chart')}-${$t('ui.damage')}`" value="dmg"></el-option>
-                        </el-select>
-                        <el-select v-model="$i18n.locale" placeholder="Select">
-                            <el-option
-                                    v-for="k in $i18n.availableLocales"
-                                    :key="k"
-                                    :label="$t('locale_name',k)"
-                                    :value="k"
-                            />
-                        </el-select>
+                        <el-form
+                                label-position="right"
+                                label-width="150px"
+                        >
+                            <el-form-item :label="$t('ui.chart_main')">
+                                <el-select v-model="cfg.chart" placeholder="Select">
+                                    <el-option :label="`${$t('ui.chart')}-${$t('ui.dps_in_minute')}`" value="dps_min"></el-option>
+                                    <el-option :label="`${$t('ui.chart')}-${$t('ui.damage')}`" value="dmg"></el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item :label="$t('ui.language')">
+                                <el-select v-model="$i18n.locale" placeholder="Select">
+                                    <el-option
+                                            v-for="k in $i18n.availableLocales"
+                                            :key="k"
+                                            :label="$t('locale_name',k)"
+                                            :value="k"
+                                    />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item :label="$t('ui.keep_record')">
+                                <el-switch v-model="cfg.keep_record"/>
+                            </el-form-item>
+                        </el-form>
                     </template>
                 </el-popover>
             </div>
@@ -509,7 +521,8 @@
                     page: 'targets',
                 });
                 const cfg = Vue.ref(JSON.parse(localStorage.getItem('act_ws_cfg') || "{}"));
-                var want_new = false;
+
+                var want_new = cfg.value.keep_record ? !!records.value.length : false;
                 var update_period = 0;
 
                 const set_actor_dialog = (actor) => {
@@ -759,21 +772,44 @@
                         if (!(key in cfg_val)) cfg_val[key] = val;
                     }
                     setdefault('chart', 'dps_min');
+                    setdefault('keep_record', false);
                     cfg.value = cfg_val;
+                }
+
+                const handleBeforeUnloadStoreRecord = (e) => {
+                    if (!cfg.value.keep_record) return;
+                    const record = get_latest_record();
+                    localStorage.setItem('latest_record', JSON.stringify([record]));
                 }
 
                 Vue.onMounted(() => {
                     init_cfg();
+                    if (cfg.value.keep_record) {
+                        try {
+                            records.value = JSON.parse(localStorage.getItem('latest_record') || '[]');
+                        } catch {
+                            records.value = [];
+                        }
+                        localStorage.removeItem('latest_record');
+                    }
                     Vue.watch(cfg, (v) => localStorage.setItem('act_ws_cfg', JSON.stringify(v)), {deep: true});
                     Vue.watch(() => i18n.global.locale, i18nCfg.onLocaleChange)
                     update_period = 1000;
                     create_socket();
                     update();
+                    window.addEventListener('beforeunload', handleBeforeUnloadStoreRecord);
+                    if (cfg.value.keep_record && records.value.length) {
+                        archive_record(get_latest_record());
+                        view_record_value.value = records.value[0].name;
+                        records.value[0].show_chart = false;
+                    }
                 });
 
                 Vue.onUnmounted(() => {
                     update_period = -1;
                     if (socket) socket.close();
+                    handleBeforeUnloadStoreRecord();
+                    window.removeEventListener('beforeunload', handleBeforeUnloadStoreRecord);
                 });
 
                 return {
