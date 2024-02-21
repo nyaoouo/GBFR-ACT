@@ -168,6 +168,10 @@
                         </el-icon>
                     </template>
                     <template #default>
+                        <el-select v-model="cfg.chart" placeholder="Select">
+                            <el-option :label="`${$t('ui.chart')}-${$t('ui.dps_in_minute')}`" value="dps_min"></el-option>
+                            <el-option :label="`${$t('ui.chart')}-${$t('ui.damage')}`" value="dmg"></el-option>
+                        </el-select>
                         <el-select v-model="$i18n.locale" placeholder="Select">
                             <el-option
                                     v-for="k in $i18n.availableLocales"
@@ -247,8 +251,9 @@
                             </template>
                         </el-table-column>
                     </el-table>
-                    <div v-if="item.show_chart">
-                        <canvas :ref="el => { item.canvas = el }" height="500"></canvas>
+                    <div :style="{display:item.show_chart?'block':'none'}">
+                        <canvas :style="{display:cfg.chart=='dps_min'?'block':'none'}" :ref="el => { item.dps_canvas = el }" height="500"></canvas>
+                        <canvas :style="{display:cfg.chart=='dmg'?'block':'none'}" :ref="el => { item.dmg_canvas = el }" height="500"></canvas>
                     </div>
                 </el-tab-pane>
             </el-tabs>
@@ -263,7 +268,7 @@
         f(`[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}]`, ...args);
     }
     const log_cond = {
-        evt: 1,
+        evt: 0,
         render: 0,
         damage: 0,
     }
@@ -290,6 +295,105 @@
         '#ff55ff',
         '#55ffff',
     ]
+
+    class DamageChart {
+        constructor(canvas) {
+            this.canvas = canvas;
+            this.ctx = canvas.getContext('2d');
+            this.datas = {
+                datasets: []
+            };
+            this.chart = new Chart(this.ctx, {
+                type: 'line',
+                data: this.datas,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                        },
+                        y: {
+                            beginAtZero: true,
+                            position: 'left',
+                        }
+                    },
+                    animation: {
+                        y: {
+                            duration: 0
+                        },
+                        x: {
+                            duration: 0
+                        }
+                    },
+                    elements: {
+                        point: {
+                            radius: 0
+                        }
+                    }
+                }
+            });
+            // this.period = 10 * 60;
+            this.period = 0;
+        }
+
+        set_key_color(key, color) {
+            const dataset = this.datas.datasets.find(ds => ds.label === key);
+            if (dataset) {
+                dataset.borderColor = color;
+                dataset.backgroundColor = color;
+            } else {
+                this.datas.datasets.push({
+                    label: key,
+                    data: [],
+                    borderColor: color,
+                    backgroundColor: color,
+                    fill: false,
+                });
+            }
+        }
+
+        append_frame(timestamp, datas) {
+            if (this.period > 0) {
+                const min_time = timestamp - this.period;
+                for (const dataset of this.datas.datasets) {
+                    const cutoff_idx = dataset.data.findIndex(d => d.x > min_time);
+                    if (cutoff_idx >= 0) dataset.data = dataset.data.slice(cutoff_idx);
+                }
+            }
+            Object.entries(datas).forEach(([key, value]) => {
+                let dataset = this.datas.datasets.find(ds => ds.label === key);
+                if (!dataset) {
+                    dataset = {
+                        label: key,
+                        data: [],
+                        borderColor: '#000000',
+                        backgroundColor: '#000000',
+                        fill: false,
+                    }
+                    this.datas.datasets.push(dataset);
+                }
+                dataset.data.push({x: timestamp, y: value});
+            });
+            if (log_cond.render) log('log_render', this.datas);
+            this.chart.update();
+        }
+
+        static instances = {};
+
+        static get_instance(name, canvas) {
+            if (!this.instances[name]) this.instances[name] = new this(canvas);
+            return this.instances[name];
+        }
+
+        static destroy_instance(name) {
+            if (name in this.instances) {
+                this.instances[name].chart.destroy();
+                delete this.instances[name];
+            }
+        }
+    }
 
     class DpsChart {
         constructor(canvas) {
@@ -329,7 +433,8 @@
                     }
                 }
             });
-            this.period = 10 * 60;
+            // this.period = 10 * 60;
+            this.period = 0;
         }
 
         set_key_color(key, color) {
@@ -403,6 +508,7 @@
                     actor: null,
                     page: 'targets',
                 });
+                const cfg = Vue.ref(JSON.parse(localStorage.getItem('act_ws_cfg') || "{}"));
                 var want_new = false;
                 var update_period = 0;
 
@@ -424,6 +530,7 @@
                         view_record_value.value = records.value[records.value.length - 1].name;
                     }
                     DpsChart.destroy_instance(name);
+                    DamageChart.destroy_instance(name);
                 }
                 const fmt_time = (ms) => {
                     if (ms < 1000) return ms + "ms";
@@ -438,10 +545,12 @@
                         name: `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
                         time: now.getTime(),
                         last_record_at: 0,
+                        last_chart_evt: 0,
                         damage: 0,
                         actors: [],
                         events_in_minute: [],
-                        canvas: null,
+                        dps_canvas: null,
+                        dmg_canvas: null,
                         show_chart: false,
                     });
                     view_record_value.value = records.value[records.value.length - 1].name;
@@ -555,8 +664,6 @@
                     }
                 }
 
-                let last_chart_evt = 0
-
                 const calc_damages = (current_record) => {
                     const full_time = (current_record.last_record_at - current_record.time) / 1000;
                     const real_time = (new Date().getTime() - current_record.time) / 1000
@@ -567,22 +674,22 @@
                     }
                     if (real_time > 10) {
                         current_record.show_chart = true;
-                        if (current_record.canvas && last_chart_evt !== current_record.last_record_at) {
-                            const chart = DpsChart.get_instance(current_record.name, current_record.canvas);
+                        if (current_record.last_chart_evt !== current_record.last_record_at) {
+                            const dps_chart = DpsChart.get_instance(current_record.name, current_record.dps_canvas);
+                            const damage_chart = DamageChart.get_instance(current_record.name, current_record.dmg_canvas);
                             for (const {display_name, color} of current_record.actors) {
-                                chart.set_key_color(display_name, color);
+                                dps_chart.set_key_color(display_name, color);
+                                damage_chart.set_key_color(display_name, color);
                             }
-                            chart.append_frame(
-                                    real_time,
-                                    current_record.actors.reduce(
-                                            (p, {display_name, dps_in_minute}) => {
-                                                p[display_name] = dps_in_minute;
-                                                return p;
-                                            },
-                                            {}
-                                    )
-                            );
-                            last_chart_evt = current_record.last_record_at;
+                            dps_chart.append_frame(real_time, current_record.actors.reduce((p, {display_name, dps_in_minute}) => {
+                                p[display_name] = dps_in_minute;
+                                return p;
+                            }, {}));
+                            damage_chart.append_frame(real_time, current_record.actors.reduce((p, {display_name, damage}) => {
+                                p[display_name] = damage;
+                                return p;
+                            }, {}));
+                            current_record.last_chart_evt = current_record.last_record_at;
                         }
                     }
                 }
@@ -628,7 +735,18 @@
                     });
                 }
 
+                const init_cfg = () => {
+                    const cfg_val = cfg.value;
+                    const setdefault = (key, val) => {
+                        if (!(key in cfg_val)) cfg_val[key] = val;
+                    }
+                    setdefault('chart', 'dps_min');
+                    cfg.value = cfg_val;
+                }
+
                 Vue.onMounted(() => {
+                    init_cfg();
+                    Vue.watch(cfg, (v) => localStorage.setItem('act_ws_cfg', JSON.stringify(v)), {deep: true});
                     Vue.watch(() => i18n.global.locale, i18nCfg.onLocaleChange)
                     update_period = 1000;
                     create_socket();
@@ -641,6 +759,7 @@
                 });
 
                 return {
+                    cfg,
                     view_record_value,
                     drawer,
                     is_socket_connected,

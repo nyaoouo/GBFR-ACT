@@ -38,6 +38,7 @@ const i18nCfg = {
                 damage_in_minute: "伤害/分",
                 detail: "详情",
                 dps: "dps",
+                chart: "图表",
             },
             game: {
                 actions: {
@@ -156,6 +157,7 @@ const i18nCfg = {
                 damage_in_minute: "傷害/分",
                 detail: "詳情",
                 dps: "dps",
+                chart: "圖表",
             },
             game: {
                 actions: {
@@ -315,11 +317,12 @@ const i18nCfg = {
                 hit: "hit",
                 min: "min",
                 max: "max",
-                damage_avg: "damage_avg",
-                dps_in_minute: "dps_in_minute",
-                damage_in_minute: "damage_in_minute",
+                damage_avg: "damage(avg)",
+                dps_in_minute: "dps(min)",
+                damage_in_minute: "damage(min)",
                 detail: "detail",
                 dps: "dps",
+                chart: "chart",
             },
             game: {
                 actions: {
