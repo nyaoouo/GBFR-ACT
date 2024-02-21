@@ -719,6 +719,37 @@
                         }
                     }
                 }
+                let cancelLoop;
+                const loopInterval = 1000;
+                const loopMethod = (() => {
+                    const raf = window.requestAnimationFrame ||
+                        window.webkitRequestAnimationFrame ||
+                        window.mozRequestAnimationFrame ||
+                        window.msRequestAnimationFrame;
+                    const cancel = window.cancelAnimationFrame ||
+                        window.webkitCancelAnimationFrame ||
+                        window.mozCancelAnimationFrame ||
+                        window.msCancelAnimationFrame;
+                    if (raf) {
+                        let lastRafTime = 0;
+                        return (callback) => {
+                            let id;
+                            const loop = (timestamp) => {
+                                if (timestamp - lastRafTime >= loopInterval) {
+                                    callback();
+                                    lastRafTime = timestamp;
+                                }
+                                id = raf(loop);
+                            }
+                            loop();
+                            return () => cancel(id);
+                        }
+                    }
+                    return (callback) => {
+                        const id = setInterval(callback, loopInterval);
+                        return () => clearInterval(id);
+                    };
+                })();
 
                 const update = () => {
                     const current_record = get_latest_record();
@@ -779,7 +810,7 @@
                     const record = get_latest_record();
                     localStorage.setItem('latest_record', JSON.stringify([record]));
                 }
-                var update_interval = null;
+
                 Vue.onMounted(() => {
                     init_cfg();
                     if (cfg.value.keep_record) {
@@ -795,7 +826,7 @@
                     Vue.watch(() => i18n.global.locale, i18nCfg.onLocaleChange)
                     update_period = 1000;
                     create_socket();
-                    update_interval = setInterval(update, update_period);
+                    cancelLoop = loopMethod(update);
                     window.addEventListener('beforeunload', handleBeforeUnloadStoreRecord);
                     if (cfg.value.keep_record && records.value.length) {
                         archive_record(get_latest_record());
@@ -808,7 +839,7 @@
                     update_period = -1;
                     if (socket) socket.close();
                     handleBeforeUnloadStoreRecord();
-                    clearInterval(update_interval);
+                    cancelLoop();
                     window.removeEventListener('beforeunload', handleBeforeUnloadStoreRecord);
                 });
 
