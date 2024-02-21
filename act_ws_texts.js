@@ -423,7 +423,10 @@ const i18nCfg = {
                         "3000": "Fire",
                         "4000": "Flowery Seven",
                         "7200": "Gravity Well",
-                        "8202": "Lightning"
+                        "8200": "Lightning",
+                        "8201": "Lightning",
+                        "8202": "Lightning",
+                        "8203": "Lightning"
                     },
                 },
                 actors: {
