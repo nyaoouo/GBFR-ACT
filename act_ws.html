@@ -539,8 +539,16 @@
                     const min = Math.floor(sec / 60);
                     return min + "m";
                 }
+                const archive_record = (record) => {
+                    if (record.is_archived) return;
+                    process_old_records(record);
+                    calc_damages(record);
+                    record.is_archived = true;
+                }
+
                 const new_record = () => {
                     const now = new Date();
+                    if (records.value.length > 0) archive_record(records.value[records.value.length - 1]);
                     records.value.push({
                         name: `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
                         time: now.getTime(),
@@ -552,6 +560,7 @@
                         dps_canvas: null,
                         dmg_canvas: null,
                         show_chart: false,
+                        is_archived: false,
                     });
                     view_record_value.value = records.value[records.value.length - 1].name;
                     want_new = false;
@@ -620,6 +629,7 @@
                     }) - 1]);
                 }
                 const on_damage = (evt) => {
+                    if (want_new) new_record();
                     const {source, target, damage, flags, action_id} = evt;
                     const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
                     const [target_type, target_idx, target_id, target_party_idx, ...__] = target;
@@ -700,11 +710,16 @@
 
                 const update = () => {
                     const current_record = get_latest_record();
-                    if (current_record.last_record_at > 0) {
+                    if (!current_record.is_archived && current_record.last_record_at > 0) {
                         process_old_records(current_record);
                         calc_damages(current_record);
                     }
                     if (update_period > 0) setTimeout(update, update_period);
+                }
+
+                const on_enter_area = (evt) => {
+                    want_new = true;
+                    archive_record(get_latest_record());
                 }
 
                 const create_socket = () => {
@@ -714,10 +729,9 @@
                         const evt = JSON.parse(evt_.data);
                         switch (evt.type) {
                             case "enter_area":
-                                want_new = true;
+                                on_enter_area(evt.data);
                                 break;
                             case "damage":
-                                if (want_new) new_record();
                                 on_damage(evt.data);
                                 break;
                         }
