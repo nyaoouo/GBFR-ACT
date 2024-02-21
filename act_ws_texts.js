@@ -423,7 +423,10 @@ const i18nCfg = {
                         "3000": "Fire",
                         "4000": "Flowery Seven",
                         "7200": "Gravity Well",
-                        "8202": "Lightning"
+                        "8200": "Lightning w/ 0 orbs",
+                        "8201": "Lightning w/ 1 orb",
+                        "8202": "Lightning w/ 2 orbs",
+                        "8203": "Lightning w/ 3 orbs"
                     },
                 },
                 actors: {
