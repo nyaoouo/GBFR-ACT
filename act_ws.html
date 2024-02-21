@@ -140,6 +140,7 @@
     }
 
     .main-2 {
+        min-width: 80%;
         width: 1000px;
         max-width: 100%;
         margin-left: auto;
@@ -232,7 +233,11 @@
                                 </span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="damage" :label="$t('ui.damage')" sortable></el-table-column>
+                        <el-table-column prop="damage" :label="$t('ui.damage')" sortable>
+                            <template #default="scope">
+                                <span>{{scope.row.damage}} ({{scope.row.damage?(scope.row.damage/item.damage*100).toFixed(1):0}}%)</span>
+                            </template>
+                        </el-table-column>
                         <el-table-column prop="damage_in_minute" :label="$t('ui.damage_in_minute')" sortable></el-table-column>
                         <el-table-column prop="dps" :label="$t('ui.dps')" sortable></el-table-column>
                         <el-table-column prop="dps_in_minute" :label="$t('ui.dps_in_minute')" sortable></el-table-column>
@@ -433,6 +438,7 @@
                         name: `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
                         time: now.getTime(),
                         last_record_at: 0,
+                        damage: 0,
                         actors: [],
                         events_in_minute: [],
                         canvas: null,
@@ -512,6 +518,7 @@
                     const current_record = get_latest_record();
                     current_record.last_record_at = now;
                     if (source_party_idx === -1) return;
+                    current_record.damage += damage;
                     const actor = get_actor(source_idx, source_id, source_party_idx);
                     current_record.events_in_minute.push({
                         time: now,
