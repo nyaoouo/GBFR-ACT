@@ -1214,7 +1214,7 @@ class Process:
 def run_rpc_server_main():
     import threading
     import injector
-    
+
     res_id_counter = injector.Counter()
     pipe_name = {repr(self.pipe_name)}
     lock_file_name = {repr(str(self.lock_file.name))}
@@ -1834,8 +1834,10 @@ class Act:
             dmg = i32_from(a2 + 0xd0)
             # TODO: 找个通用方法溯源
             source_type_id = actor_type_id(source)
-            if source_type_id == 0x2af678e8:  # 菲莉宝宝
+            if source_type_id == 0x2af678e8:  # 菲莉宝宝 # Pl0700Ghost
                 source = size_t_from(size_t_from(source + 0xE48) + 0x70)
+            elif source_type_id == 0x8364c8bc:  # 菲莉 绕身球  # Pl0700GhostSatellite
+                source = size_t_from(size_t_from(source + 0x508) + 0x70)
             elif source_type_id == 0xc9f45042:  # 老男人武器
                 source = size_t_from(size_t_from(source + 0x578) + 0x70)
             elif source_type_id == 0xf5755c0e:  # 龙人化
