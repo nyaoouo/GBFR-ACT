@@ -265,7 +265,7 @@
     const log = _with_time(console.log);
     const err = _with_time(console.error);
     const flag_offs = (val) => Array.from(Array(val.toString(2).length).keys())
-        .filter(off => val & (1 << off));
+            .filter(off => val & (1 << off));
 
     var socket = null;
 
@@ -450,33 +450,33 @@
                     let name_key;
                     const current_record = get_latest_record();
                     return (
-                        current_record.actors.find(
-                            v => v.source_idx === source_idx
-                        ) ||
-                        current_record.actors[
-                        current_record.actors.push({
-                            source_idx, party_idx,
-                            name_key: (name_key = numberToHexStringWithZFill(source_id, 8)),
-                            display_name: `[${party_idx}]${i18n.global.t(`game.actors.${name_key}`)}#${source_idx}`,
-                            color: colors[party_idx], // assume no more than 6 actors
-                            damage: 0,
-                            damage_in_minute: 0,
-                            dps: 0,
-                            dps_in_minute: 0,
-                            targets: [],
-                            actions: [],
-                            hit: 0
-                        }) - 1
-                            ]
+                            current_record.actors.find(
+                                    v => v.source_idx === source_idx
+                            ) ||
+                            current_record.actors[
+                            current_record.actors.push({
+                                source_idx, party_idx,
+                                name_key: (name_key = numberToHexStringWithZFill(source_id, 8)),
+                                display_name: `[${party_idx}]${i18n.global.t(`game.actors.${name_key}`)}#${source_idx}`,
+                                color: colors[party_idx], // assume no more than 6 actors
+                                damage: 0,
+                                damage_in_minute: 0,
+                                dps: 0,
+                                dps_in_minute: 0,
+                                targets: [],
+                                actions: [],
+                                hit: 0
+                            }) - 1
+                                    ]
                     );
                 }
                 const get_actor_target = (actor, target_idx, target_id) => {
                     const target_key = `${numberToHexStringWithZFill(target_id, 8)}#${target_idx}`;
                     return actor.targets.find(v => v.name === target_key) ||
-                        (actor.targets[actor.targets.push({
-                            name: target_key,
-                            damage: 0
-                        }) - 1]);
+                            (actor.targets[actor.targets.push({
+                                name: target_key,
+                                damage: 0
+                            }) - 1]);
                 }
                 const get_actor_action = (actor, action_id) => {
                     return (actor.actions.find(v => v.id === action_id) || actor.actions[actor.actions.push({
@@ -504,6 +504,8 @@
                     const {source, target, damage, flags, action_id} = evt;
                     const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
                     const [target_type, target_idx, target_id, target_party_idx, ...__] = target;
+                    if (target_id === 0x22a350f) return; // HARDCODE: 对欧根附加炸弹造成的伤害不进行记录
+                    // TODO: 自伤类技能的过滤
                     // if (target_type === "BehaviorAppBase") return;
                     // if (source_type !== "BehaviorPlayerBase") return;
                     const now = new Date().getTime()
@@ -564,14 +566,14 @@
                                 chart.set_key_color(display_name, color);
                             }
                             chart.append_frame(
-                                real_time,
-                                current_record.actors.reduce(
-                                    (p, {display_name, dps_in_minute}) => {
-                                        p[display_name] = dps_in_minute;
-                                        return p;
-                                    },
-                                    {}
-                                )
+                                    real_time,
+                                    current_record.actors.reduce(
+                                            (p, {display_name, dps_in_minute}) => {
+                                                p[display_name] = dps_in_minute;
+                                                return p;
+                                            },
+                                            {}
+                                    )
                             );
                             last_chart_evt = current_record.last_record_at;
                         }
