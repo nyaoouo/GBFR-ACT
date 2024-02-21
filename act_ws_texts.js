@@ -405,6 +405,26 @@ const i18nCfg = {
                         "1702": "Realm's Majesty 1",
                         "1703": "Realm's Majesty 2"
                     },
+                    "7b5934ad": { // Io
+                        "100": "X",
+                        "110": "(X)X",
+                        "120": "(XX)X",
+                        "210": "Stargaze",
+                        "211": "Stargaze II",
+                        "212": "Stargaze III",
+                        "213": "Stargaze IV",
+                        "214": "Stargaze V",
+                        "300": "(jump)X",
+                        "301": "(jump)X2",
+                        "302": "(jump)X3",
+                        "400": "Launch",
+                        "410": "Aerial Barrage",
+                        "2000": "Freeze",
+                        "3000": "Fire",
+                        "4000": "Flowery Seven",
+                        "7200": "Gravity Well",
+                        "8202": "Lightning"
+                    },
                 },
                 actors: {
                     "9498420d": "Djeeta",
