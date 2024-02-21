@@ -604,6 +604,10 @@
                                     return i18n.global.t('game.actions.common.lb')
                                 case -3:
                                     return i18n.global.t('game.actions.common.bonus')
+                                case 5000:
+                                    return i18n.global.t('game.actions.common.ether_round')
+                                case 5010:
+                                    return i18n.global.t('game.actions.common.charged_shot')
                                 default:
                                     const n = i18n.global.t(`game.actions.${actor.name_key}.${action_id}`)
                                     return n.startsWith('game.actions.') ? action_id.toString() : n;
