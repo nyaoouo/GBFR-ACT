@@ -400,9 +400,9 @@ const i18nCfg = {
                     "1703": "Realm's Majesty 2"
                 },
                 actors: {
-                    "9498420d": "Zeta",
+                    "9498420d": "Djeeta",
                     "26a4848a": "Gran",
-                    "c3155079": "Djeeta",
+                    "c3155079": "Zeta",
                     "34d4fd8f": "Katalina",
                     "f8d73d33": "Rackam",
                     "7b5934ad": "Io",
