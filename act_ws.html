@@ -205,7 +205,11 @@
                     <el-tab-pane :label="$t('ui.targets')" name="targets">
                         <el-table :data="actor_dialog.actor.targets" style="width: 100%" :default-sort="{ prop: 'damage', order: 'descending' }">
                             <el-table-column prop="name" :label="$t('ui.name')"></el-table-column>
-                            <el-table-column prop="damage" :label="$t('ui.damage')" sortable></el-table-column>
+                            <el-table-column prop="damage" :label="$t('ui.damage')" sortable>
+                                <template #default="scope">
+                                    <span>{{numberWithComma(scope.row.damage)}}</span>
+                                </template>
+                            </el-table-column>
                         </el-table>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('ui.actions')" name="actions">
@@ -220,19 +224,27 @@
                             </el-table-column>
                             <el-table-column prop="hit" :label="$t('ui.hit')" sortable>
                                 <template #default="scope">
-                                    <span>{{scope.row.hit}} ({{(scope.row.hit/actor_dialog.actor.hit*100).toFixed(1)}}%)</span>
+                                    <span>{{numberWithComma(scope.row.hit)}} ({{(scope.row.hit/actor_dialog.actor.hit*100).toFixed(1)}}%)</span>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="damage" :label="$t('ui.damage')" sortable>
                                 <template #default="scope">
-                                    <span>{{scope.row.damage}} ({{scope.row.damage?(scope.row.damage/actor_dialog.actor.damage*100).toFixed(1):0}}%)</span>
+                                    <span>{{numberWithComma(scope.row.damage)}} ({{scope.row.damage?(scope.row.damage/actor_dialog.actor.damage*100).toFixed(1):0}}%)</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="min" :label="$t('ui.min')" sortable></el-table-column>
-                            <el-table-column prop="max" :label="$t('ui.max')" sortable></el-table-column>
+                            <el-table-column prop="min" :label="$t('ui.min')" sortable>
+                                <template #default="scope">
+                                    <span>{{numberWithComma(scope.row.min)}}</span>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="max" :label="$t('ui.max')" sortable>
+                                <template #default="scope">
+                                    <span>{{numberWithComma(scope.row.max)}}</span>
+                                </template>
+                            </el-table-column>
                             <el-table-column :label="$t('ui.damage_avg')">
                                 <template #default="scope">
-                                    <span v-if="scope.row.hit > 0">{{Math.floor(scope.row.damage / scope.row.hit)}}</span>
+                                    <span v-if="scope.row.hit > 0">{{numberWithComma(Math.floor(scope.row.damage / scope.row.hit))}}</span>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -258,12 +270,24 @@
                         </el-table-column>
                         <el-table-column prop="damage" :label="$t('ui.damage')" sortable>
                             <template #default="scope">
-                                <span>{{scope.row.damage}} ({{scope.row.damage?(scope.row.damage/item.damage*100).toFixed(1):0}}%)</span>
+                                <span>{{numberWithComma(scope.row.damage)}} ({{scope.row.damage?(scope.row.damage/item.damage*100).toFixed(1):0}}%)</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="damage_in_minute" :label="$t('ui.damage_in_minute')" sortable></el-table-column>
-                        <el-table-column prop="dps" :label="$t('ui.dps')" sortable></el-table-column>
-                        <el-table-column prop="dps_in_minute" :label="$t('ui.dps_in_minute')" sortable></el-table-column>
+                        <el-table-column prop="damage_in_minute" :label="$t('ui.damage_in_minute')" sortable>
+                            <template #default="scope">
+                                <span>{{numberWithComma(scope.row.damage_in_minute)}}</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="dps" :label="$t('ui.dps')" sortable>
+                            <template #default="scope">
+                                <span>{{numberWithComma(scope.row.dps)}}</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="dps_in_minute" :label="$t('ui.dps_in_minute')" sortable>
+                            <template #default="scope">
+                                <span>{{numberWithComma(scope.row.dps_in_minute)}}</span>
+                            </template>
+                        </el-table-column>
                         <el-table-column :label="$t('ui.detail')">
                             <template #default="scope">
                                 <el-button @click="set_actor_dialog(scope.row)" type="text" size="small">detail</el-button>
@@ -304,6 +328,14 @@
             hexString = '0' + hexString;
         }
         return hexString;
+    }
+
+    const numberWithComma = (number) => {
+        try {
+            return number.toLocaleString();
+        } catch (reason) {
+            return `${number}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
     }
 
     const colors = [
@@ -659,7 +691,7 @@
                     const sec = Math.floor(ms / 1000);
                     if (sec < 60) return sec + "s";
                     const min = Math.floor(sec / 60);
-                    return min + "m";
+                    return `${min}m${sec%60}s`;
                 }
                 const archive_record = (record) => {
                     if (record.is_archived) return;
@@ -951,6 +983,7 @@
                     remove_record,
                     actor_dialog,
                     set_actor_dialog,
+                    numberWithComma,
                 }
             }
         })
