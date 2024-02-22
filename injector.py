@@ -1765,6 +1765,11 @@ def actor_idx(a1):
     return u32_from(a1 + 0x170)
 
 
+def ensure_same(args):
+    if len(s := set(args)) != 1: raise ValueError(f'not same {args=}')
+    return s.pop()
+
+
 class Act:
     _sys_key = '_act_'
 
@@ -1778,6 +1783,12 @@ class Act:
             ctypes.c_size_t,
             ctypes.c_size_t,
             ctypes.c_uint8
+        ])
+
+        p_process_dot_evt, = ensure_same(map(tuple, scanner.find_vals('44 89 74 24 ? 48 ? ? ? ? 48 ? ? e8 * * * * 4c ? ? ? ? ? ?')))
+        self.process_dot_evt_hook = Hook(p_process_dot_evt, self._on_process_dot_evt, ctypes.c_size_t, [
+            ctypes.c_size_t,
+            ctypes.c_size_t
         ])
 
         p_on_enter_area, = scanner.find_val('e8 * * * * c5 ? ? ? c5 f8 29 45 ? c7 45 ? ? ? ? ?')
@@ -1832,16 +1843,6 @@ class Act:
         if flag: return res
         try:
             dmg = i32_from(a2 + 0xd0)
-            # TODO: 找个通用方法溯源
-            source_type_id = actor_type_id(source)
-            if source_type_id == 0x2af678e8:  # 菲莉宝宝 # Pl0700Ghost
-                source = size_t_from(size_t_from(source + 0xE48) + 0x70)
-            elif source_type_id == 0x8364c8bc:  # 菲莉 绕身球  # Pl0700GhostSatellite
-                source = size_t_from(size_t_from(source + 0x508) + 0x70)
-            elif source_type_id == 0xc9f45042:  # 老男人武器
-                source = size_t_from(size_t_from(source + 0x578) + 0x70)
-            elif source_type_id == 0xf5755c0e:  # 龙人化
-                source = size_t_from(size_t_from(source + 0xD028) + 0x70)
             flags_ = u64_from(a2 + 0xd8)
             if (1 << 7 | 1 << 50) & flags_:
                 action_id = -1  # link attack
@@ -1849,9 +1850,20 @@ class Act:
                 action_id = -2  # limit break
             else:
                 action_id = u32_from(a2 + 0x154)
-            self.on_damage(self.actor_data(source), self.actor_data(target), dmg, flags_, action_id)
+            self._on_damage(source, target, dmg, flags_, action_id)
         except:
             logging.error('on_process_damage_evt', exc_info=True)
+        return res
+
+    def _on_process_dot_evt(self, hook, a1, a2):
+        res = hook.original(a1, a2)
+        try:
+            dmg = i32_from(a2)
+            target = size_t_from(size_t_from(a1 + 0x18) + 0x70)
+            source = size_t_from(size_t_from(a1 + 0x30) + 0x70)
+            self._on_damage(source, target, dmg, 0, -0x100)
+        except:
+            logging.error('on_process_dot_evt', exc_info=True)
         return res
 
     def _on_enter_area(self, hook, a1, a2, a3):
@@ -1866,6 +1878,19 @@ class Act:
             logging.error('on_enter_area', exc_info=True)
         return res
 
+    def _on_damage(self, source, target, damage, flags, action_id):
+        # TODO: 找个通用方法溯源
+        source_type_id = actor_type_id(source)
+        if source_type_id == 0x2af678e8:  # 菲莉宝宝 # Pl0700Ghost
+            source = size_t_from(size_t_from(source + 0xE48) + 0x70)
+        elif source_type_id == 0x8364c8bc:  # 菲莉 绕身球  # Pl0700GhostSatellite
+            source = size_t_from(size_t_from(source + 0x508) + 0x70)
+        elif source_type_id == 0xc9f45042:  # 老男人武器
+            source = size_t_from(size_t_from(source + 0x578) + 0x70)
+        elif source_type_id == 0xf5755c0e:  # 龙人化
+            source = size_t_from(size_t_from(source + 0xD028) + 0x70)
+        return self.on_damage(self.actor_data(source), self.actor_data(source), damage, flags, action_id)
+
     def on_damage(self, source, target, damage, flags, action_id):
         pass
 
@@ -1875,6 +1900,7 @@ class Act:
     def install(self):
         assert not hasattr(sys, self._sys_key), 'Act already installed'
         self.process_damage_evt_hook.install_and_enable()
+        self.process_dot_evt_hook.install_and_enable()
         self.on_enter_area_hook.install_and_enable()
         setattr(sys, self._sys_key, self)
         return self
@@ -1882,6 +1908,7 @@ class Act:
     def uninstall(self):
         assert getattr(sys, self._sys_key, None) is self, 'Act not installed'
         self.process_damage_evt_hook.uninstall()
+        self.process_dot_evt_hook.uninstall()
         self.on_enter_area_hook.uninstall()
         delattr(sys, self._sys_key)
         return self
