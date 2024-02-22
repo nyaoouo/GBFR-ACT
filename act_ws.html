@@ -209,8 +209,15 @@
                         </el-table>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('ui.actions')" name="actions">
+                        <div :style="{display:actor_dialog.action_chart.selected?'block':'none'}">
+                            <canvas :ref="el => { actor_dialog.action_chart.canvas = el }" height="500"></canvas>
+                        </div>
                         <el-table :data="actor_dialog.actor.actions" style="width: 100%" :default-sort="{ prop: 'damage', order: 'descending' }">
-                            <el-table-column prop="display_name" :label="$t('ui.name')"></el-table-column>
+                            <el-table-column prop="display_name" :label="$t('ui.name')">
+                                <template #default="scope">
+                                    <el-link @click="actor_dialog.action_chart.selected=scope.row">{{scope.row.display_name}}</el-link>
+                                </template>
+                            </el-table-column>
                             <el-table-column prop="hit" :label="$t('ui.hit')" sortable>
                                 <template #default="scope">
                                     <span>{{scope.row.hit}} ({{(scope.row.hit/actor_dialog.actor.hit*100).toFixed(1)}}%)</span>
@@ -308,14 +315,110 @@
         '#55ffff',
     ]
 
+    class ActionDamageChart {
+        constructor(canvas, max_display = 100) {
+            this.datas = {
+                datasets: [{
+                    label: '',
+                    data: [],
+                    borderColor: '#11ff11',
+                    backgroundColor: '#11ff11',
+                    fill: false,
+                }]
+            };
+            this.chart = new Chart(canvas.getContext('2d'), {
+                type: 'scatter',
+                data: this.datas,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            position: 'bottom',
+                        },
+                        y: {
+                            position: 'left',
+                        }
+                    },
+                    animation: {
+                        y: {
+                            duration: 0
+                        },
+                        x: {
+                            duration: 0
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (ctx) {
+                                    // console.log(ctx);
+                                    return ctx.parsed.y;
+                                }
+                            }
+                        }
+                    },
+
+                }
+            });
+            this.max_display = max_display;
+            this.current = null;
+        }
+
+        set_color(color) {
+            const dataset = this.datas.datasets[0];
+            dataset.borderColor = color;
+            dataset.backgroundColor = color;
+            return dataset;
+        }
+
+        load(key, datas) {
+            if (this.max_display && datas.length > this.max_display) {
+                datas = datas.slice(datas.length - this.max_display);
+            }
+            const dataset = this.datas.datasets[0];
+            if (dataset.label !== key) dataset.label = key;
+            this.datas.datasets[0].data = datas.map(({x, y}) => ({x, y}));
+            this.chart.update();
+        }
+
+        is(key) {
+            return this.datas.datasets[0].label === key;
+        }
+
+        put(key, {x, y}) {
+            const dataset = this.datas.datasets[0];
+            if (dataset.label !== key) {
+                dataset.label = key;
+                dataset.data = [];
+            }
+            dataset.data.push({x, y});
+            if (this.max_display && dataset.data.length > this.max_display) {
+                dataset.data.shift();
+            }
+            this.chart.update();
+        }
+
+        clear() {
+            const dataset = this.datas.datasets[0];
+            dataset.data = [];
+            dataset.label = '';
+            this.chart.update();
+        }
+
+        destroy() {
+            this.chart.destroy();
+        }
+
+        static instance = null;
+    }
+
     class DamageChart {
         constructor(canvas) {
-            this.canvas = canvas;
-            this.ctx = canvas.getContext('2d');
             this.datas = {
                 datasets: []
             };
-            this.chart = new Chart(this.ctx, {
+            this.chart = new Chart(canvas.getContext('2d'), {
                 type: 'line',
                 data: this.datas,
                 options: {
@@ -347,7 +450,7 @@
                 }
             });
             // this.period = 10 * 60;
-            this.period = 0;
+            this.max = 0;
         }
 
         set_key_color(key, color) {
@@ -519,6 +622,10 @@
                     visible: false,
                     actor: null,
                     page: 'targets',
+                    action_chart: {
+                        canvas: null,
+                        selected: null,
+                    },
                 });
                 const cfg = Vue.ref(JSON.parse(localStorage.getItem('act_ws_cfg') || "{}"));
                 var want_new = false;
@@ -531,6 +638,9 @@
                     } else {
                         actor_dialog.visible = false;
                         actor_dialog.actor = null;
+                        actor_dialog.action_chart.selected = null;
+                        ActionDamageChart.instance?.destroy();
+                        ActionDamageChart.instance = null;
                     }
                 }
 
@@ -640,6 +750,7 @@
                         damage: 0,
                         min: -1,
                         max: -1,
+                        history: [],
                     }) - 1]);
                 }
                 const on_damage = (evt) => {
@@ -672,6 +783,12 @@
                     action.damage += damage;
                     if (action.min === -1 || action.min > damage) action.min = damage;
                     if (action.max === -1 || action.max < damage) action.max = damage;
+                    action.history.push({x: (now - current_record.time) / 1000, y: damage});
+                    if (action.history.length > 100) action.history = action.history.slice(action.history.length - 100);
+                    const action_chart = ActionDamageChart.instance
+                    if (action_chart && actor_dialog.action_chart.selected === action) {
+                        action_chart.put(action.display_name, action.history[action.history.length - 1]);
+                    }
                     if (log_cond.damage) log(`${actor.display_name} cause ${damage} damage by ${action.display_name} to ${target_actor.name}`);
                 }
 
@@ -700,25 +817,23 @@
                         actor.dps = Math.floor(actor.damage / full_time);
                         actor.dps_in_minute = Math.floor(actor.damage_in_minute / full_time_in_minute);
                     }
-                    if (real_time > 10) {
+                    if (real_time > 10 && current_record.last_chart_evt !== current_record.last_record_at) {
                         current_record.show_chart = true;
-                        if (current_record.last_chart_evt !== current_record.last_record_at) {
-                            const dps_chart = DpsChart.get_instance(current_record.name, current_record.dps_canvas);
-                            const damage_chart = DamageChart.get_instance(current_record.name, current_record.dmg_canvas);
-                            for (const {display_name, color} of current_record.actors) {
-                                dps_chart.set_key_color(display_name, color);
-                                damage_chart.set_key_color(display_name, color);
-                            }
-                            dps_chart.append_frame(real_time, current_record.actors.reduce((p, {display_name, dps_in_minute}) => {
-                                p[display_name] = dps_in_minute;
-                                return p;
-                            }, {}));
-                            damage_chart.append_frame(real_time, current_record.actors.reduce((p, {display_name, damage}) => {
-                                p[display_name] = damage;
-                                return p;
-                            }, {}));
-                            current_record.last_chart_evt = current_record.last_record_at;
+                        const dps_chart = DpsChart.get_instance(current_record.name, current_record.dps_canvas);
+                        const damage_chart = DamageChart.get_instance(current_record.name, current_record.dmg_canvas);
+                        for (const {display_name, color} of current_record.actors) {
+                            dps_chart.set_key_color(display_name, color);
+                            damage_chart.set_key_color(display_name, color);
                         }
+                        dps_chart.append_frame(real_time, current_record.actors.reduce((p, {display_name, dps_in_minute}) => {
+                            p[display_name] = dps_in_minute;
+                            return p;
+                        }, {}));
+                        damage_chart.append_frame(real_time, current_record.actors.reduce((p, {display_name, damage}) => {
+                            p[display_name] = damage;
+                            return p;
+                        }, {}));
+                        current_record.last_chart_evt = current_record.last_record_at;
                     }
                 }
 
@@ -795,6 +910,18 @@
                     }
                     Vue.watch(cfg, (v) => localStorage.setItem('act_ws_cfg', JSON.stringify(v)), {deep: true});
                     Vue.watch(() => i18n.global.locale, i18nCfg.onLocaleChange)
+                    Vue.watch(() => actor_dialog.action_chart.selected, (action) => {
+                        if (action && actor_dialog.actor) {
+                            let chart = ActionDamageChart.instance;
+                            if (!chart) {
+                                if (!actor_dialog.action_chart.canvas) return;
+                                chart = ActionDamageChart.instance = new ActionDamageChart(actor_dialog.action_chart.canvas);
+                            }
+                            chart.load(action.display_name, action.history);
+                        } else {
+                            ActionDamageChart.instance?.clear();
+                        }
+                    })
                     update_period = 1000;
                     create_socket();
                     update_interval = setInterval(update, update_period);
