@@ -205,9 +205,6 @@
                     <el-tab-pane :label="$t('ui.targets')" name="targets">
                         <el-table :data="actor_dialog.actor.targets" style="width: 100%" :default-sort="{ prop: 'damage', order: 'descending' }">
                             <el-table-column prop="name" :label="$t('ui.name')">
-                                <template #default="scope">
-                                    <span>{{numberWithComma(scope.row.damage)}}</span>
-                                </template>
                             </el-table-column>
                             <el-table-column prop="damage" :label="$t('ui.damage')" sortable>
                                 <template #default="scope">
@@ -287,6 +284,13 @@
                 >
                     <el-table :data="item.actors" style="width: 100%" :default-sort="{ prop: 'dps', order: 'descending' }">
                         <el-table-column prop="name">
+                            <template #header>
+                                <el-button circle @click="export_log(item)">
+                                    <el-icon>
+                                        <Download/>
+                                    </el-icon>
+                                </el-button>
+                            </template>
                             <template #default="scope">
                                 <span>
                                     <el-icon :style="{'color':scope.row.color}"><Avatar/></el-icon> {{scope.row.display_name}}
@@ -459,6 +463,21 @@
     cdn_loader.then(() => {
         const i18n = VueI18n.createI18n(i18nCfg);
 
+        const evt_action_id = ({flags, action_id}) => {
+            if (flags & (1 << 15)) return -3;
+            return action_id;
+        }
+
+        const actor_name = (actor_id) => {
+            const name_key = numberToHexStringWithZFill(actor_id, 8);
+            return i18n.global.te(`game.actors.${name_key}`) ? i18n.global.t(`game.actors.${name_key}`) : name_key;
+        }
+
+        const action_name = (actor_id, action_id) => {
+            const key = `game.actions.${numberToHexStringWithZFill(actor_id, 8)}.${action_id}`;
+            return i18n.global.te(key) ? i18n.global.t(key) : `${action_id}`;
+        }
+
         class RecordEx {
             // static chart_period = 10 * 60;
             static chart_period = 0;
@@ -536,11 +555,11 @@
 
             destroy() {
                 if (this.dps_chart) {
-                    this.dps_chart.chart.destroy();
+                    this.dps_chart.destroy();
                     this.dps_chart = null;
                 }
                 if (this.dmg_chart) {
-                    this.dmg_chart.chart.destroy();
+                    this.dmg_chart.destroy();
                     this.dmg_chart = null;
                 }
                 delete RecordEx.instances[this.name];
@@ -561,11 +580,7 @@
         class ActorTarget {
             constructor(idx, id, party_idx) {
                 this.idx = idx;
-                //this.party_idx = party_idx;
-                const name_key = numberToHexStringWithZFill(id, 8)
-                const key = `game.actors.${name_key}`;
-                const _name = i18n.global.te(key) ? i18n.global.t(key) : name_key;
-                this.name = party_idx === -1 ? `${_name}#${idx}` : `[${party_idx}]${_name}#${idx}`;
+                this.name = party_idx === -1 ? `${actor_name(id)}#${idx}` : `[${party_idx}]${actor_name(id)}#${idx}`;
                 this.damage = 0;
             }
         }
@@ -718,6 +733,33 @@
                 return RecordEx.get_instance(this.time_ms);
             }
 
+            export_log() {
+                const res = ''.concat(...this.get_ex().events.map(({time_ms, type, data}) => {
+                    switch (type) {
+                        case "damage":
+                            const {source, target, damage, flags} = data;
+                            const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
+                            const [target_type, target_idx, target_id, target_party_idx, ...__] = target;
+                            const action_id = evt_action_id(data);
+                            const date = new Date(time_ms);
+                            return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}|damage|` +
+                                    `${source_type};${source_idx};${numberToHexStringWithZFill(source_id, 8)};${source_party_idx};${actor_name(source_id)}|` +
+                                    `${target_type};${target_idx};${numberToHexStringWithZFill(target_id, 8)};${target_party_idx};${actor_name(target_id)}|` +
+                                    `${action_id}|${action_name(source_id, action_id)}|${damage}|${flags}\n`;
+                    }
+                    return '';
+                }))
+                const bolb = new Blob([res], {type: 'text/plain'});
+                if (window.navigator.msSaveOrOpenBlob) {
+                    window.navigator.msSaveBlob(bolb, `${this.name}.txt`);
+                } else {
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(bolb);
+                    a.download = `${this.name}.txt`;
+                    a.click();
+                }
+            }
+
             destroy() {
                 RecordEx.destroy_instance(this.time_ms);
             }
@@ -747,6 +789,7 @@
                     period: 0,
                     last_frame: 0,
                 }
+                const export_log = (record) => record.export_log();
 
                 const set_actor_dialog = (actor) => {
                     if (actor) {
@@ -791,7 +834,7 @@
                 const on_damage = (evt) => {
                     const {time_ms, data} = evt;
                     if (update_var.want_new) new_record(time_ms);
-                    const {source, target, damage, flags, action_id} = data;
+                    const {source, target, damage} = data;
                     const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
                     const [target_type, target_idx, target_id, target_party_idx, ...__] = target;
                     if (target_id === 0x22a350f) return; // HARDCODE: 对欧根附加炸弹造成的伤害不进行记录
@@ -807,7 +850,7 @@
                     actor.damage_in_minute += damage;
                     const target_actor = actor.get_target(target_idx, target_id, target_party_idx);
                     target_actor.damage += damage;
-                    const action = actor.get_action(flags & (1 << 15) ? -3 : action_id);
+                    const action = actor.get_action(evt_action_id(data));
                     action.hit += 1;
                     action.damage += damage;
                     if (action.min === -1 || action.min > damage) action.min = damage;
@@ -921,14 +964,11 @@
                             if (!record) return err('record not found for ', actor_dialog.actor);
                             const datas = []
 
-                            let cond = ({action_id, flags}) => action_id === action.id && (flags & (1 << 15)) === 0;
-                            if (action.id === -3) cond = ({flags}) => (flags & (1 << 15)) > 0;
-
                             for (const {time_ms, type, data} of record.get_ex().events.reverse()) {
                                 if (type !== 'damage') continue;
                                 const {source, damage} = data;
                                 if (source[1] !== actor_dialog.actor.idx) continue;
-                                if (!cond(data)) continue;
+                                if (evt_action_id(data) !== action.id) continue;
                                 datas.push({x: (time_ms - record.time_ms) / 1000, y: damage});
                                 if (datas.length >= chart.max_display) break;
                             }
@@ -959,6 +999,7 @@
                     view_record_value,
                     is_socket_connected,
                     records,
+                    export_log,
                     fmtTime,
                     remove_record,
                     actor_dialog,
