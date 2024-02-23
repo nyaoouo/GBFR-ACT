@@ -719,6 +719,7 @@ class ActWs(Act):
 
     def on_damage(self, source, target, damage, flags, action_id):
         BroadcastHandler.broadcast({
+            'time_ms': int(time.time() * 1000),
             'type': 'damage',
             'data': {
                 'source': source,
@@ -731,6 +732,7 @@ class ActWs(Act):
 
     def on_enter_area(self):
         BroadcastHandler.broadcast({
+            'time_ms': int(time.time() * 1000),
             'type': 'enter_area'
         })
 

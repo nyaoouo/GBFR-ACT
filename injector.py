@@ -1889,7 +1889,7 @@ class Act:
             source = size_t_from(size_t_from(source + 0x578) + 0x70)
         elif source_type_id == 0xf5755c0e:  # 龙人化
             source = size_t_from(size_t_from(source + 0xD028) + 0x70)
-        return self.on_damage(self.actor_data(source), self.actor_data(source), damage, flags, action_id)
+        return self.on_damage(self.actor_data(source), self.actor_data(target), damage, flags, action_id)
 
     def on_damage(self, source, target, damage, flags, action_id):
         pass
