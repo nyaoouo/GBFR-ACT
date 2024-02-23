@@ -3,6 +3,14 @@
 
 ![img](./demo.png)
 
+### TODO
+1. Log Export
+2. Use Timestamp but not Date.now() to deal with Chrome's background tab restriction
+3. A better parent actor detection
+4. Flags for damage calculation, such as crit, or damage cap
+5. More event type support
+
+
 ### 备注
 1. **关于伤害动作构成**
    - 动作名称来源于群众提供，可能存在错误，错漏欢迎issue或者pr
