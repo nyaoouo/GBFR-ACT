@@ -330,13 +330,7 @@
         return hexString;
     }
 
-    const numberWithComma = (number) => {
-        try {
-            return number.toLocaleString();
-        } catch (reason) {
-            return `${number}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        }
-    }
+    const numberWithComma = new Intl.NumberFormat('en-EN', {maximumFractionDigits: 2}).format;
 
     const colors = [
         '#55ff55',
@@ -691,7 +685,7 @@
                     const sec = Math.floor(ms / 1000);
                     if (sec < 60) return sec + "s";
                     const min = Math.floor(sec / 60);
-                    return `${min}m${sec%60}s`;
+                    return `${min}m${sec % 60}s`;
                 }
                 const archive_record = (record) => {
                     if (record.is_archived) return;
