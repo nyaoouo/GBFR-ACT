@@ -283,7 +283,7 @@
                     closable @tab-remove="remove_record"
             >
                 <el-tab-pane
-                        v-for="item in records" :key="item.name" :label="item.last_record_at?`${item.name} [${fmt_time(item.last_record_at-item.time)}]`:item.name" :name="item.name"
+                        v-for="item in records" :key="item.name" :label="item.last_record_at?`${item.name} [${fmtTime(item.last_record_at-item.time_ms)}]`:item.name" :name="item.name"
                 >
                     <el-table :data="item.actors" style="width: 100%" :default-sort="{ prop: 'dps', order: 'descending' }">
                         <el-table-column prop="name">
@@ -336,7 +336,7 @@
         f(`[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}]`, ...args);
     }
     const log_cond = {
-        evt: 1,
+        evt: 0,
         render: 0,
         damage: 0,
     }
@@ -345,7 +345,7 @@
     const flag_offs = (val) => Array.from(Array(val.toString(2).length).keys())
             .filter(off => val & (1 << off));
 
-    var socket = null;
+    let socket = null;
 
     function numberToHexStringWithZFill(number, minLength) {
         let hexString = number.toString(16);
@@ -357,14 +357,13 @@
 
     const numberWithComma = new Intl.NumberFormat('en-EN', {maximumFractionDigits: 2}).format;
 
-    const colors = [
-        '#55ff55',
-        '#ff5555',
-        '#5555ff',
-        '#ffff55',
-        '#ff55ff',
-        '#55ffff',
-    ]
+    const fmtTime = (ms) => {
+        if (ms < 1000) return ms + "ms";
+        const sec = Math.floor(ms / 1000);
+        if (sec < 60) return sec + "s";
+        const min = Math.floor(sec / 60);
+        return `${min}m${sec % 60}s`;
+    }
 
     class ActionDamageChart {
         constructor(canvas, max_display = 100) {
@@ -416,33 +415,25 @@
             this.current = null;
         }
 
-        set_color(color) {
+        set({color = undefined, datas = undefined, label = undefined}) {
             const dataset = this.datas.datasets[0];
-            dataset.borderColor = color;
-            dataset.backgroundColor = color;
+            if (color) {
+                dataset.borderColor = color;
+                dataset.backgroundColor = color;
+            }
+            if (label) dataset.label = label;
+            if (datas) {
+                dataset.data = (
+                        this.max_display && datas.length > this.max_display ?
+                                datas.slice(datas.length - this.max_display) :
+                                datas
+                ).map(({x, y}) => ({x, y}));
+            }
             return dataset;
         }
 
-        load(key, datas) {
-            if (this.max_display && datas.length > this.max_display) {
-                datas = datas.slice(datas.length - this.max_display);
-            }
+        put({x, y}) {
             const dataset = this.datas.datasets[0];
-            if (dataset.label !== key) dataset.label = key;
-            this.datas.datasets[0].data = datas.map(({x, y}) => ({x, y}));
-            this.chart.update();
-        }
-
-        is(key) {
-            return this.datas.datasets[0].label === key;
-        }
-
-        put(key, {x, y}) {
-            const dataset = this.datas.datasets[0];
-            if (dataset.label !== key) {
-                dataset.label = key;
-                dataset.data = [];
-            }
             dataset.data.push({x, y});
             if (this.max_display && dataset.data.length > this.max_display) {
                 dataset.data.shift();
@@ -464,209 +455,284 @@
         static instance = null;
     }
 
-    class DamageChart {
-        constructor(canvas) {
-            this.datas = {
-                datasets: []
-            };
-            this.chart = new Chart(canvas.getContext('2d'), {
-                type: 'line',
-                data: this.datas,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            type: 'linear',
-                            position: 'bottom',
-                        },
-                        y: {
-                            beginAtZero: true,
-                            position: 'left',
-                        }
-                    },
-                    animation: {
-                        y: {
-                            duration: 0
-                        },
-                        x: {
-                            duration: 0
-                        }
-                    },
-                    elements: {
-                        point: {
-                            radius: 0
-                        }
-                    }
-                }
-            });
-            // this.period = 10 * 60;
-            this.max = 0;
-        }
-
-        set_key_color(key, color) {
-            const dataset = this.datas.datasets.find(ds => ds.label === key);
-            if (dataset) {
-                dataset.borderColor = color;
-                dataset.backgroundColor = color;
-            } else {
-                this.datas.datasets.push({
-                    label: key,
-                    data: [],
-                    borderColor: color,
-                    backgroundColor: color,
-                    fill: false,
-                });
-            }
-        }
-
-        append_frame(timestamp, datas) {
-            if (this.period > 0) {
-                const min_time = timestamp - this.period;
-                for (const dataset of this.datas.datasets) {
-                    const cutoff_idx = dataset.data.findIndex(d => d.x > min_time);
-                    if (cutoff_idx >= 0) dataset.data = dataset.data.slice(cutoff_idx);
-                }
-            }
-            Object.entries(datas).forEach(([key, value]) => {
-                let dataset = this.datas.datasets.find(ds => ds.label === key);
-                if (!dataset) {
-                    dataset = {
-                        label: key,
-                        data: [],
-                        borderColor: '#000000',
-                        backgroundColor: '#000000',
-                        fill: false,
-                    }
-                    this.datas.datasets.push(dataset);
-                }
-                dataset.data.push({x: timestamp, y: value});
-            });
-            if (log_cond.render) log('log_render', this.datas);
-            this.chart.update();
-        }
-
-        static instances = {};
-
-        static get_instance(name, canvas) {
-            if (!this.instances[name]) this.instances[name] = new this(canvas);
-            return this.instances[name];
-        }
-
-        static destroy_instance(name) {
-            if (name in this.instances) {
-                this.instances[name].chart.destroy();
-                delete this.instances[name];
-            }
-        }
-    }
-
-    class DpsChart {
-        constructor(canvas) {
-            this.canvas = canvas;
-            this.ctx = canvas.getContext('2d');
-            this.datas = {
-                datasets: []
-            };
-            this.chart = new Chart(this.ctx, {
-                type: 'line',
-                data: this.datas,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            type: 'linear',
-                            position: 'bottom',
-                        },
-                        y: {
-                            //beginAtZero: true,
-                            position: 'left',
-                        }
-                    },
-                    animation: {
-                        y: {
-                            duration: 0
-                        },
-                        x: {
-                            duration: 0
-                        }
-                    },
-                    elements: {
-                        point: {
-                            radius: 0
-                        }
-                    }
-                }
-            });
-            // this.period = 10 * 60;
-            this.period = 0;
-        }
-
-        set_key_color(key, color) {
-            const dataset = this.datas.datasets.find(ds => ds.label === key);
-            if (dataset) {
-                dataset.borderColor = color;
-                dataset.backgroundColor = color;
-            } else {
-                this.datas.datasets.push({
-                    label: key,
-                    data: [],
-                    borderColor: color,
-                    backgroundColor: color,
-                    fill: false,
-                });
-            }
-        }
-
-        append_frame(timestamp, datas) {
-            if (this.period > 0) {
-                const min_time = timestamp - this.period;
-                for (const dataset of this.datas.datasets) {
-                    const cutoff_idx = dataset.data.findIndex(d => d.x > min_time);
-                    if (cutoff_idx >= 0) dataset.data = dataset.data.slice(cutoff_idx);
-                }
-            }
-            Object.entries(datas).forEach(([key, value]) => {
-                let dataset = this.datas.datasets.find(ds => ds.label === key);
-                if (!dataset) {
-                    dataset = {
-                        label: key,
-                        data: [],
-                        borderColor: '#000000',
-                        backgroundColor: '#000000',
-                        fill: false,
-                    }
-                    this.datas.datasets.push(dataset);
-                }
-                dataset.data.push({x: timestamp, y: value});
-            });
-            if (log_cond.render) log('log_render', this.datas);
-            this.chart.update();
-        }
-
-        static instances = {};
-
-        static get_instance(name, canvas) {
-            if (!this.instances[name]) this.instances[name] = new this(canvas);
-            return this.instances[name];
-        }
-
-        static destroy_instance(name) {
-            if (name in this.instances) {
-                this.instances[name].chart.destroy();
-                delete this.instances[name];
-            }
-        }
-    }
 
     cdn_loader.then(() => {
         const i18n = VueI18n.createI18n(i18nCfg);
 
+        class RecordEx {
+            // static chart_period = 10 * 60;
+            static chart_period = 0;
+
+            constructor(key) {
+                if (RecordEx.instances[key]) throw new Error(`record ${key} already exists`);
+                this.key = key;
+                this.dps_chart = null;
+                this.dmg_chart = null;
+                this.dps_chart_data = {datasets: []};
+                this.dmg_chart_data = {datasets: []};
+                this.events = [];
+                RecordEx.instances[key] = this;
+            }
+
+            new_chart_actor(name, color) {
+                this.dps_chart_data.datasets.push({label: name, data: [], borderColor: color, backgroundColor: color, fill: false});
+                this.dmg_chart_data.datasets.push({label: name, data: [], borderColor: color, backgroundColor: color, fill: false});
+            }
+
+            update_chart(time_sec, record) {
+                if (RecordEx.chart_period > 0) {
+                    const min_time = time_sec - RecordEx.chart_period;
+                    for (const dataset of this.dps_chart_data.datasets) {
+                        const cutoff_idx = dataset.data.findIndex(d => d.x > min_time);
+                        if (cutoff_idx >= 0) dataset.data = dataset.data.slice(cutoff_idx);
+                    }
+                    for (const dataset of this.dmg_chart_data.datasets) {
+                        const cutoff_idx = dataset.data.findIndex(d => d.x > min_time);
+                        if (cutoff_idx >= 0) dataset.data = dataset.data.slice(cutoff_idx);
+                    }
+                }
+                for (const {display_name, damage, dps} of record.actors) {
+                    const dps_dataset = this.dps_chart_data.datasets.find(ds => ds.label === display_name);
+                    if (dps_dataset) dps_dataset.data.push({x: time_sec, y: dps});
+                    const dmg_dataset = this.dmg_chart_data.datasets.find(ds => ds.label === display_name);
+                    if (dmg_dataset) dmg_dataset.data.push({x: time_sec, y: damage});
+                }
+                this.get_dmg_chart(record.dmg_canvas)?.update();
+                this.get_dps_chart(record.dps_canvas)?.update();
+            }
+
+            get_dps_chart(canvas) {
+                if (!this.dps_chart && canvas) this.dps_chart = new Chart(canvas.getContext('2d'), {
+                    type: 'line',
+                    data: this.dps_chart_data,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {x: {type: 'linear', position: 'bottom',}, y: {position: 'left',}},
+                        animation: {y: {duration: 0}, x: {duration: 0}},
+                        elements: {point: {radius: 0}}
+                    }
+                });
+                return this.dps_chart;
+            }
+
+            get_dmg_chart(canvas) {
+                if (!this.dmg_chart && canvas) this.dmg_chart = new Chart(canvas.getContext('2d'), {
+                    type: 'line',
+                    data: this.dmg_chart_data,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {x: {type: 'linear', position: 'bottom',}, y: {position: 'left',}},
+                        animation: {y: {duration: 0}, x: {duration: 0}},
+                        elements: {point: {radius: 0}}
+                    }
+                });
+                return this.dmg_chart;
+            }
+
+            destroy() {
+                if (this.dps_chart) {
+                    this.dps_chart.chart.destroy();
+                    this.dps_chart = null;
+                }
+                if (this.dmg_chart) {
+                    this.dmg_chart.chart.destroy();
+                    this.dmg_chart = null;
+                }
+                delete RecordEx.instances[this.name];
+            }
+
+            serialize() {
+                return JSON.stringify({
+                    key: this.key,
+                    events: this.events,
+                })
+            }
+
+            static deserialize(str) {
+                const obj = JSON.parse(str);
+                const record = new RecordEx(obj.key);
+                record.events = obj.events;
+                return record;
+            }
+
+            static instances = {};
+
+            static get_instance(key) {
+                return RecordEx.instances[key] || new RecordEx(key);
+            }
+
+            static destroy_instance(key) {
+                const record = RecordEx.instances[key];
+                if (record) record.destroy();
+            }
+        }
+
+        class ActorTarget {
+            constructor(idx, id, party_idx) {
+                this.idx = idx;
+                //this.party_idx = party_idx;
+                const name_key = numberToHexStringWithZFill(id, 8)
+                const key = `game.actors.${name_key}`;
+                const _name = i18n.global.te(key) ? i18n.global.t(key) : name_key;
+                this.name = party_idx === -1 ? `${_name}#${idx}` : `[${party_idx}]${_name}#${idx}`;
+                this.damage = 0;
+            }
+        }
+
+        class ActorAction {
+            static  common_actions = (() => {
+                const res = {};
+                res[-1] = 'game.actions.common.link';
+                res[-2] = 'game.actions.common.lb';
+                res[-3] = 'game.actions.common.bonus';
+                res[-0x100] = 'game.actions.common.dot';
+                res[5000] = 'game.actions.common.ether_round';
+                res[5010] = 'game.actions.common.charged_shot';
+                return res;
+            })()
+
+            constructor(actor_key, action_id) {
+                this.id = action_id;
+                const key = ActorAction.common_actions[action_id] || `game.actions.${actor_key}.${action_id}`;
+                this.display_name = i18n.global.te(key) ? i18n.global.t(key) : `${action_id}`;
+                this.display_desc = i18n.global.te(`${key}.desc`) ? i18n.global.t(`${key}.desc`) : '';
+                this.hit = 0;
+                this.damage = 0;
+                this.min = -1;
+                this.max = -1;
+            }
+        }
+
+        class Actor {
+            static colors = [
+                '#55ff55',
+                '#ff5555',
+                '#5555ff',
+                '#ffff55',
+                '#ff55ff',
+                '#55ffff',
+            ]
+
+            constructor(record_key, idx, id, party_idx) {
+                this.record_key = record_key;
+                this.idx = idx;
+                this.party_idx = party_idx;
+                this.name_key = numberToHexStringWithZFill(id, 8);
+                this.display_name = `[${party_idx}]${i18n.global.t(`game.actors.${this.name_key}`)}#${idx}`;
+                this.color = Actor.colors[party_idx];
+                this.damage = 0;
+                this.damage_in_minute = 0;
+                this.dps = 0;
+                this.dps_in_minute = 0;
+                this.targets = [];
+                this.actions = [];
+                this.action_desc = (() => {
+                    const key = `game.actions.${this.name_key}.desc`;
+                    const res = i18n.global.t(key);
+                    return res === key ? "" : res;
+                })();
+                this.hit = 0;
+            }
+
+            get_target(target_idx, target_id, target_party_idx) {
+                const res = this.targets.find(v => v.idx === target_idx);
+                if (res) return res;
+                const new_res = Vue.reactive(new ActorTarget(target_idx, target_id, target_party_idx));
+                this.targets.push(new_res);
+                return new_res;
+            }
+
+            get_action(action_id) {
+                const res = this.actions.find(v => v.id === action_id);
+                if (res) return res;
+                const new_res = Vue.reactive(new ActorAction(this.name_key, action_id));
+                this.actions.push(new_res);
+                return new_res;
+            }
+        }
+
+        class Record {
+            constructor(time_ms = 0) {
+                const date = time_ms ? new Date(time_ms) : new Date();
+                this.time_ms = date.getTime();
+                this.last_record_at = 0;
+                this.last_chart_at = 0;
+                this.name = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+                this.actors = [];
+                this.evt_time_over_ptr = 0;
+                this.show_chart = false;
+                this.dps_canvas = null;
+                this.dmg_canvas = null;
+                this.archived = false;
+
+                this.damage = 0;
+            }
+
+            get_actor(idx, id, party_idx) {
+                const res = this.actors.find(v => v.idx === idx);
+                if (res) return res;
+                if (!id) return null;
+                const new_res = Vue.reactive(new Actor(this.time_ms, idx, id, party_idx));
+                this.get_ex().new_chart_actor(new_res.display_name, new_res.color);
+                this.actors.push(new_res);
+                return new_res;
+            }
+
+            process_overtime(time_ms = 0, e = 60 * 1000) {
+                time_ms = (time_ms || Date.now()) - e;
+                const events = this.get_ex().events;
+                let evt;
+                while (evt = events[this.evt_time_over_ptr]) {
+                    if (evt.time_ms > time_ms) break;
+                    switch (evt.type) {
+                        case "damage":
+                            const {source, damage} = evt.data;
+                            const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
+                            if (source_party_idx === -1) break;
+                            const actor = this.get_actor(source_idx, source_id, source_party_idx);
+                            actor.damage_in_minute -= damage;
+                            break;
+                    }
+                    this.evt_time_over_ptr++;
+                }
+            }
+
+            calc_damages(time_ms = 0) {
+                time_ms = time_ms || Date.now();
+                const evt_time = (this.last_record_at - this.time_ms) / 1000;
+                const evt_time_in_minute = Math.min(evt_time, 60);
+                const real_time = (time_ms - this.time_ms) / 1000;
+                for (const actor of this.actors) {
+                    actor.dps = Math.floor(actor.damage / real_time);
+                    actor.dps_in_minute = Math.floor(actor.damage_in_minute / evt_time_in_minute);
+                }
+                this.show_chart = evt_time > 5;
+                if (this.show_chart && this.dps_canvas && this.dmg_canvas && this.last_chart_at !== this.last_record_at) {
+                    this.get_ex().update_chart(real_time, this);
+                    this.last_chart_at = this.last_record_at;
+                }
+            }
+
+            update(time_ms = 0) {
+                if (this.archived) return;
+                this.process_overtime(time_ms);
+                this.calc_damages(time_ms);
+            }
+
+            get_ex() {
+                return RecordEx.get_instance(this.time_ms);
+            }
+
+            destroy() {
+                RecordEx.destroy_instance(this.time_ms);
+            }
+        }
+
         const App = Vue.createApp({
             setup: function () {
                 const is_socket_connected = Vue.ref(false);
-                const drawer = Vue.ref(false);
                 const records = Vue.ref([]);
                 const view_record_value = Vue.ref("");
                 const actor_dialog = Vue.reactive({
@@ -683,8 +749,11 @@
                     width: window.innerWidth,
                     height: window.innerHeight,
                 });
-                var want_new = false;
-                var update_period = 0;
+                const update_var = {
+                    want_new: false,
+                    period: 0,
+                    last_frame: 0,
+                }
 
                 const set_actor_dialog = (actor) => {
                     if (actor) {
@@ -700,258 +769,91 @@
                 }
 
                 const remove_record = (name) => {
-                    console.log('remove_record', name);
-                    records.value = records.value.filter((item) => item.name !== name);
-                    if (view_record_value.value === name) {
-                        if (records.value.length === 0) new_record();
-                        view_record_value.value = records.value[records.value.length - 1].name;
+                    const idx = records.value.findIndex(v => v.name === name);
+                    if (idx >= 0) {
+                        records.value[idx].destroy();
+                        records.value.splice(idx, 1);
                     }
-                    DpsChart.destroy_instance(name);
-                    DamageChart.destroy_instance(name);
                 }
-                const fmt_time = (ms) => {
-                    if (ms < 1000) return ms + "ms";
-                    const sec = Math.floor(ms / 1000);
-                    if (sec < 60) return sec + "s";
-                    const min = Math.floor(sec / 60);
-                    return `${min}m${sec % 60}s`;
-                }
-                const archive_record = (record) => {
-                    if (record.is_archived) return;
-                    process_old_records(record);
-                    calc_damages(record);
+                const archive_record = (record, time_ms = 0) => {
+                    update_var.want_new = true;
+                    record.update(time_ms);
                     record.is_archived = true;
                 }
 
-                const new_record = () => {
-                    const now = new Date();
-                    if (records.value.length > 0) archive_record(records.value[records.value.length - 1]);
-                    records.value.push({
-                        name: `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
-                        time: now.getTime(),
-                        last_record_at: 0,
-                        last_chart_evt: 0,
-                        damage: 0,
-                        actors: [],
-                        events_in_minute: [],
-                        dps_canvas: null,
-                        dmg_canvas: null,
-                        show_chart: false,
-                        is_archived: false,
-                    });
-                    view_record_value.value = records.value[records.value.length - 1].name;
-                    want_new = false;
+                const new_record = (time_ms = 0) => {
+                    const _records = records.value;
+                    if (_records.length > 0) archive_record(_records[_records.length - 1], time_ms);
+                    const res = Vue.reactive(new Record(time_ms));
+                    _records.push(res)
+                    view_record_value.value = res.name;
+                    update_var.want_new = false;
+                    return res;
                 }
 
-                const get_latest_record = () => {
-                    if (records.value.length === 0) new_record();
-                    return records.value[records.value.length - 1];
-                }
-                const get_actor = (source_idx, source_id, party_idx) => {
-                    let name_key;
-                    const current_record = get_latest_record();
-                    return (
-                            current_record.actors.find(
-                                    v => v.source_idx === source_idx
-                            ) ||
-                            current_record.actors[
-                            current_record.actors.push({
-                                source_idx, party_idx,
-                                name_key: (name_key = numberToHexStringWithZFill(source_id, 8)),
-                                display_name: `[${party_idx}]${i18n.global.t(`game.actors.${name_key}`)}#${source_idx}`,
-                                color: colors[party_idx], // assume no more than 6 actors
-                                damage: 0,
-                                damage_in_minute: 0,
-                                dps: 0,
-                                dps_in_minute: 0,
-                                targets: [],
-                                actions: [],
-                                action_desc: (() => {
-                                    const key = `game.actions.${name_key}.desc`;
-                                    const res = i18n.global.t(key);
-                                    return res === key ? "" : res;
-                                })(),
-                                hit: 0
-                            }) - 1
-                                    ]
-                    );
-                }
-                const get_actor_target = (actor, target_idx, target_id) => {
-                    const target_key = `${numberToHexStringWithZFill(target_id, 8)}#${target_idx}`;
-                    return actor.targets.find(v => v.name === target_key) ||
-                            (actor.targets[actor.targets.push({
-                                name: target_key,
-                                damage: 0
-                            }) - 1]);
-                }
-                const get_actor_action = (actor, action_id) => {
-                    return (actor.actions.find(v => v.id === action_id) || actor.actions[actor.actions.push({
-                        id: action_id,
-                        display_name: (() => {
-                            switch (action_id) {
-                                case -1:
-                                    return i18n.global.t('game.actions.common.link')
-                                case -2:
-                                    return i18n.global.t('game.actions.common.lb')
-                                case -3:
-                                    return i18n.global.t('game.actions.common.bonus')
-                                case -0x100:
-                                    return i18n.global.t('game.actions.common.dot')
-                                case 5000:
-                                    return i18n.global.t('game.actions.common.ether_round')
-                                case 5010:
-                                    return i18n.global.t('game.actions.common.charged_shot')
-                                default:
-                                    const n = i18n.global.t(`game.actions.${actor.name_key}.${action_id}`)
-                                    return n.startsWith('game.actions.') ? action_id.toString() : n;
-                            }
-                        })(),
-                        display_desc: (() => {
-                            let key;
-                            switch (action_id) {
-                                case -1:
-                                    key = 'game.actions.common.link_desc';
-                                    break;
-                                case -2:
-                                    key = 'game.actions.common.lb_desc';
-                                    break;
-                                case -3:
-                                    key = 'game.actions.common.bonus_desc';
-                                    break;
-                                case -0x100:
-                                    key = 'game.actions.common.dot_desc';
-                                    break;
-                                case 5000:
-                                    key = 'game.actions.common.ether_round_desc';
-                                    break;
-                                case 5010:
-                                    key = 'game.actions.common.charged_shot_desc';
-                                    break;
-                                default:
-                                    key = `game.actions.${actor.name_key}.${action_id}_desc`;
-                                    break;
-                            }
-                            const res = i18n.global.t(key);
-                            return res === key ? "" : res;
-                        })(),
-                        hit: 0,
-                        damage: 0,
-                        min: -1,
-                        max: -1,
-                        history: [],
-                    }) - 1]);
-                }
+                const get_latest_record = () => records.value.length === 0 ? new_record() : records.value[records.value.length - 1];
+
+
                 const on_damage = (evt) => {
-                    if (want_new) new_record();
-                    const {source, target, damage, flags, action_id} = evt;
+                    const {time_ms, data} = evt;
+                    if (update_var.want_new) new_record(time_ms);
+                    const {source, target, damage, flags, action_id} = data;
                     const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
                     const [target_type, target_idx, target_id, target_party_idx, ...__] = target;
                     if (target_id === 0x22a350f) return; // HARDCODE: 对欧根附加炸弹造成的伤害不进行记录
                     // TODO: 自伤类技能的过滤
-                    // if (target_type === "BehaviorAppBase") return;
-                    // if (source_type !== "BehaviorPlayerBase") return;
-                    const now = new Date().getTime()
                     const current_record = get_latest_record();
-                    current_record.last_record_at = now;
+                    current_record.last_record_at = time_ms;
                     if (source_party_idx === -1) return;
+                    current_record.get_ex().events.push(evt);
                     current_record.damage += damage;
-                    const actor = get_actor(source_idx, source_id, source_party_idx);
-                    current_record.events_in_minute.push({
-                        time: now,
-                        type: "damage",
-                        data: evt
-                    });
+                    const actor = current_record.get_actor(source_idx, source_id, source_party_idx);
                     actor.hit += 1;
                     actor.damage += damage;
                     actor.damage_in_minute += damage;
-                    const target_actor = get_actor_target(actor, target_idx, target_id);
+                    const target_actor = actor.get_target(target_idx, target_id, target_party_idx);
                     target_actor.damage += damage;
-                    const action = get_actor_action(actor, flags & (1 << 15) ? -3 : action_id);
+                    const action = actor.get_action(flags & (1 << 15) ? -3 : action_id);
                     action.hit += 1;
                     action.damage += damage;
                     if (action.min === -1 || action.min > damage) action.min = damage;
                     if (action.max === -1 || action.max < damage) action.max = damage;
-                    action.history.push({x: (now - current_record.time) / 1000, y: damage});
-                    if (action.history.length > 100) action.history = action.history.slice(action.history.length - 100);
-                    const action_chart = ActionDamageChart.instance
-                    if (action_chart && actor_dialog.action_chart.selected === action) {
-                        action_chart.put(action.display_name, action.history[action.history.length - 1]);
-                    }
-                    if (log_cond.damage) log(`${actor.display_name} cause ${damage} damage by ${action.display_name} to ${target_actor.name}`);
+                    if (actor_dialog.action_chart.selected === action)
+                        ActionDamageChart.instance?.put({x: (time_ms - current_record.time_ms) / 1000, y: damage});
+                    if (log_cond.damage)
+                        log(`${actor.display_name} cause ${damage} damage by ${action.display_name} to ${target_actor.name}`);
                 }
 
-                const process_old_records = (current_record) => {
-                    const min_time = new Date().getTime() - 60000;
-                    while (current_record.events_in_minute.length > 0) {
-                        const first_evt = current_record.events_in_minute[0];
-                        if (first_evt.time > min_time) break;
-                        current_record.events_in_minute.shift();
-                        switch (first_evt.type) {
+                const evt_buffer = []
+
+                const update = (period = 1000) => {
+                    let evt_;
+                    while (evt_ = evt_buffer.shift()) {
+                        if (log_cond.evt) log(evt_);
+                        const evt = JSON.parse(evt_);
+                        if (!update_var.last_frame) update_var.last_frame = evt.time_ms;
+                        while (evt.time_ms > update_var.last_frame + period) {
+                            update_var.last_frame += period;
+                            get_latest_record().update(update_var.last_frame);
+                        }
+                        switch (evt.type) {
+                            case "enter_area":
+                                archive_record(get_latest_record());
+                                break;
                             case "damage":
-                                const {source, target, damage, flags} = first_evt.data;
-                                const [source_type, source_idx, source_id, ..._] = source;
-                                const actor = get_actor(source_idx, source_id);
-                                actor.damage_in_minute -= damage;
+                                on_damage(evt);
                                 break;
                         }
                     }
-                }
-
-                const calc_damages = (current_record) => {
-                    const full_time = (current_record.last_record_at - current_record.time) / 1000;
-                    const real_time = (new Date().getTime() - current_record.time) / 1000
-                    const full_time_in_minute = Math.min(60, real_time);
-                    for (const actor of current_record.actors) {
-                        actor.dps = Math.floor(actor.damage / full_time);
-                        actor.dps_in_minute = Math.floor(actor.damage_in_minute / full_time_in_minute);
+                    if (update_var.last_frame) while (Date.now() > update_var.last_frame + period) {
+                        update_var.last_frame += period;
+                        get_latest_record().update(update_var.last_frame);
                     }
-                    if (real_time > 10 && current_record.last_chart_evt !== current_record.last_record_at) {
-                        current_record.show_chart = true;
-                        const dps_chart = DpsChart.get_instance(current_record.name, current_record.dps_canvas);
-                        const damage_chart = DamageChart.get_instance(current_record.name, current_record.dmg_canvas);
-                        for (const {display_name, color} of current_record.actors) {
-                            dps_chart.set_key_color(display_name, color);
-                            damage_chart.set_key_color(display_name, color);
-                        }
-                        dps_chart.append_frame(real_time, current_record.actors.reduce((p, {display_name, dps_in_minute}) => {
-                            p[display_name] = dps_in_minute;
-                            return p;
-                        }, {}));
-                        damage_chart.append_frame(real_time, current_record.actors.reduce((p, {display_name, damage}) => {
-                            p[display_name] = damage;
-                            return p;
-                        }, {}));
-                        current_record.last_chart_evt = current_record.last_record_at;
-                    }
-                }
-
-                const update = () => {
-                    const current_record = get_latest_record();
-                    if (!current_record.is_archived && current_record.last_record_at > 0) {
-                        process_old_records(current_record);
-                        calc_damages(current_record);
-                    }
-                }
-
-                const on_enter_area = (evt) => {
-                    want_new = true;
-                    archive_record(get_latest_record());
                 }
 
                 const create_socket = () => {
                     const socket_ = new WebSocket("ws://localhost:24399");
-                    socket_.addEventListener("message", evt_ => {
-                        if (log_cond.evt) log(evt_.data);
-                        const evt = JSON.parse(evt_.data);
-                        switch (evt.type) {
-                            case "enter_area":
-                                on_enter_area(evt.data);
-                                break;
-                            case "damage":
-                                on_damage(evt.data);
-                                break;
-                        }
-                    });
+                    socket_.addEventListener("message", evt => evt_buffer.push(evt.data));
                     socket_.addEventListener("open", () => {
                         is_socket_connected.value = true;
                         socket = socket_;
@@ -1010,14 +912,29 @@
                                 if (!actor_dialog.action_chart.canvas) return;
                                 chart = ActionDamageChart.instance = new ActionDamageChart(actor_dialog.action_chart.canvas);
                             }
-                            chart.load(action.display_name, action.history);
+                            const record = records.value.find(v => v.time_ms === actor_dialog.actor.record_key);
+                            if (!record) return err('record not found for ', actor_dialog.actor);
+                            const datas = []
+
+                            let cond = ({action_id, flags}) => action_id === action.id && (flags & (1 << 15)) === 0;
+                            if (action.id === -3) cond = ({flags}) => (flags & (1 << 15)) > 0;
+
+                            for (const {time_ms, type, data} of record.get_ex().events.reverse()) {
+                                if (type !== 'damage') continue;
+                                const {source, damage} = data;
+                                if (source[1] !== actor_dialog.actor.idx) continue;
+                                if (!cond(data)) continue;
+                                datas.push({x: (time_ms - record.time_ms) / 1000, y: damage});
+                                if (datas.length >= chart.max_display) break;
+                            }
+                            chart.set({label: action.display_name, datas: datas.reverse()});
+                            chart.chart.update();
                         } else {
                             ActionDamageChart.instance?.clear();
                         }
                     })
-                    update_period = 1000;
                     create_socket();
-                    update_interval = setInterval(update, update_period);
+                    update_interval = setInterval(update, 200);
                     window.addEventListener('beforeunload', handleBeforeUnloadStoreRecord);
                     window.addEventListener('resize', handleWindowResize);
                     if (cfg.value.keep_record && records.value.length) {
@@ -1040,10 +957,9 @@
                     cfg,
                     screen,
                     view_record_value,
-                    drawer,
                     is_socket_connected,
                     records,
-                    fmt_time,
+                    fmtTime,
                     remove_record,
                     actor_dialog,
                     set_actor_dialog,
