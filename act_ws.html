@@ -546,20 +546,6 @@
                 delete RecordEx.instances[this.name];
             }
 
-            serialize() {
-                return JSON.stringify({
-                    key: this.key,
-                    events: this.events,
-                })
-            }
-
-            static deserialize(str) {
-                const obj = JSON.parse(str);
-                const record = new RecordEx(obj.key);
-                record.events = obj.events;
-                return record;
-            }
-
             static instances = {};
 
             static get_instance(key) {
@@ -835,10 +821,9 @@
                 const evt_buffer = []
 
                 const update = (period = 1000) => {
-                    let evt_;
-                    while (evt_ = evt_buffer.shift()) {
-                        if (log_cond.evt) log(evt_);
-                        const evt = JSON.parse(evt_);
+                    let evt;
+                    while (evt = evt_buffer.shift()) {
+                        if (log_cond.evt) log(evt);
                         if (!update_var.last_frame) update_var.last_frame = evt.time_ms;
                         while (evt.time_ms > update_var.last_frame + period) {
                             update_var.last_frame += period;
@@ -862,7 +847,7 @@
 
                 const create_socket = () => {
                     const socket_ = new WebSocket("ws://localhost:24399");
-                    socket_.addEventListener("message", evt => evt_buffer.push(evt.data));
+                    socket_.addEventListener("message", evt => evt_buffer.push(JSON.parse(evt.data)));
                     socket_.addEventListener("open", () => {
                         is_socket_connected.value = true;
                         socket = socket_;
@@ -891,11 +876,14 @@
                 }
 
                 const handleBeforeUnloadStoreRecord = (e) => {
-                    if (!cfg.value.keep_record) return;
-                    const record = get_latest_record();
-                    localStorage.setItem('latest_record', JSON.stringify([record]));
+                    if (cfg.value.keep_record) {
+                        const ex = get_latest_record().get_ex();
+                        localStorage.setItem('latest_record_events', JSON.stringify({
+                            key: ex.key,
+                            events: ex.events.concat(evt_buffer),
+                        }));
+                    }
                 }
-
                 const handleWindowResize = () => {
                     screen.width = window.innerWidth;
                     screen.height = window.innerHeight;
@@ -904,10 +892,18 @@
                 Vue.onMounted(() => {
                     init_cfg();
                     if (cfg.value.keep_record) {
+                        records.value = [];
                         try {
-                            records.value = JSON.parse(localStorage.getItem('latest_record') || '[]');
-                        } catch {
+                            const str = localStorage.getItem('latest_record_events');
+                            if (str) {
+                                const {key, events} = JSON.parse(str);
+                                new_record(key);
+                                evt_buffer.push(...events);
+                            }
+                        } catch (e) {
+                            err(e);
                             records.value = [];
+                            RecordEx.instances = {};
                         }
                         want_new = !!records.value.length;
                         localStorage.removeItem('latest_record');
@@ -946,11 +942,6 @@
                     update_interval = setInterval(update, 200);
                     window.addEventListener('beforeunload', handleBeforeUnloadStoreRecord);
                     window.addEventListener('resize', handleWindowResize);
-                    if (cfg.value.keep_record && records.value.length) {
-                        archive_record(get_latest_record());
-                        view_record_value.value = records.value[0].name;
-                        records.value[0].show_chart = false;
-                    }
                 });
 
                 Vue.onUnmounted(() => {
