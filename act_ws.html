@@ -881,7 +881,8 @@
                                 break;
                         }
                     }
-                    if (update_var.last_frame) while (Date.now() > update_var.last_frame + period) {
+                    const last_record = get_latest_record();
+                    if (update_var.last_frame && Date.now() > last_record.last_record_at + period) while (last_record.last_record_at > update_var.last_frame) {
                         update_var.last_frame += period;
                         get_latest_record().update(update_var.last_frame);
                     }
