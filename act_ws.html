@@ -497,6 +497,9 @@
                     const dmg_dataset = this.dmg_chart_data.datasets.find(ds => ds.label === display_name);
                     if (dmg_dataset) dmg_dataset.data.push({x: time_sec, y: damage});
                 }
+            }
+
+            redraw_chart(record) {
                 this.get_dmg_chart(record.dmg_canvas)?.update();
                 this.get_dps_chart(record.dps_canvas)?.update();
             }
@@ -721,6 +724,10 @@
                 this.calc_damages(time_ms);
             }
 
+            redraw_chart() {
+                this.get_ex().redraw_chart(this);
+            }
+
             get_ex() {
                 return RecordEx.get_instance(this.time_ms);
             }
@@ -778,6 +785,7 @@
                 const archive_record = (record, time_ms = 0) => {
                     update_var.want_new = true;
                     record.update(time_ms);
+                    record.redraw_chart();
                     record.is_archived = true;
                 }
 
@@ -849,6 +857,7 @@
                         update_var.last_frame += period;
                         get_latest_record().update(update_var.last_frame);
                     }
+                    get_latest_record().redraw_chart();
                 }
 
                 const create_socket = () => {
