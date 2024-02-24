@@ -5,6 +5,7 @@ import os
 import socket
 import struct
 import ssl
+import sys
 import threading
 import time
 import traceback
@@ -707,6 +708,11 @@ class BroadcastHandler(WebSocket):
     def handle_close(self):
         self.clients.remove(self)
 
+
+if __name__ == '__main__':
+    _current_dir = os.path.dirname(__file__)
+    if _current_dir not in sys.path:
+        sys.path.insert(0, _current_dir)
 
 from injector import Act, Process, run_admin, enable_privilege
 
