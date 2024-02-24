@@ -1457,7 +1457,6 @@ const i18nCfg = {
                         "1410": "Disruption",
                         "1700": "Alexandria",
                         "1800": "Pain Train",
-                        "4294967295": "Pain Train + Dodge Cancel",
                     },
                 },
                 actors: {
