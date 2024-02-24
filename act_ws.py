@@ -16,6 +16,9 @@ from select import select
 from http.server import BaseHTTPRequestHandler  # pylint: disable=import-error
 from io import StringIO, BytesIO
 
+import sys
+sys.path.append(os.getcwd())
+
 unicode = str  # pylint: disable=redefined-builtin
 
 __all__ = [
