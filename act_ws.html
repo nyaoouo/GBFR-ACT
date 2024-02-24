@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Remote</title>
     <script>
         const cdn_loader = (async (data) => {
-            for (const { key, type, choices } of data) await new Promise((resolve, reject) => {
+            for (const {key, type, choices} of data) await new Promise((resolve, reject) => {
                 const cdn_like = JSON.parse(localStorage.getItem('cdnLike') || '{}');
                 choices.sort((a, b) => cdn_like[key] === a ? -1 : cdn_like[key] === b ? 1 : 0);
                 (function try_one_by_one(idx) {
@@ -43,55 +42,55 @@
                 "https://s4.zstatic.net/npm/element-plus/dist/index.css",
             ]
         },
-        {
-            key: 'css/bootstrap', type: 'css',
-            choices: [
-                "https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css",
-                "https://s4.zstatic.net/npm/bootstrap@latest/dist/css/bootstrap.min.css",
-            ]
-        },
-        {
-            key: 'js/chart.js', type: 'js',
-            choices: [
-                "https://cdn.jsdelivr.net/npm/chart.js",
-                "https://s4.zstatic.net/npm/chart.js",
-            ]
-        },
-        {
-            key: 'js/bootstrap', type: 'js',
-            choices: [
-                "https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js",
-                "https://s4.zstatic.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js",
-            ]
-        },
-        {
-            key: 'js/vue', type: 'js',
-            choices: [
-                "https://unpkg.com/vue@3/dist/vue.global.js",
-                "https://s4.zstatic.net/npm/vue@3/dist/vue.global.js",
-            ]
-        },
-        {
-            key: 'js/element-plus', type: 'js',
-            choices: [
-                "https://unpkg.com/element-plus",
-                "https://s4.zstatic.net/npm/element-plus@latest/dist/index.full.min.js",
-            ]
-        },
-        {
-            key: 'js/element-plus-icons-vue', type: 'js',
-            choices: [
-                "https://unpkg.com/@element-plus/icons-vue",
-                "https://s4.zstatic.net/npm/@element-plus/icons-vue",
-            ]
-        },
-        {
-            key: 'js/vue-i18n', type: 'js',
-            choices: [
-                "https://unpkg.com/vue-i18n@9",
-                "https://s4.zstatic.net/npm/vue-i18n@9",
-            ]
-        },
+            {
+                key: 'css/bootstrap', type: 'css',
+                choices: [
+                    "https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css",
+                    "https://s4.zstatic.net/npm/bootstrap@latest/dist/css/bootstrap.min.css",
+                ]
+            },
+            {
+                key: 'js/chart.js', type: 'js',
+                choices: [
+                    "https://cdn.jsdelivr.net/npm/chart.js",
+                    "https://s4.zstatic.net/npm/chart.js",
+                ]
+            },
+            {
+                key: 'js/bootstrap', type: 'js',
+                choices: [
+                    "https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js",
+                    "https://s4.zstatic.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js",
+                ]
+            },
+            {
+                key: 'js/vue', type: 'js',
+                choices: [
+                    "https://unpkg.com/vue@3/dist/vue.global.js",
+                    "https://s4.zstatic.net/npm/vue@3/dist/vue.global.js",
+                ]
+            },
+            {
+                key: 'js/element-plus', type: 'js',
+                choices: [
+                    "https://unpkg.com/element-plus",
+                    "https://s4.zstatic.net/npm/element-plus@latest/dist/index.full.min.js",
+                ]
+            },
+            {
+                key: 'js/element-plus-icons-vue', type: 'js',
+                choices: [
+                    "https://unpkg.com/@element-plus/icons-vue",
+                    "https://s4.zstatic.net/npm/@element-plus/icons-vue",
+                ]
+            },
+            {
+                key: 'js/vue-i18n', type: 'js',
+                choices: [
+                    "https://unpkg.com/vue-i18n@9",
+                    "https://s4.zstatic.net/npm/vue-i18n@9",
+                ]
+            },
         ])
     </script>
 </head>
@@ -102,12 +101,12 @@
 
     body {
         font-family: -apple-system,
-            'Nimbus Roman No9 L',
-            'PingFang SC Regular',
-            'Hiragino Sans GB',
-            'Microsoft Yahei',
-            'WenQuanYi Micro Hei',
-            'ST Heiti', sans-serif
+        'Nimbus Roman No9 L',
+        'PingFang SC Regular',
+        'Hiragino Sans GB',
+        'Microsoft Yahei',
+        'WenQuanYi Micro Hei',
+        'ST Heiti', sans-serif
     }
 
     ::-webkit-scrollbar {
@@ -148,196 +147,191 @@
         margin-right: auto;
     }
 </style>
-
 <body>
-    <div id="app" class="main-0">
-        <div class="main-1" v-cloak>
-            <div class="main-2" v-if="0">
-                resource is loading, please wait...
+<div id="app" class="main-0">
+    <div class="main-1" v-cloak>
+        <div class="main-2" v-if="0">
+            resource is loading, please wait...
+        </div>
+        <div class="main-2 shadow rounded p-3" v-cloak>
+            <div v-if="!is_socket_connected" class="p-3">
+                <el-alert title="failed to establish websocket connection, check act injector status..." type="error" effect="dark" :closable="false"></el-alert>
             </div>
-            <div class="main-2 shadow rounded p-3" v-cloak>
-                <div v-if="!is_socket_connected" class="p-3">
-                    <el-alert title="failed to establish websocket connection, check act injector status..." type="error" effect="dark"
-                        :closable="false"></el-alert>
-                </div>
-                <div style="position: absolute;right: 0;bottom: 0;padding: 2rem;z-index: 99">
-                    <el-popover trigger="click" :width="300"
-                        popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
-                        <template #reference>
-                            <el-icon>
-                                <Operation />
-                            </el-icon>
-                        </template>
-                        <template #default>
-                            <el-form label-position="right" label-width="150px">
-                                <el-form-item :label="$t('ui.chart_main')">
-                                    <el-select v-model="cfg.chart" placeholder="Select">
-                                        <el-option :label="`${$t('ui.chart')}-${$t('ui.dps_in_minute')}`"
-                                            value="dps_min"></el-option>
-                                        <el-option :label="`${$t('ui.chart')}-${$t('ui.damage')}`"
-                                            value="dmg"></el-option>
-                                    </el-select>
-                                </el-form-item>
-                                <el-form-item :label="$t('ui.language')">
-                                    <el-select v-model="$i18n.locale" placeholder="Select">
-                                        <el-option v-for="k in $i18n.availableLocales" :key="k"
-                                            :label="$t('locale_name',k)" :value="k" />
-                                    </el-select>
-                                </el-form-item>
-                                <el-form-item :label="$t('ui.keep_record')">
-                                    <el-switch v-model="cfg.keep_record" />
-                                </el-form-item>
-                            </el-form>
-                        </template>
-                    </el-popover>
-                </div>
+            <div style="position: absolute;right: 0;bottom: 0;padding: 2rem;z-index: 99">
+                <el-popover
+                        trigger="click" :width="300"
+                        popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;"
+                >
+                    <template #reference>
+                        <el-icon>
+                            <Operation/>
+                        </el-icon>
+                    </template>
+                    <template #default>
+                        <el-form
+                                label-position="right"
+                                label-width="150px"
+                        >
+                            <el-form-item :label="$t('ui.chart_main')">
+                                <el-select v-model="cfg.chart" placeholder="Select">
+                                    <el-option :label="`${$t('ui.chart')}-${$t('ui.dps_in_minute')}`" value="dps_min"></el-option>
+                                    <el-option :label="`${$t('ui.chart')}-${$t('ui.damage')}`" value="dmg"></el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item :label="$t('ui.language')">
+                                <el-select v-model="$i18n.locale" placeholder="Select">
+                                    <el-option
+                                            v-for="k in $i18n.availableLocales"
+                                            :key="k"
+                                            :label="$t('locale_name',k)"
+                                            :value="k"
+                                    />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item :label="$t('ui.keep_record')">
+                                <el-switch v-model="cfg.keep_record"/>
+                            </el-form-item>
+                        </el-form>
+                    </template>
+                </el-popover>
+            </div>
 
-                <el-dialog v-model="actor_dialog.visible" :title="actor_dialog.actor?actor_dialog.actor.display_name:''"
-                    @close="set_actor_dialog()" width="80%" top="5vh">
-                    <el-tabs v-model="actor_dialog.page" type="card" v-if="actor_dialog.actor">
-                        <el-tab-pane :label="$t('ui.targets')" name="targets">
-                            <el-table :data="actor_dialog.actor.targets" style="width: 100%"
-                                :default-sort="{ prop: 'damage', order: 'descending' }">
-                                <el-table-column prop="name" :label="$t('ui.name')">
-                                </el-table-column>
-                                <el-table-column prop="damage" :label="$t('ui.damage')" sortable>
-                                    <template #default="scope">
-                                        <span>{{numberWithComma(scope.row.damage)}}</span>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                        </el-tab-pane>
-                        <el-tab-pane :label="$t('ui.actions')" name="actions">
-                            <div :style="{display:actor_dialog.action_chart.selected?'block':'none'}">
-                                <canvas :ref="el => { actor_dialog.action_chart.canvas = el }"
-                                    :height="screen.height*0.5"></canvas>
-                            </div>
-                            <el-table :data="actor_dialog.actor.actions" style="width: 100%"
-                                :height="actor_dialog.action_chart.selected?screen.height*0.3:screen.height*0.5"
-                                :default-sort="{ prop: 'damage', order: 'descending' }">
-                                <el-table-column prop="display_name">
-                                    <template #header>
-                                        <span>{{$t('ui.name')}}</span>
-                                        <el-popover v-if="actor_dialog.actor.action_desc" placement="right"
-                                            :content="actor_dialog.actor.action_desc">
-                                            <template #reference>
-                                                <el-link class="mx-1">
-                                                    <el-icon>
-                                                        <Star />
-                                                    </el-icon>
-                                                </el-link>
-                                            </template>
-                                        </el-popover>
-                                    </template>
-                                    <template #default="scope">
-                                        <el-link
-                                            @click="actor_dialog.action_chart.selected=scope.row">{{scope.row.display_name}}</el-link>
-                                        <el-popover v-if="scope.row.display_desc" placement="right"
-                                            :content="scope.row.display_desc">
-                                            <template #reference>
-                                                <el-link class="mx-1">
-                                                    <el-icon>
-                                                        <Star />
-                                                    </el-icon>
-                                                </el-link>
-                                            </template>
-                                        </el-popover>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="hit" :label="$t('ui.hit')" sortable>
-                                    <template #default="scope">
-                                        <span>{{numberWithComma(scope.row.hit)}}
-                                            ({{(scope.row.hit/actor_dialog.actor.hit*100).toFixed(1)}}%)</span>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="damage" :label="$t('ui.damage')" sortable>
-                                    <template #default="scope">
-                                        <span>{{numberWithComma(scope.row.damage)}}
-                                            ({{scope.row.damage?(scope.row.damage/actor_dialog.actor.damage*100).toFixed(1):0}}%)</span>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="min" :label="$t('ui.min')" sortable>
-                                    <template #default="scope">
-                                        <span>{{numberWithComma(scope.row.min)}}</span>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="max" :label="$t('ui.max')" sortable>
-                                    <template #default="scope">
-                                        <span>{{numberWithComma(scope.row.max)}}</span>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column :label="$t('ui.damage_avg')">
-                                    <template #default="scope">
-                                        <span v-if="scope.row.hit > 0">{{numberWithComma(Math.floor(scope.row.damage /
-                                            scope.row.hit))}}</span>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                        </el-tab-pane>
-                    </el-tabs>
-                </el-dialog>
-
-                <el-tabs v-model="view_record_value" type="card" closable @tab-remove="remove_record">
-                    <el-tab-pane v-for="item in records" :key="item.name"
-                        :label="item.last_record_at?`${item.name} [${fmtTime(item.last_record_at-item.time_ms)}]`:item.name"
-                        :name="item.name">
-                        <el-table :data="item.actors" style="width: 100%"
-                            :default-sort="{ prop: 'dps', order: 'descending' }">
-                            <el-table-column prop="name">
+            <el-dialog v-model="actor_dialog.visible" :title="actor_dialog.actor?actor_dialog.actor.display_name:''" @close="set_actor_dialog()" width="80%" top="5vh">
+                <el-tabs
+                        v-model="actor_dialog.page"
+                        type="card"
+                        v-if="actor_dialog.actor"
+                >
+                    <el-tab-pane :label="$t('ui.targets')" name="targets">
+                        <el-table :data="actor_dialog.actor.targets" style="width: 100%" :default-sort="{ prop: 'damage', order: 'descending' }">
+                            <el-table-column prop="name" :label="$t('ui.name')">
+                            </el-table-column>
+                            <el-table-column prop="damage" :label="$t('ui.damage')" sortable>
+                                <template #default="scope">
+                                    <span>{{numberWithComma(scope.row.damage)}}</span>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-tab-pane>
+                    <el-tab-pane :label="$t('ui.actions')" name="actions">
+                        <div :style="{display:actor_dialog.action_chart.selected?'block':'none'}">
+                            <canvas :ref="el => { actor_dialog.action_chart.canvas = el }" :height="screen.height*0.5"></canvas>
+                        </div>
+                        <el-table :data="actor_dialog.actor.actions" style="width: 100%" :height="actor_dialog.action_chart.selected?screen.height*0.3:screen.height*0.5" :default-sort="{ prop: 'damage', order: 'descending' }">
+                            <el-table-column prop="display_name">
                                 <template #header>
-                                    <el-button circle @click="export_log(item)">
-                                        <el-icon>
-                                            <Download />
-                                        </el-icon>
-                                    </el-button>
+                                    <span>{{$t('ui.name')}}</span>
+                                    <el-popover v-if="actor_dialog.actor.action_desc" placement="right" :content="actor_dialog.actor.action_desc">
+                                        <template #reference>
+                                            <el-link class="mx-1">
+                                                <el-icon>
+                                                    <Star/>
+                                                </el-icon>
+                                            </el-link>
+                                        </template>
+                                    </el-popover>
                                 </template>
                                 <template #default="scope">
-                                    <span>
-                                        <el-icon :style="{'color':scope.row.color}">
-                                            <Avatar />
-                                        </el-icon> {{scope.row.display_name}}
-                                    </span>
+                                    <el-link @click="actor_dialog.action_chart.selected=scope.row">{{scope.row.display_name}}</el-link>
+                                    <el-popover v-if="scope.row.display_desc" placement="right" :content="scope.row.display_desc">
+                                        <template #reference>
+                                            <el-link class="mx-1">
+                                                <el-icon>
+                                                    <Star/>
+                                                </el-icon>
+                                            </el-link>
+                                        </template>
+                                    </el-popover>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="hit" :label="$t('ui.hit')" sortable>
+                                <template #default="scope">
+                                    <span>{{numberWithComma(scope.row.hit)}} ({{(scope.row.hit/actor_dialog.actor.hit*100).toFixed(1)}}%)</span>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="damage" :label="$t('ui.damage')" sortable>
                                 <template #default="scope">
-                                    <span>{{numberWithComma(scope.row.damage)}}
-                                        ({{scope.row.damage?(scope.row.damage/item.damage*100).toFixed(1):0}}%)</span>
+                                    <span>{{numberWithComma(scope.row.damage)}} ({{scope.row.damage?(scope.row.damage/actor_dialog.actor.damage*100).toFixed(1):0}}%)</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="damage_in_minute" :label="$t('ui.damage_in_minute')" sortable>
+                            <el-table-column prop="min" :label="$t('ui.min')" sortable>
                                 <template #default="scope">
-                                    <span>{{numberWithComma(scope.row.damage_in_minute)}}</span>
+                                    <span>{{numberWithComma(scope.row.min)}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="dps" :label="$t('ui.dps')" sortable>
+                            <el-table-column prop="max" :label="$t('ui.max')" sortable>
                                 <template #default="scope">
-                                    <span>{{numberWithComma(scope.row.dps)}}</span>
+                                    <span>{{numberWithComma(scope.row.max)}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="dps_in_minute" :label="$t('ui.dps_in_minute')" sortable>
+                            <el-table-column :label="$t('ui.damage_avg')">
                                 <template #default="scope">
-                                    <span>{{numberWithComma(scope.row.dps_in_minute)}}</span>
-                                </template>
-                            </el-table-column>
-                            <el-table-column :label="$t('ui.detail')">
-                                <template #default="scope">
-                                    <el-button @click="set_actor_dialog(scope.row)" type="text"
-                                        size="small">detail</el-button>
+                                    <span v-if="scope.row.hit > 0">{{numberWithComma(Math.floor(scope.row.damage / scope.row.hit))}}</span>
                                 </template>
                             </el-table-column>
                         </el-table>
-                        <div :style="{display:item.show_chart?'block':'none'}">
-                            <canvas :style="{display:cfg.chart=='dps_min'?'block':'none'}"
-                                :ref="el => { item.dps_canvas = el }" height="500"></canvas>
-                            <canvas :style="{display:cfg.chart=='dmg'?'block':'none'}"
-                                :ref="el => { item.dmg_canvas = el }" height="500"></canvas>
-                        </div>
                     </el-tab-pane>
                 </el-tabs>
-            </div>
+            </el-dialog>
+
+            <el-tabs
+                    v-model="view_record_value"
+                    type="card"
+                    closable @tab-remove="remove_record"
+            >
+                <el-tab-pane
+                        v-for="item in records" :key="item.name" :label="item.last_record_at?`${item.name} [${fmtTime(item.last_record_at-item.time_ms)}]`:item.name" :name="item.name"
+                >
+                    <el-table :data="item.actors" style="width: 100%" :default-sort="{ prop: 'dps', order: 'descending' }">
+                        <el-table-column prop="name">
+                            <template #header>
+                                <el-button circle @click="export_log(item)">
+                                    <el-icon>
+                                        <Download/>
+                                    </el-icon>
+                                </el-button>
+                            </template>
+                            <template #default="scope">
+                                <span>
+                                    <el-icon :style="{'color':scope.row.color}"><Avatar/></el-icon> {{scope.row.display_name}}
+                                </span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="damage" :label="$t('ui.damage')" sortable>
+                            <template #default="scope">
+                                <span>{{numberWithComma(scope.row.damage)}} ({{scope.row.damage?(scope.row.damage/item.damage*100).toFixed(1):0}}%)</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="damage_in_minute" :label="$t('ui.damage_in_minute')" sortable>
+                            <template #default="scope">
+                                <span>{{numberWithComma(scope.row.damage_in_minute)}}</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="dps" :label="$t('ui.dps')" sortable>
+                            <template #default="scope">
+                                <span>{{numberWithComma(scope.row.dps)}}</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="dps_in_minute" :label="$t('ui.dps_in_minute')" sortable>
+                            <template #default="scope">
+                                <span>{{numberWithComma(scope.row.dps_in_minute)}}</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('ui.detail')">
+                            <template #default="scope">
+                                <el-button @click="set_actor_dialog(scope.row)" type="text" size="small">detail</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <div :style="{display:item.show_chart?'block':'none'}">
+                        <canvas :style="{display:cfg.chart=='dps_min'?'block':'none'}" :ref="el => { item.dps_canvas = el }" height="500"></canvas>
+                        <canvas :style="{display:cfg.chart=='dmg'?'block':'none'}" :ref="el => { item.dmg_canvas = el }" height="500"></canvas>
+                    </div>
+                </el-tab-pane>
+            </el-tabs>
         </div>
     </div>
+</div>
 </body>
 <script src="./act_ws_texts.js"></script>
 <script>
@@ -353,7 +347,7 @@
     const log = _with_time(console.log);
     const err = _with_time(console.error);
     const flag_offs = (val) => Array.from(Array(val.toString(2).length).keys())
-        .filter(off => val & (1 << off));
+            .filter(off => val & (1 << off));
 
     let socket = null;
     let socket_update_period = 1000;
@@ -366,7 +360,7 @@
         return hexString;
     }
 
-    const numberWithComma = new Intl.NumberFormat('en-EN', { maximumFractionDigits: 2 }).format;
+    const numberWithComma = new Intl.NumberFormat('en-EN', {maximumFractionDigits: 2}).format;
 
     const fmtTime = (ms) => {
         if (ms < 1000) return ms + "ms";
@@ -426,7 +420,7 @@
             this.current = null;
         }
 
-        set({ color = undefined, datas = undefined, label = undefined }) {
+        set({color = undefined, datas = undefined, label = undefined}) {
             const dataset = this.datas.datasets[0];
             if (color) {
                 dataset.borderColor = color;
@@ -435,17 +429,17 @@
             if (label) dataset.label = label;
             if (datas) {
                 dataset.data = (
-                    this.max_display && datas.length > this.max_display ?
-                        datas.slice(datas.length - this.max_display) :
-                        datas
-                ).map(({ x, y }) => ({ x, y }));
+                        this.max_display && datas.length > this.max_display ?
+                                datas.slice(datas.length - this.max_display) :
+                                datas
+                ).map(({x, y}) => ({x, y}));
             }
             return dataset;
         }
 
-        put({ x, y }) {
+        put({x, y}) {
             const dataset = this.datas.datasets[0];
-            dataset.data.push({ x, y });
+            dataset.data.push({x, y});
             if (this.max_display && dataset.data.length > this.max_display) {
                 dataset.data.shift();
             }
@@ -470,7 +464,7 @@
     cdn_loader.then(() => {
         const i18n = VueI18n.createI18n(i18nCfg);
 
-        const evt_action_id = ({ flags, action_id }) => {
+        const evt_action_id = ({flags, action_id}) => {
             if (flags & (1 << 15)) return -3;
             return action_id;
         }
@@ -494,15 +488,15 @@
                 this.key = key;
                 this.dps_chart = null;
                 this.dmg_chart = null;
-                this.dps_chart_data = { datasets: [] };
-                this.dmg_chart_data = { datasets: [] };
+                this.dps_chart_data = {datasets: []};
+                this.dmg_chart_data = {datasets: []};
                 this.events = [];
                 RecordEx.instances[key] = this;
             }
 
             new_chart_actor(name, color) {
-                this.dps_chart_data.datasets.push({ label: name, data: [], borderColor: color, backgroundColor: color, fill: false });
-                this.dmg_chart_data.datasets.push({ label: name, data: [], borderColor: color, backgroundColor: color, fill: false });
+                this.dps_chart_data.datasets.push({label: name, data: [], borderColor: color, backgroundColor: color, fill: false});
+                this.dmg_chart_data.datasets.push({label: name, data: [], borderColor: color, backgroundColor: color, fill: false});
             }
 
             update_chart(time_sec, record) {
@@ -517,11 +511,11 @@
                         if (cutoff_idx >= 0) dataset.data = dataset.data.slice(cutoff_idx);
                     }
                 }
-                for (const { display_name, damage, dps } of record.actors) {
+                for (const {display_name, damage, dps} of record.actors) {
                     const dps_dataset = this.dps_chart_data.datasets.find(ds => ds.label === display_name);
-                    if (dps_dataset) dps_dataset.data.push({ x: time_sec, y: dps });
+                    if (dps_dataset) dps_dataset.data.push({x: time_sec, y: dps});
                     const dmg_dataset = this.dmg_chart_data.datasets.find(ds => ds.label === display_name);
-                    if (dmg_dataset) dmg_dataset.data.push({ x: time_sec, y: damage });
+                    if (dmg_dataset) dmg_dataset.data.push({x: time_sec, y: damage});
                 }
             }
 
@@ -537,9 +531,9 @@
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        scales: { x: { type: 'linear', position: 'bottom', }, y: { position: 'left', } },
-                        animation: { y: { duration: 0 }, x: { duration: 0 } },
-                        elements: { point: { radius: 0 } }
+                        scales: {x: {type: 'linear', position: 'bottom',}, y: {position: 'left',}},
+                        animation: {y: {duration: 0}, x: {duration: 0}},
+                        elements: {point: {radius: 0}}
                     }
                 });
                 return this.dps_chart;
@@ -552,9 +546,9 @@
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        scales: { x: { type: 'linear', position: 'bottom', }, y: { position: 'left', } },
-                        animation: { y: { duration: 0 }, x: { duration: 0 } },
-                        elements: { point: { radius: 0 } }
+                        scales: {x: {type: 'linear', position: 'bottom',}, y: {position: 'left',}},
+                        animation: {y: {duration: 0}, x: {duration: 0}},
+                        elements: {point: {radius: 0}}
                     }
                 });
                 return this.dmg_chart;
@@ -593,7 +587,7 @@
         }
 
         class ActorAction {
-            static common_actions = (() => {
+            static  common_actions = (() => {
                 const res = {};
                 res[-1] = 'game.actions.common.link';
                 res[-2] = 'game.actions.common.lb';
@@ -699,7 +693,7 @@
                     if (evt.time_ms > time_ms) break;
                     switch (evt.type) {
                         case "damage":
-                            const { source, damage } = evt.data;
+                            const {source, damage} = evt.data;
                             const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
                             if (source_party_idx === -1) break;
                             const actor = this.get_actor(source_idx, source_id, source_party_idx);
@@ -741,22 +735,22 @@
             }
 
             export_log() {
-                const res = ''.concat(...this.get_ex().events.map(({ time_ms, type, data }) => {
+                const res = ''.concat(...this.get_ex().events.map(({time_ms, type, data}) => {
                     switch (type) {
                         case "damage":
-                            const { source, target, damage, flags } = data;
+                            const {source, target, damage, flags} = data;
                             const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
                             const [target_type, target_idx, target_id, target_party_idx, ...__] = target;
                             const action_id = evt_action_id(data);
                             const date = new Date(time_ms);
                             return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}|damage|` +
-                                `${source_type};${source_idx};${numberToHexStringWithZFill(source_id, 8)};${source_party_idx};${actor_name(source_id)}|` +
-                                `${target_type};${target_idx};${numberToHexStringWithZFill(target_id, 8)};${target_party_idx};${actor_name(target_id)}|` +
-                                `${action_id}|${action_name(source_id, action_id)}|${damage}|${flags}\n`;
+                                    `${source_type};${source_idx};${numberToHexStringWithZFill(source_id, 8)};${source_party_idx};${actor_name(source_id)}|` +
+                                    `${target_type};${target_idx};${numberToHexStringWithZFill(target_id, 8)};${target_party_idx};${actor_name(target_id)}|` +
+                                    `${action_id}|${action_name(source_id, action_id)}|${damage}|${flags}\n`;
                     }
                     return '';
                 }))
-                const bolb = new Blob([res], { type: 'text/plain' });
+                const bolb = new Blob([res], {type: 'text/plain'});
                 if (window.navigator.msSaveOrOpenBlob) {
                     window.navigator.msSaveBlob(bolb, `${this.name}.txt`);
                 } else {
@@ -839,9 +833,9 @@
 
 
                 const on_damage = (evt) => {
-                    const { time_ms, data } = evt;
+                    const {time_ms, data} = evt;
                     if (update_var.want_new) new_record(time_ms);
-                    const { source, target, damage } = data;
+                    const {source, target, damage} = data;
                     const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
                     const [target_type, target_idx, target_id, target_party_idx, ...__] = target;
                     if (target_id === 0x22a350f) return; // HARDCODE: 对欧根附加炸弹造成的伤害不进行记录
@@ -863,7 +857,7 @@
                     if (action.min === -1 || action.min > damage) action.min = damage;
                     if (action.max === -1 || action.max < damage) action.max = damage;
                     if (actor_dialog.action_chart.selected === action)
-                        ActionDamageChart.instance?.put({ x: (time_ms - current_record.time_ms) / 1000, y: damage });
+                        ActionDamageChart.instance?.put({x: (time_ms - current_record.time_ms) / 1000, y: damage});
                     if (log_cond.damage)
                         log(`${actor.display_name} cause ${damage} damage by ${action.display_name} to ${target_actor.name}`);
                 }
@@ -947,7 +941,7 @@
                         try {
                             const str = localStorage.getItem('latest_record_events');
                             if (str) {
-                                const { key, events } = JSON.parse(str);
+                                const {key, events} = JSON.parse(str);
                                 new_record(key);
                                 evt_buffer.push(...events);
                             }
@@ -959,7 +953,7 @@
                         want_new = !!records.value.length;
                         localStorage.removeItem('latest_record');
                     }
-                    Vue.watch(cfg, (v) => localStorage.setItem('act_ws_cfg', JSON.stringify(v)), { deep: true });
+                    Vue.watch(cfg, (v) => localStorage.setItem('act_ws_cfg', JSON.stringify(v)), {deep: true});
                     Vue.watch(() => i18n.global.locale, i18nCfg.onLocaleChange)
                     Vue.watch(() => actor_dialog.action_chart.selected, (action) => {
                         if (action && actor_dialog.actor) {
@@ -972,15 +966,15 @@
                             if (!record) return err('record not found for ', actor_dialog.actor);
                             const datas = []
 
-                            for (const { time_ms, type, data } of record.get_ex().events.reverse()) {
+                            for (const {time_ms, type, data} of record.get_ex().events.reverse()) {
                                 if (type !== 'damage') continue;
-                                const { source, damage } = data;
+                                const {source, damage} = data;
                                 if (source[1] !== actor_dialog.actor.idx) continue;
                                 if (evt_action_id(data) !== action.id) continue;
-                                datas.push({ x: (time_ms - record.time_ms) / 1000, y: damage });
+                                datas.push({x: (time_ms - record.time_ms) / 1000, y: damage});
                                 if (datas.length >= chart.max_display) break;
                             }
-                            chart.set({ label: action.display_name, datas: datas.reverse() });
+                            chart.set({label: action.display_name, datas: datas.reverse()});
                             chart.chart.update();
                         } else {
                             ActionDamageChart.instance?.clear();
@@ -1024,5 +1018,4 @@
 
 
 </script>
-
 </html>
