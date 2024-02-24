@@ -160,3 +160,10 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+# Common build/output folders
+build/
+node_modules/
+out/
+
+# vscode conf
+.vscode/
