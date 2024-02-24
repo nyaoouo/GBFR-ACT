@@ -1298,8 +1298,7 @@ const i18nCfg = {
                         "1400": "Wingclipper",
                         "1610": "Thousand Flames",
                         "1702": "Realm's Majesty 1",
-                        "1703": "Realm's Majesty 2",
-                        "4294967295": "Infinite Wonders + Dodge Cancel"
+                        "1703": "Realm's Majesty 2"
                     },
                     "7b5934ad": { // Io
                         "100": "X",
