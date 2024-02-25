@@ -1544,17 +1544,66 @@ const i18nCfg = {
                     "d16cfbde": "Vaseraga",
                     "8056abcd": "Id",
 
-                    // Enemies
-                    "0dbfc18a": "Talus Reactor",
-                    "0e0a8d33": "Minion A", // This appears in Worst Vacation Ever. Unsure if it is specifically Skeleton or Cyaegha
-                    "22e188a1": "Spinal Core Minion",
-                    "3a0ea858": "Gerasene",
-                    "4d2d2ef6": "Excavallion Leg Wall",
-                    "4d2202ae": "Excavallion Spinal Core",
-                    "6d5ba989": "Minion B", // This appears in Worst Vacation Ever. Unsure if it is specifically Skeleton or Cyaegha
-                    "a51ba796": "Excavallion Reactor",
+                    // Bosses
+                    "b71014c5": "Quakadile",
+                    "5fb90ec9": "Blizzadile",
+                    "ba320eeb": "Infernadile",
+                    "84fdd7b5": "Goblin Warrior",
                     "b31ee30a": "Nazarbonju",
+                    "3f7f9a35": "Rock Golem",
+                    "6409b2a8": "Tayu'itar",                    // Same actor id for both Mk1 and Mk2
+                    "7d71c604": "Obsidian Raptor",
+                    "3a0ea858": "Gerasene",
+                    "b69dd953": "Scarmiglione",
+                    "119d4d01": "Wyvern or Griffin",            // Reused actor id for both the mobs and the boss
+                    "c3c58c76": "Furycane (Phase 1)",
+                    "d09c5b2e": "Furycane (Phase 2)",
+                    "75a3867c": "Managarmr",
+                    "eab390a0": "Id (Phase 1)",
+                    "0c9d3c34": "Id (Phase 2)",
+                    "17576f75": "Gallanza",
+                    "e4c12a94": "Maglielle",
+                    "0dbfc18a": "Excavallion Talus Reactor",
+                    "a51ba796": "Excavallion Other Reactor",    // e.g. Deltoid, Forearm, etc.
+                    "4d2202ae": "Excavallion Spinal Core",
+                    "8c3adb57": "Vulkan Bolla",
+                    "ccddbda1": "Vulkan Bolla Tail",
+                    "e7576708": "Angra Mainyu",
+
+                    // Proud Bosses
+                    "b4aed02d": "Bahamut Versa",
+                    "4a299e62": "Vrazarek Firewyrm",
+
+                    // Misc Actors and Minions
+                    "0e0a8d33": "Minion A",                     // This appears in Worst Vacation Ever. Unsure if it is specifically Skeleton or Cyaegha
+                    "6d5ba989": "Minion B",                     // This appears in Worst Vacation Ever. Unsure if it is specifically Skeleton or Cyaegha
+                    "22e188a1": "Spinal Core Minion",
+                    "427e32fe": "Goblin Minion A",              // Stormer, Archer, etc. These seem to be used interchangeably
+                    "00012bcd": "Goblin Minion B",              // Stormer, Archer, etc. These seem to be used interchangeably
+                    "3d05eb17": "Goblin Tanker",
+                    "777abf6d": "Goblin Wolfrider",
+                    "ca4091c8": "Goblin Soldier",
+                    "44a72d4b": "Goblin Witch Doctor",
+                    "4d2d2ef6": "Excavallion Leg Wall",
                     "b6e8888a": "Excavallion Body (no damage)",
+                    "5dfd3b4a": "Blizzadile Ice Pillar",        // Only one of them seems to output an actor id
+                    "701f6b7e": "Quakadile Rock",
+                    "a63de428": "Hornbird",
+                    "b2efc09d": "Aqua Gyre",
+                    "e07acd74": "Nereid",
+                    "0ee3e67f": "Negelith Elemental",
+                    "bcef1ee2": "Sword Veil Fellowship",
+                    "e57a72bc": "Mjolnir",
+                    "b12f9db1": "Freikugel",
+                    "06d40674": "Caduceus",
+                    "703b6906": "Gae Bulg",
+                    "d622ed34": "Flame Gyre",
+                    "095c118f": "Phondam Elemental",
+                    "6f92396e": "Daeva",
+                    "1943ed28": "Aka Manah",
+                    "cae6d200": "Keeper",
+                    "28242ccc": "Watcher",
+                    "8b964be7": "Ominous Form",
                 }
             }
         }
