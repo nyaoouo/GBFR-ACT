@@ -1522,6 +1522,7 @@ const i18nCfg = {
                     },
                 },
                 actors: {
+                    // Characters
                     "9498420d": "Djeeta",
                     "26a4848a": "Gran",
                     "c3155079": "Zeta",
@@ -1542,6 +1543,18 @@ const i18nCfg = {
                     "c97f3365": "Yodarha",
                     "d16cfbde": "Vaseraga",
                     "8056abcd": "Id",
+
+                    // Enemies
+                    "0dbfc18a": "Talus Reactor",
+                    "0e0a8d33": "Minion A", // This appears in Worst Vacation Ever. Unsure if it is specifically Skeleton or Cyaegha
+                    "22e188a1": "Spinal Core Minion",
+                    "3a0ea858": "Gerasene",
+                    "4d2d2ef6": "Excavallion Leg Wall",
+                    "4d2202ae": "Excavallion Spinal Core",
+                    "6d5ba989": "Minion B", // This appears in Worst Vacation Ever. Unsure if it is specifically Skeleton or Cyaegha
+                    "a51ba796": "Excavallion Reactor",
+                    "b31ee30a": "Nazarbonju",
+                    "b6e8888a": "Excavallion Body (no damage)",
                 }
             }
         }
