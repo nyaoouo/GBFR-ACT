@@ -941,7 +941,7 @@
                             const str = localStorage.getItem('latest_record_events');
                             if (str) {
                                 const {key, events} = JSON.parse(str);
-                                new_record(key);
+                                // new_record(key);
                                 evt_buffer.push(...events);
                             }
                         } catch (e) {
@@ -949,7 +949,7 @@
                             records.value = [];
                             RecordEx.instances = {};
                         }
-                        want_new = !!records.value.length;
+                        update_var.want_new = !!records.value.length;
                         localStorage.removeItem('latest_record');
                     }
                     Vue.watch(cfg, (v) => localStorage.setItem('act_ws_cfg', JSON.stringify(v)), {deep: true});
