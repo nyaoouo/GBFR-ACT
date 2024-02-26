@@ -1645,13 +1645,23 @@ const i18nCfg = {
                     "0dbfc18a": "Excavallion Talus Reactor",
                     "a51ba796": "Excavallion Other Reactor",    // e.g. Deltoid, Forearm, etc.
                     "4d2202ae": "Excavallion Spinal Core",
-                    "8c3adb57": "Vulkan Bolla",
+                    "8c3adb57": "Vulkan Bolla/Nihilla",         // Same actor id for regular and Nihilla
                     "ccddbda1": "Vulkan Bolla Tail",
                     "e7576708": "Angra Mainyu",
 
                     // Proud Bosses
                     "b4aed02d": "Bahamut Versa",
                     "4a299e62": "Vrazarek Firewyrm",
+                    "afeb2d7e": "Corvell Earthwyrm",
+                    "e170f036": "Wilinus Icewyrm",
+                    "044bbc73": "Ancient Dragon",
+                    "e556d1bf": "Furycane Nihilla (Phase 1)",
+                    "745da8b4": "Furycane Nihilla (Phase 2)",
+                    "938a4bdf": "Managarmr Nihilla",
+                    "0e3d1703": "Radis Whitewyrm",
+                    "65c26889": "Evyl Blackwyrm",
+                    "4fdb94bb": "Pyet-A",
+                    "df348320": "Proto Bahamut",
 
                     // Misc Actors and Minions
                     "0e0a8d33": "Minion A",                     // This appears in Worst Vacation Ever. Unsure if it is specifically Skeleton or Cyaegha
@@ -1669,7 +1679,7 @@ const i18nCfg = {
                     "701f6b7e": "Quakadile Rock",
                     "a63de428": "Hornbird",
                     "b2efc09d": "Aqua Gyre",
-                    "e07acd74": "Nereid",
+                    "e07acd74": "Nereid/Halimede",              // Same actor id for regular and Nihilla
                     "0ee3e67f": "Negelith Elemental",
                     "bcef1ee2": "Sword Veil Fellowship",
                     "e57a72bc": "Mjolnir",
@@ -1683,6 +1693,14 @@ const i18nCfg = {
                     "cae6d200": "Keeper",
                     "28242ccc": "Watcher",
                     "8b964be7": "Ominous Form",
+                    "8eaf20fb": "Light Gyre",
+                    "e7767ba1": "Dark Gyre/Dark Crucible",
+                    "fb16498e": "Hutchison Generator",
+                    "7044a13d": "Firefly",
+                    "632dd368": "Proto Bahamut Purple Ball",
+                    "d1642ea8": "Proto Bahamut Red Ball",
+                    "80cdae70": "Proto Bahamut Gold Ball",
+                    "2c800d3a": "Proto Bahamut Minion",
                 }
             }
         }
