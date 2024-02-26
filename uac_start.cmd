@@ -1,4 +1,3 @@
-@REM only intended to be used via steam launch options
 @echo off
 setlocal enabledelayedexpansion
 set "params=%*"
