@@ -942,14 +942,15 @@
                             if (str) {
                                 const {key, events} = JSON.parse(str);
                                 // new_record(key);
+                                update_var.want_new = true;
                                 evt_buffer.push(...events);
+                                evt_buffer.push({ type: 'enter_area', time_ms: Date.now() });
                             }
                         } catch (e) {
                             err(e);
                             records.value = [];
                             RecordEx.instances = {};
                         }
-                        update_var.want_new = !!records.value.length;
                         localStorage.removeItem('latest_record');
                     }
                     Vue.watch(cfg, (v) => localStorage.setItem('act_ws_cfg', JSON.stringify(v)), {deep: true});
