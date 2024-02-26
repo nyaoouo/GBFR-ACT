@@ -65,3 +65,5 @@
 2. Linked Launch (Preferable, only for windows)
     - Set Steam launch option as follows `"C:\<Path-To-GBFR-ACT>\uac_start.cmd" %command%`, ![img](./img/steam_launch.png)
     - Launch GBFR from steam and it will automatically launch everything.
+
+Closing the game will also end ACT and you can reload ACT server by relaunching game
