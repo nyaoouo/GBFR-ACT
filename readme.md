@@ -63,5 +63,5 @@
       - Either via steam or other method
 
 2. Linked Launch (Preferable, only for windows)
-    - Set Steam launch option as follows `"C:\<Path-To-GBFR-ACT>\steam_win_start.cmd" %command%`, ![img](./img/steam_launch.png)
+    - Set Steam launch option as follows `"C:\<Path-To-GBFR-ACT>\uac_start.cmd" %command%`, ![img](./img/steam_launch.png)
     - Launch GBFR from steam and it will automatically launch everything.
