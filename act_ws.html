@@ -786,7 +786,7 @@
                 });
                 const update_var = {
                     want_new: false,
-                    period: 1000,
+                    period: 0,
                     last_frame: 0,
                 }
                 const export_log = (record) => record.export_log();
@@ -935,6 +935,7 @@
                 var update_interval = null;
                 Vue.onMounted(() => {
                     init_cfg();
+                    update_var.period = 1000;
                     if (cfg.value.keep_record) {
                         records.value = [];
                         try {
