@@ -786,7 +786,7 @@
                 });
                 const update_var = {
                     want_new: false,
-                    period: 0,
+                    period: 1000,
                     last_frame: 0,
                 }
                 const export_log = (record) => record.export_log();
@@ -899,8 +899,8 @@
                     socket_.addEventListener("close", () => {
                         is_socket_connected.value = false;
                         socket = null;
-                        if (update_period > 0)
-                            setTimeout(create_socket, update_period);
+                        if (update_var.period > 0)
+                            setTimeout(create_socket, update_var.period);
                     });
                     socket_.addEventListener("error", evt => {
                         console.error("Ws Error", evt);
