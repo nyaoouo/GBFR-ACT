@@ -31,6 +31,9 @@
 
 3. **打开act_ws.html**
    - 建议使用Chrome浏览器打开`act_ws.html`
+### 打包为exe
+    > pip install pyinstaller
+    > pyinstaller --onefile --add-data "act_ws_texts.js;." --add-data "act_ws.html;." --add-data "injector.py;." --add-data "EasyHook64.dll;." --manifest "app.manifest" --noconsole main.py
 
 
 ### Remarks
@@ -53,3 +56,9 @@
 
 3. **Open act_ws.html**
    - It is recommended to use Chrome browser to open `act_ws.html`.
+  
+### to exe
+    > pip install pyinstaller
+    > pyinstaller --onefile --add-data "act_ws_texts.js;." --add-data "act_ws.html;." --add-data "injector.py;." --add-data "EasyHook64.dll;." --manifest "app.manifest" --noconsole main.py
+
+
