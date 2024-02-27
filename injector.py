@@ -1723,14 +1723,23 @@ class Hook:
     def __call__(self, *args):
         return self.call(*args)
 
-
 def run_admin():
     try:
-        if ctypes.windll.shell32.IsUserAnAdmin(): return
+        if ctypes.windll.shell32.IsUserAnAdmin():
+            # 已经是管理员权限，无需重新启动
+            return
     except:
         pass
-    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
-    raise PermissionError("Need admin permission, a new process should be started, if not, please run it as admin manually")
+
+    # 尝试以管理员权限启动新实例
+    result = ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+    
+    if result > 32:
+        # 成功以管理员权限启动新实例，关闭当前实例
+        os._exit(0)
+    else:
+        # 启动失败，抛出异常
+        raise PermissionError("需要管理员权限，如果新进程没有启动，请手动以管理员身份运行")
 
 
 def get_server() -> RpcServer:
