@@ -601,7 +601,7 @@
                 this.id = action_id;
                 const key = ActorAction.common_actions[action_id] || `game.actions.${actor_key}.${action_id}`;
                 this.display_name = i18n.global.te(key) ? i18n.global.t(key) : `${action_id}`;
-                this.display_desc = i18n.global.te(`${key}.desc`) ? i18n.global.t(`${key}.desc`) : '';
+                this.display_desc = i18n.global.te(`${key}_desc`) ? i18n.global.t(`${key}_desc`) : '';
                 this.hit = 0;
                 this.damage = 0;
                 this.min = -1;
