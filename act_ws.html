@@ -357,7 +357,7 @@
         f(`[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}]`, ...args);
     }
     const log_cond = {
-        evt: 0,
+        evt: 1,
         render: 0,
         damage: 0,
     }
@@ -485,8 +485,8 @@
             return action_id;
         }
 
-        const actor_name = (actor_id) => {
-            const name_key = numberToHexStringWithZFill(actor_id, 8);
+        const actor_name = (name_key) => {
+            name_key = name_key.toUpperCase();
             return i18n.global.te(`game.actors.${name_key}`) ? i18n.global.t(`game.actors.${name_key}`) : name_key;
         }
 
@@ -595,9 +595,11 @@
         }
 
         class ActorTarget {
-            constructor(idx, id, party_idx) {
+            constructor(data) {
+                const [type, idx, id, party_idx, ..._] = data;
+                this.type = type;
                 this.idx = idx;
-                this.name = party_idx === -1 ? `${actor_name(id)}#${idx}` : `[${party_idx}]${actor_name(id)}#${idx}`;
+                this.name = party_idx === -1 ? `${actor_name(type)}#${idx}` : `[${party_idx}]${actor_name(type)}#${idx}`;
                 this.damage = 0;
             }
         }
@@ -636,12 +638,15 @@
                 '#55ffff',
             ]
 
-            constructor(record_key, idx, id, party_idx) {
+            constructor(record_key, data) {
+                const [type, idx, id, party_idx, ..._] = data;
                 this.record_key = record_key;
+                this.type = type;
+                this.id = id;
                 this.idx = idx;
                 this.party_idx = party_idx;
-                this.name_key = numberToHexStringWithZFill(id, 8);
-                this.display_name = `[${party_idx}]${i18n.global.t(`game.actors.${this.name_key}`)}#${idx}`;
+                this.name_key = type.toUpperCase(); // numberToHexStringWithZFill(id, 8);
+                this.display_name = `[${party_idx}]${actor_name(this.name_key)}#${idx}`;
                 this.color = Actor.colors[party_idx];
                 this.damage = 0;
                 this.damage_in_minute = 0;
@@ -657,10 +662,11 @@
                 this.hit = 0;
             }
 
-            get_target(target_idx, target_id, target_party_idx) {
+            get_target(data) {
+                const [target_type, target_idx, ...__] = data;
                 const res = this.targets.find(v => v.idx === target_idx);
                 if (res) return res;
-                const new_res = Vue.reactive(new ActorTarget(target_idx, target_id, target_party_idx));
+                const new_res = Vue.reactive(new ActorTarget(data));
                 this.targets.push(new_res);
                 return new_res;
             }
@@ -691,11 +697,12 @@
                 this.damage = 0;
             }
 
-            get_actor(idx, id, party_idx) {
+            get_actor(data) {
+                const [type, idx, id, party_idx, ..._] = data;
                 const res = this.actors.find(v => v.idx === idx);
                 if (res) return res;
                 if (!id) return null;
-                const new_res = Vue.reactive(new Actor(this.time_ms, idx, id, party_idx));
+                const new_res = Vue.reactive(new Actor(this.time_ms, data));
                 this.get_ex().new_chart_actor(new_res.display_name, new_res.color);
                 this.actors.push(new_res);
                 return new_res;
@@ -712,7 +719,7 @@
                             const {source, damage} = evt.data;
                             const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
                             if (source_party_idx === -1) break;
-                            const actor = this.get_actor(source_idx, source_id, source_party_idx);
+                            const actor = this.get_actor(source);
                             actor.damage_in_minute -= damage;
                             break;
                     }
@@ -862,11 +869,11 @@
                     if (source_party_idx === -1) return;
                     current_record.get_ex().events.push(evt);
                     current_record.damage += damage;
-                    const actor = current_record.get_actor(source_idx, source_id, source_party_idx);
+                    const actor = current_record.get_actor(source);
                     actor.hit += 1;
                     actor.damage += damage;
                     actor.damage_in_minute += damage;
-                    const target_actor = actor.get_target(target_idx, target_id, target_party_idx);
+                    const target_actor = actor.get_target(target);
                     target_actor.damage += damage;
                     const action = actor.get_action(evt_action_id(data));
                     action.hit += 1;
@@ -938,8 +945,6 @@
                     ['damage', 'damage_in_minute', 'dps', 'dps_in_minute', 'detail'].map(k => {
                         if (!(k in cfg_val.main_tbl_cols_display)) cfg_val.main_tbl_cols_display[k] = true;
                     })
-                    console.log(cfg_val)
-
                     cfg.value = cfg_val;
                 }
 

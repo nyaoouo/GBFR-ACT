@@ -1744,23 +1744,26 @@ u32_from = Process.current.read_u32  # lambda a: ctypes.c_uint32.from_address(a)
 u64_from = Process.current.read_u64  # lambda a: ctypes.c_uint64.from_address(a).value
 v_func = lambda a, off: size_t_from(size_t_from(a) + off)
 
-i_actor_0x50 = ctypes.CFUNCTYPE(ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t)
+i_actor_0x48 = ctypes.CFUNCTYPE(ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t)
+# i_actor_0x50 = ctypes.CFUNCTYPE(ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t)
 i_actor_0x58 = ctypes.CFUNCTYPE(ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t)
+actor_data_with_cache = False
+actor_data_dec = functools.cache if actor_data_with_cache else lambda f: f
 
-
-@functools.cache
+@actor_data_dec
 def actor_base_name(a1):
-    i_actor_0x50(v_func(a1, 0x50))(a1, ctypes.addressof(type_name := ctypes.c_char_p()))
+    i_actor_0x48(v_func(a1, 0x48))(a1, ctypes.addressof(type_name := ctypes.c_char_p()))
+    # i_actor_0x50(v_func(a1, 0x50))(a1, ctypes.addressof(type_name := ctypes.c_char_p()))
     return type_name.value.decode()
 
 
-@functools.cache
+@actor_data_dec
 def actor_type_id(a1):
     i_actor_0x58(v_func(a1, 0x58))(a1, ctypes.addressof(val := ctypes.c_uint32()))
     return val.value
 
 
-@functools.cache
+@actor_data_dec
 def actor_idx(a1):
     return u32_from(a1 + 0x170)
 
@@ -1870,26 +1873,41 @@ class Act:
         res = hook.original(a1, a2, a3)
         try:
             self.team_map = None
-            actor_base_name.cache_clear()
-            actor_type_id.cache_clear()
-            actor_idx.cache_clear()
+            if actor_data_with_cache:
+                actor_base_name.cache_clear()
+                actor_type_id.cache_clear()
+                actor_idx.cache_clear()
             self.on_enter_area()
         except:
             logging.error('on_enter_area', exc_info=True)
         return res
 
-    def _on_damage(self, source, target, damage, flags, action_id):
-        # TODO: 找个通用方法溯源
-        source_type_id = actor_type_id(source)
-        if source_type_id == 0x2af678e8:  # 菲莉宝宝 # Pl0700Ghost
-            source = size_t_from(size_t_from(source + 0xE48) + 0x70)
-        elif source_type_id == 0x8364c8bc:  # 菲莉 绕身球  # Pl0700GhostSatellite
-            source = size_t_from(size_t_from(source + 0x508) + 0x70)
-        elif source_type_id == 0xc9f45042:  # 老男人武器
-            source = size_t_from(size_t_from(source + 0x578) + 0x70)
-        elif source_type_id == 0xf5755c0e:  # 龙人化
-            source = size_t_from(size_t_from(source + 0xD028) + 0x70)
-        return self.on_damage(self.actor_data(source), self.actor_data(target), damage, flags, action_id)
+    if 1:
+        def _on_damage(self, source, target, damage, flags, action_id):
+            # TODO: 找个通用方法溯源
+            source_type_id = actor_type_id(source)
+            if source_type_id == 0x2af678e8:  # 菲莉宝宝 # Pl0700Ghost
+                source = size_t_from(size_t_from(source + 0xE48) + 0x70)
+            elif source_type_id == 0x8364c8bc:  # 菲莉 绕身球  # Pl0700GhostSatellite
+                source = size_t_from(size_t_from(source + 0x508) + 0x70)
+            elif source_type_id == 0xc9f45042:  # 老男人武器 # Wp1890
+                source = size_t_from(size_t_from(source + 0x578) + 0x70)
+            elif source_type_id == 0xf5755c0e:  # 龙人化 # Pl2000
+                source = size_t_from(size_t_from(source + 0xD028) + 0x70)
+            return self.on_damage(self.actor_data(source), self.actor_data(target), damage, flags, action_id)
+    else:
+        def _on_damage(self, source, target, damage, flags, action_id):
+            # TODO: 找个通用方法溯源
+            source_base_name = actor_base_name(source)
+            if source_base_name == b'Pl0700Ghost':  # 菲莉宝宝 # Pl0700Ghost
+                source = size_t_from(size_t_from(source + 0xE48) + 0x70)
+            elif source_base_name == b'Pl0700GhostSatellite':  # 菲莉 绕身球  # Pl0700GhostSatellite
+                source = size_t_from(size_t_from(source + 0x508) + 0x70)
+            elif source_base_name == b'Wp1890':  # 老男人武器 # Wp1890
+                source = size_t_from(size_t_from(source + 0x578) + 0x70)
+            elif source_base_name == b'Pl2000':  # 龙人化 # Pl2000
+                source = size_t_from(size_t_from(source + 0xD028) + 0x70)
+            return self.on_damage(self.actor_data(source), self.actor_data(target), damage, flags, action_id)
 
     def on_damage(self, source, target, damage, flags, action_id):
         pass
