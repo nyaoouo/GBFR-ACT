@@ -830,6 +830,7 @@
                 }
                 const archive_record = (record, time_ms = 0) => {
                     update_var.want_new = true;
+                    if (record.is_archived) return;
                     record.update(time_ms);
                     record.redraw_chart();
                     record.is_archived = true;
