@@ -186,7 +186,7 @@
                         </el-table>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('ui.actions')" name="actions">
-                        <el-alert v-if="!actor_dialog.action_chart.selected" title="click name to show chart" type="info" ></el-alert>
+                        <el-alert v-if="!actor_dialog.action_chart.selected" title="click name to show chart" type="info"></el-alert>
                         <div :style="{display:actor_dialog.action_chart.selected?'block':'none'}">
                             <canvas :ref="el => { actor_dialog.action_chart.canvas = el }" :height="screen.height*0.5"></canvas>
                         </div>
@@ -830,10 +830,10 @@
                 }
                 const archive_record = (record, time_ms = 0) => {
                     update_var.want_new = true;
-                    if (record.is_archived) return;
-                    record.update(time_ms);
+                    if (record.archived) return;
+                    record.update(Math.min(time_ms || Date.now(), record.last_record_at));
                     record.redraw_chart();
-                    record.is_archived = true;
+                    record.archived = true;
                 }
 
                 const new_record = (time_ms = 0) => {
