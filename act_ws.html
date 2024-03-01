@@ -527,9 +527,9 @@
                         if (cutoff_idx >= 0) dataset.data = dataset.data.slice(cutoff_idx);
                     }
                 }
-                for (const {display_name, damage, dps} of record.actors) {
+                for (const {display_name, damage, dps_in_minute} of record.actors) {
                     const dps_dataset = this.dps_chart_data.datasets.find(ds => ds.label === display_name);
-                    if (dps_dataset) dps_dataset.data.push({x: time_sec, y: dps});
+                    if (dps_dataset) dps_dataset.data.push({x: time_sec, y: dps_in_minute});
                     const dmg_dataset = this.dmg_chart_data.datasets.find(ds => ds.label === display_name);
                     if (dmg_dataset) dmg_dataset.data.push({x: time_sec, y: damage});
                 }
