@@ -239,7 +239,7 @@
                             </el-table-column>
                             <el-table-column :label="$t('ui.damage_avg')">
                                 <template #default="scope">
-                                    <span v-if="scope.row.hit > 0">{{numberWithComma(Math.floor(scope.row.damage / scope.row.hit))}}</span>
+                                    <span v-if="scope.row.hit > 0">{{numberWithComma(Math.floor(scope.row.damage / scope.row.hit))}} ({{(scope.row.damage / scope.row.hit /scope.row.max*100).toFixed(1)}}%)</span>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -863,6 +863,7 @@
                     const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
                     const [target_type, target_idx, target_id, target_party_idx, ...__] = target;
                     if (target_id === 0x22a350f) return; // HARDCODE: 对欧根附加炸弹造成的伤害不进行记录
+                    if (damage < 1000) return; // HARDCODE: filter outliner damage (<1000)
                     // TODO: 自伤类技能的过滤
                     const current_record = get_latest_record();
                     current_record.last_record_at = time_ms;
