@@ -2366,6 +2366,7 @@ const i18nCfg = {
                         "200": "Twin Blade Dance",
                         "300": "(jump) X1",
                         "301": "(jump) X2",
+                        "302": "(jump) X3",
                         "400": "Launch",
                         "410": "Aerial Barrage",
                         "1000": "Blade Impulse",
