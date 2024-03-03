@@ -2181,6 +2181,11 @@ const i18nCfg = {
                         charged_shot: "Charged Shot",
                     },
                     "PL0200": { // Katalina
+                        "1": "Enchanted Lands",
+                        "2": "Winter's Rain",
+                        "4": "Sacred Winds",
+                        "5": "Azure Sword",
+                        "7": "Frozen Blade",
                         "100": "X",
                         "101": "(X) X",
                         "102": "(XX) X",
@@ -2206,11 +2211,6 @@ const i18nCfg = {
                         "303": "(jump)(XXX) Y",
                         "400": "Launch",
                         "410": "(jump) Y",
-                        "1100": "Enchanted Lands",
-                        "1200": "Winter's Rain",
-                        "1400": "Sacred Winds",
-                        "1500": "Azure Sword",
-                        "1700": "Frost Blade",
                     },
                     "PL0900": { // Vane
                         "100": "X",
