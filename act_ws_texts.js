@@ -44,6 +44,8 @@ const i18nCfg = {
                 tbl_main_col: "主要表格栏",
                 keep_record: "保留最后一次记录",
                 export_log: "下载当前战斗记录",
+                damage_filter: "小伤害过滤",
+                damage_filter_desc: "过滤(包含)",
             },
             game: {
                 actions: {
@@ -1093,6 +1095,8 @@ const i18nCfg = {
                 language: "語言",
                 chart_main: "主要圖表",
                 keep_record: "保留最後一次記錄",
+                damage_filter: "小傷害過濾",
+                damage_filter_desc: "過濾(包含)",
             },
             game: {
                 actions: {
@@ -2169,6 +2173,8 @@ const i18nCfg = {
                 language: "language",
                 chart_main: "main chart",
                 keep_record: "keep the last record",
+                damage_filter: "damage filter",
+                damage_filter_desc: "filter(inclusive)",
             },
             game: {
                 actions: {

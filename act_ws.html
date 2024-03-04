@@ -297,6 +297,10 @@
                                                     :active-text="$t(`ui.${k}`)"
                                             ></el-switch>
                                         </el-form-item>
+                                        <el-form-item :label="$t('ui.damage_filter')">
+                                            <el-switch v-model="cfg.bool_damage_filter" :active-text="$t('ui.damage_filter_desc')"></el-switch>
+                                            <el-input-number v-model="cfg.number_damage_filter" :min="0" :step="100" :disabled="!cfg.bool_damage_filter"></el-input-number>
+                                        </el-form-item>
                                     </el-form>
 
                                     <el-button class="w-100" @click="export_log(item)">
@@ -863,7 +867,7 @@
                     const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
                     const [target_type, target_idx, target_id, target_party_idx, ...__] = target;
                     if (target_id === 0x22a350f) return; // HARDCODE: 对欧根附加炸弹造成的伤害不进行记录
-                    if (damage < 1000) return; // HARDCODE: filter outliner damage (<1000)
+                    if (cfg.value.bool_damage_filter && damage <= cfg.value.number_damage_filter) return; // 小伤害过滤
                     // TODO: 自伤类技能的过滤
                     const current_record = get_latest_record();
                     current_record.last_record_at = time_ms;
