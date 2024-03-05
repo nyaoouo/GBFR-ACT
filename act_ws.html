@@ -239,7 +239,7 @@
                             </el-table-column>
                             <el-table-column :label="$t('ui.damage_avg')">
                                 <template #default="scope">
-                                    <span v-if="scope.row.hit > 0">{{numberWithComma(Math.floor(scope.row.damage / scope.row.hit))}} ({{(scope.row.damage / scope.row.hit /scope.row.max*100).toFixed(1)}}%)</span>
+                                    <span v-if="scope.row.hit > 0 && scope.row.max > 0">{{numberWithComma(Math.floor(scope.row.damage / scope.row.hit))}} ({{(scope.row.damage / scope.row.hit / scope.row.max * 100).toFixed(1)}}%)</span>
                                 </template>
                             </el-table-column>
                         </el-table>
