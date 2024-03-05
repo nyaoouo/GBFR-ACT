@@ -1742,6 +1742,7 @@ i8_from = Process.current.read_i8  # lambda a: ctypes.c_int8.from_address(a).val
 i32_from = Process.current.read_i32  # lambda a: ctypes.c_int32.from_address(a).value
 u32_from = Process.current.read_u32  # lambda a: ctypes.c_uint32.from_address(a).value
 u64_from = Process.current.read_u64  # lambda a: ctypes.c_uint64.from_address(a).value
+float_from = Process.current.read_float
 v_func = lambda a, off: size_t_from(size_t_from(a) + off)
 
 i_actor_0x48 = ctypes.CFUNCTYPE(ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t)
@@ -1847,6 +1848,9 @@ class Act:
         try:
             dmg = i32_from(a2 + 0xd0)
             flags_ = u64_from(a2 + 0xd8)
+            critical = i8_from(a2 + 0x149)
+            dmgCap = i32_from(a2 + 0x264)
+            attackRate = float_from(a2 + 0xd4)
             if (1 << 7 | 1 << 50) & flags_:
                 action_id = -1  # link attack
             elif (1 << 13 | 1 << 14) & flags_:
