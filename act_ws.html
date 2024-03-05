@@ -950,6 +950,8 @@
                     ['damage', 'damage_in_minute', 'dps', 'dps_in_minute', 'detail'].map(k => {
                         if (!(k in cfg_val.main_tbl_cols_display)) cfg_val.main_tbl_cols_display[k] = true;
                     })
+                    setdefault('bool_damage_filter', false);
+                    setdefault('number_damage_filter', 0);
                     cfg.value = cfg_val;
                 }
 
