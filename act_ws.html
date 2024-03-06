@@ -239,7 +239,7 @@
                             </el-table-column>
                             <el-table-column :label="$t('ui.damage_avg')">
                                 <template #default="scope">
-                                    <span v-if="scope.row.hit > 0">{{numberWithComma(Math.floor(scope.row.damage / scope.row.hit))}}</span>
+                                    <span v-if="scope.row.hit > 0 && scope.row.max > 0">{{numberWithComma(Math.floor(scope.row.damage / scope.row.hit))}} ({{(scope.row.damage / scope.row.hit / scope.row.max * 100).toFixed(1)}}%)</span>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -296,6 +296,10 @@
                                                     v-model="cfg.main_tbl_cols_display[k]"
                                                     :active-text="$t(`ui.${k}`)"
                                             ></el-switch>
+                                        </el-form-item>
+                                        <el-form-item :label="$t('ui.damage_filter')">
+                                            <el-switch v-model="cfg.bool_damage_filter" :active-text="$t('ui.damage_filter_desc')"></el-switch>
+                                            <el-input-number v-model="cfg.number_damage_filter" :min="0" :step="100" :disabled="!cfg.bool_damage_filter"></el-input-number>
                                         </el-form-item>
                                     </el-form>
 
@@ -863,6 +867,7 @@
                     const [source_type, source_idx, source_id, source_party_idx, ..._] = source;
                     const [target_type, target_idx, target_id, target_party_idx, ...__] = target;
                     if (target_id === 0x22a350f) return; // HARDCODE: 对欧根附加炸弹造成的伤害不进行记录
+                    if (cfg.value.bool_damage_filter && damage <= cfg.value.number_damage_filter) return; // 小伤害过滤
                     // TODO: 自伤类技能的过滤
                     const current_record = get_latest_record();
                     current_record.last_record_at = time_ms;
@@ -945,6 +950,8 @@
                     ['damage', 'damage_in_minute', 'dps', 'dps_in_minute', 'detail'].map(k => {
                         if (!(k in cfg_val.main_tbl_cols_display)) cfg_val.main_tbl_cols_display[k] = true;
                     })
+                    setdefault('bool_damage_filter', false);
+                    setdefault('number_damage_filter', 0);
                     cfg.value = cfg_val;
                 }
 
