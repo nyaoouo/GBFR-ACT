@@ -2198,7 +2198,11 @@ const i18nCfg = {
                         "200": "Y",
                         "201": "(Y) Y",
                         "202": "(YY) Y",
-                        "245": "(Ares) Y1",
+                        "240": "(Ares) Y1", "240_desc": "Summoned Ares from an attack combo",
+                        "242": "(Ares) Y1", "242_desc": "Summoned Ares from an attack combo",
+                        "243": "(Ares) Y1", "243_desc": "Summoned Ares from a Combo Finisher as a result of casting a skill or Link Attack",
+                        "244": "(Ares) Y1", "244_desc": "Summoned Ares from an Oathsworn Blade combo",
+                        "245": "(Ares) Y1",     // Unsure how this attack id is achieved
                         "250": "(Ares) Y2",
                         "252": "(Ares) Y3",
                         "253": "(Ares) Y4",
