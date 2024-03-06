@@ -1748,6 +1748,7 @@ v_func = lambda a, off: size_t_from(size_t_from(a) + off)
 i_actor_0x48 = ctypes.CFUNCTYPE(ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t)
 # i_actor_0x50 = ctypes.CFUNCTYPE(ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t)
 i_actor_0x58 = ctypes.CFUNCTYPE(ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t)
+i_actor_0x770 = ctypes.CFUNCTYPE(ctypes.c_size_t, ctypes.c_size_t)
 actor_data_with_cache = False
 actor_data_dec = functools.cache if actor_data_with_cache else lambda f: f
 
@@ -1768,11 +1769,37 @@ def actor_type_id(a1):
 def actor_idx(a1):
     return u32_from(a1 + 0x170)
 
+@actor_data_dec
+def actor_maxHp(a1):
+    res = i_actor_0x770(v_func(a1, 0x770))(a1)
+    return u32_from(res + 4)
 
 def ensure_same(args):
     if len(s := set(args)) != 1: raise ValueError(f'not same {args=}')
     return s.pop()
 
+def actor_sigil_lv(actor,sigil_id):
+    class ListNode(ctypes.Structure):
+        pass
+    ListNode._fields_ = [
+        ("next", ctypes.POINTER(ListNode)),
+        ("prev", ctypes.POINTER(ListNode)),
+        ("id", ctypes.c_uint32),
+        ("unk", ctypes.c_uint32),
+        ("Lvl", ctypes.c_uint32),
+        ("ModifiableValue1", ctypes.c_float),
+        ("ModifiableValue2", ctypes.c_float)
+    ]
+    r = i_actor_0x770(v_func(actor, 0x770))(actor)
+    node_type = ctypes.POINTER(ListNode)
+    ptr = ctypes.cast(r+0x3220, node_type)
+    endwhile = ptr
+    while ptr:
+        if ptr.contents.id == sigil_id:
+            return ptr.contents.Lvl
+        ptr = ptr.contents.next
+        if ptr == endwhile:
+            return 0
 
 class Act:
     _sys_key = '_act_'
