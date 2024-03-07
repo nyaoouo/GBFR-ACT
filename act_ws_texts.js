@@ -2239,6 +2239,7 @@ const i18nCfg = {
                         "2411": "Dispel II",
                         "2412": "Dispel III",
                         "2413": "Dispel IV",
+                        "4294967295": "Roter Bug",      // Temporary add until this action id is handled more generally
                     },
                     "PL0200": { // Katalina
                         "1": "Enchanted Lands",
