@@ -1742,6 +1742,7 @@ i8_from = Process.current.read_i8  # lambda a: ctypes.c_int8.from_address(a).val
 i32_from = Process.current.read_i32  # lambda a: ctypes.c_int32.from_address(a).value
 u32_from = Process.current.read_u32  # lambda a: ctypes.c_uint32.from_address(a).value
 u64_from = Process.current.read_u64  # lambda a: ctypes.c_uint64.from_address(a).value
+float_from = Process.current.read_float
 v_func = lambda a, off: size_t_from(size_t_from(a) + off)
 
 i_actor_0x48 = ctypes.CFUNCTYPE(ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t)
@@ -1801,11 +1802,6 @@ class Act:
             ctypes.c_uint8
         ])
 
-        self.i_a1_0x40 = ctypes.CFUNCTYPE(
-            ctypes.c_uint32,
-            ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t
-        )
-
         self.p_qword_1467572B0, = scanner.find_val("48 ? ? * * * * 83 66 ? ? 48 ? ?")
 
         self.i_ui_comp_name = ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.c_size_t)
@@ -1838,15 +1834,17 @@ class Act:
             self.build_team_map()
             target = size_t_from(size_t_from(a1 + 8))
             source = size_t_from(size_t_from(a2 + 0x18) + 0x70)
-            flag = not (a4 or self.i_a1_0x40(v_func(a1, 0x40))(a1, a2, 0, target, source))
         except:
             logging.error('on_process_damage_evt', exc_info=True)
-            flag = True
-        res = hook.original(a1, a2, a3, a4)
-        if flag: return res
+        res = hook.original(a1, a2, a3, a4) # return 0 if it is non processed damage event
+        if not (res and target and source): return res # or if get target or source failed
         try:
             dmg = i32_from(a2 + 0xd0)
             flags_ = u64_from(a2 + 0xd8)
+            # current unused, comment for future use
+            # critical = i8_from(a2 + 0x149)
+            # dmgCap = i32_from(a2 + 0x264)
+            # attackRate = float_from(a2 + 0xd4)
             if (1 << 7 | 1 << 50) & flags_:
                 action_id = -1  # link attack
             elif (1 << 13 | 1 << 14) & flags_:
