@@ -1804,10 +1804,12 @@ def actor_sigil_lv(actor,sigil_id):
             return 0
 class FunctionPointer:
     sub_140C8E140 = 0
-class Action(ctypes.Structure):
+
+class ActionInfo(ctypes.Structure):
     _fields_ = [
-        ("vtbl", ctypes.c_size_t),
-        ("Id", ctypes.c_int64),
+        ("vftable", ctypes.c_size_t),
+        ("Id", ctypes.c_int32),
+        ("unkInt32_1", ctypes.c_int32),
         ("unkString", ctypes.c_char * 0x2C),
         ("unkBytes24_1", ctypes.c_char * 0x24),
         ("XComboActionId1", ctypes.c_int32),
@@ -1821,23 +1823,21 @@ class Action(ctypes.Structure):
         ("BaseDmgCapOffsetIdx", ctypes.c_int32),
         ("ActionTypeOffsetIdx", ctypes.c_int32)
     ]
-def actor_get_action_data(a2,actionId):
+
+@actor_data_dec
+def actor_get_action_data(actor,actionId):
     try:
-        if FunctionPointer.sub_140C8E140 == 0:
-            scanner = Process.current.base_scanner()
-            FunctionPointer.sub_140C8E140, = scanner.find_val('E8 * * * * 48 85 C0 74 2B 48 89 C3 49 8B 45 28')
-        ptr = sub_140C8E140(FunctionPointer.sub_140C8E140)(a2+0x10)
-        if ptr == 0: return 0
-        p = u64_from(u64_from(ptr+0x1d80)+0x85e0)
+        p = u64_from(actor+0x85e0)
         firstActionPtr = u64_from(p)
         endActionPtr = u64_from(p+8)
         while firstActionPtr <= endActionPtr:
-            if u64_from(firstActionPtr+8) == actionId: return ctypes.cast(firstActionPtr,ctypes.POINTER(Action))
+            if u64_from(firstActionPtr+8) == actionId: return ctypes.cast(firstActionPtr,ctypes.POINTER(ActionInfo))
             firstActionPtr += 0x2d8
     except Exception as e:
         logging.error("%s", e, exc_info=True)
     return 0
-
+def actor_get_action_curr_action_info(actor):
+    return ctypes.cast(actor+0xbff0, ctypes.POINTER(ActionInfo))
 class Act:
     _sys_key = '_act_'
 
@@ -1914,7 +1914,7 @@ class Act:
             elif (1 << 13 | 1 << 14) & flags_:
                 action_id = -2  # limit break
             else:
-                action_id = u32_from(a2 + 0x154)
+                action_id = actor_get_action_curr_action_info(source).contents.Id
             self._on_damage(source, target, dmg, flags_, action_id)
         except:
             logging.error('on_process_damage_evt', exc_info=True)
