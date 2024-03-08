@@ -1836,8 +1836,8 @@ def actor_get_action_data(actor,actionId):
     except Exception as e:
         logging.error("%s", e, exc_info=True)
     return 0
-def actor_get_action_curr_action_info(actor):
-    return ctypes.cast(actor+0xbff0, ctypes.POINTER(ActionInfo))
+def actor_get_curr_action_id(actor):
+    return u32_from(actor+0xbff8)
 class Act:
     _sys_key = '_act_'
 
@@ -1914,7 +1914,7 @@ class Act:
             elif (1 << 13 | 1 << 14) & flags_:
                 action_id = -2  # limit break
             else:
-                action_id = actor_get_action_curr_action_info(source).contents.Id
+                action_id = u32_from(a2 + 0x154)
             self._on_damage(source, target, dmg, flags_, action_id)
         except:
             logging.error('on_process_damage_evt', exc_info=True)
@@ -1956,6 +1956,7 @@ class Act:
                 source = size_t_from(size_t_from(source + 0x578) + 0x70)
             elif source_type_id == 0xf5755c0e:  # 龙人化 # Pl2000
                 source = size_t_from(size_t_from(source + 0xD028) + 0x70)
+            if action_id == 0xffffffff: action_id = actor_get_curr_action_id(source)
             return self.on_damage(self.actor_data(source), self.actor_data(target), damage, flags, action_id)
     else:
         def _on_damage(self, source, target, damage, flags, action_id):
