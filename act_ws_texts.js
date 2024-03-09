@@ -2594,6 +2594,8 @@ const i18nCfg = {
                         "200": "Y",
                         "251": "(XXY) Y", "251_desc": "Also includes Charged",
                         "252": "(XXXY) Y",
+                        "260": "(Battalions of Fear) Y",
+                        "270": "(Great Scythe Grynoth) Y",
                         "280": "(XY) Y (Charged)",
                         "281": "(XY) Y",
                         "300": "(jump) X",
