@@ -1803,6 +1803,10 @@ class Actor:
             case 0xf5755c0e:  # 龙人化 # Pl2000
                 return Actor(size_t_from(size_t_from(self.address + 0xD028) + 0x70))
 
+    @property
+    def canceled_action(self):
+        return u32_from(self.address + 0xbff8)
+
 
 class ProcessDamageSource:
     # note: use v_func(address,0x2d8) to analyze the source parent...
@@ -1909,6 +1913,7 @@ class Act:
         res = hook.original(p_target_evt, p_source_evt, a3, a4)  # return 0 if it is non processed damage event
         if not (res and target and source): return res  # or if get target or source failed
         try:
+            source = source.parent or source
             flags_ = source_evt.flags
             if (1 << 7 | 1 << 50) & flags_:
                 action_id = -1  # link attack
@@ -1916,6 +1921,8 @@ class Act:
                 action_id = -2  # limit break
             else:
                 action_id = source_evt.action_id
+                if action_id == 0xFFFFFFFF:
+                    action_id = source.canceled_action
             self._on_damage(source, target, source_evt.damage, flags_, action_id)
         except:
             logging.error('on_process_damage_evt', exc_info=True)
@@ -1925,9 +1932,10 @@ class Act:
         res = hook.original(a1, a2)
         try:
             dmg = i32_from(a2)
-            target = size_t_from(size_t_from(a1 + 0x18) + 0x70)
-            source = size_t_from(size_t_from(a1 + 0x30) + 0x70)
-            self._on_damage(Actor(source), Actor(target), dmg, 0, -0x100)
+            target = Actor(size_t_from(size_t_from(a1 + 0x18) + 0x70))
+            source = Actor(size_t_from(size_t_from(a1 + 0x30) + 0x70))
+            source = source.parent or source
+            self._on_damage(source, target, dmg, 0, -0x100)
         except:
             logging.error('on_process_dot_evt', exc_info=True)
         return res
@@ -1942,7 +1950,6 @@ class Act:
         return res
 
     def _on_damage(self, source, target, damage, flags, action_id):
-        source = source.parent or source
         return self.on_damage(self.actor_data(source), self.actor_data(target), damage, flags, action_id)
 
     def on_damage(self, source, target, damage, flags, action_id):
