@@ -821,8 +821,8 @@
                             const action_id = evt_action_id(data);
                             const date = new Date(time_ms);
                             return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}|damage|` +
-                                    `${source_type};${source_idx};${numberToHexStringWithZFill(source_id, 8)};${source_party_idx};${actor_name(source_id)}|` +
-                                    `${target_type};${target_idx};${numberToHexStringWithZFill(target_id, 8)};${target_party_idx};${actor_name(target_id)}|` +
+                                    `${source_type};${source_idx};${numberToHexStringWithZFill(source_id, 8)};${source_party_idx};${actor_name(source_type)}|` +
+                                    `${target_type};${target_idx};${numberToHexStringWithZFill(target_id, 8)};${target_party_idx};${actor_name(target_type)}|` +
                                     `${action_id}|${action_name(source_id, action_id)}|${damage}|${flags}\n`;
                     }
                     return '';
