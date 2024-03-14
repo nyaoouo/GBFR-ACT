@@ -1869,13 +1869,14 @@ class Act:
         ])
 
         p_on_enter_area, = scanner.find_val('e8 * * * * c5 ? ? ? c5 f8 29 45 ? c7 45 ? ? ? ? ?')
-        self.on_enter_area_hook = Hook(p_on_enter_area, self._on_enter_area, ctypes.c_size_t, [
+        self.on_enter_area_hook = Hook(p_on_enter_area, self._on_enter_area, ctypes.c_uint64, [
             ctypes.c_uint,
-            ctypes.c_size_t,
-            ctypes.c_uint8
+            ctypes.c_uint64,
+            ctypes.c_uint64,
+            ctypes.c_uint64,
         ])
 
-        self.p_qword_1467572B0, = scanner.find_val("48 ? ? * * * * 83 66 ? ? 48 ? ?")
+        self.p_qword_1467572B0, = scanner.find_val("48 ? ? * * * * 44 89 48")
 
         self.i_ui_comp_name = ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.c_size_t)
         self.team_map = None
@@ -1895,7 +1896,7 @@ class Act:
             for i, p_data in enumerate(range(party_start, party_end, 0x10)):
                 a1 = size_t_from(p_data + 8)
                 if (self.i_ui_comp_name(v_func(a1, 0x8))(a1) == b'ui::component::ControllerPlParameter01' and
-                        (p_actor := size_t_from(a1 + 0x5D0))):
+                        (p_actor := size_t_from(a1 + 0x5f8))):
                     p_actor_data = size_t_from(p_actor + 0x70)
                     res[p_actor_data] = i
                     print(f'[{i}] {p_actor=:#x}')
@@ -1940,8 +1941,8 @@ class Act:
             logging.error('on_process_dot_evt', exc_info=True)
         return res
 
-    def _on_enter_area(self, hook, a1, a2, a3):
-        res = hook.original(a1, a2, a3)
+    def _on_enter_area(self, hook, *a):
+        res = hook.original(*a)
         try:
             self.team_map = None
             self.on_enter_area()
