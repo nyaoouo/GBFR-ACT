@@ -244,6 +244,27 @@
                             </el-table-column>
                         </el-table>
                     </el-tab-pane>
+                    <el-tab-pane v-if="actor_dialog.actor.member_info" :label="$t('ui.detail')" name="member_info">
+                        <el-descriptions>
+                            <el-descriptions-item :label="$t('ui.actor_name')">{{actor_dialog.actor.member_info.c_name}}</el-descriptions-item>
+                            <el-descriptions-item :label="$t('ui.user_name')">{{actor_dialog.actor.member_info.d_name}}</el-descriptions-item>
+                        </el-descriptions>
+                        <p v-for="(s,i) in actor_dialog.actor.member_info.sigils" :key="i">
+                            <el-tag type="success" v-if="s.sigil_id!=='887AE0B0'">
+                                {{$t(`game.sigils.${s.sigil_id}`)}}
+                                LV:{{s.sigil_level}}
+                            </el-tag>
+                            <el-tag type="info" v-else>-</el-tag>
+                            <el-tag class="mx-1" type="primary" v-if="s.first_trait_id!=='887AE0B0'">
+                                {{$t(`game.skills.${s.first_trait_id}`)}}
+                                LV:{{s.first_trait_level}}
+                            </el-tag>
+                            <el-tag class="mx-1" type="primary" v-if="s.second_trait_id!=='887AE0B0'">
+                                {{$t(`game.skills.${s.second_trait_id}`)}}
+                                LV:{{s.second_trait_level}}
+                            </el-tag>
+                        </p>
+                    </el-tab-pane>
                 </el-tabs>
             </el-dialog>
 
@@ -354,6 +375,7 @@
     </div>
 </div>
 </body>
+<script src="./dump_texts.js"></script>
 <script src="./act_ws_texts.js"></script>
 <script>
     const _with_time = f => (...args) => {
@@ -664,6 +686,22 @@
                     return res === key ? "" : res;
                 })();
                 this.hit = 0;
+                /*{
+                    'sigils': [
+                        {
+                            'first_trait_id': s.first_trait_id,
+                            'first_trait_level': s.first_trait_level,
+                            'second_trait_id': s.second_trait_id,
+                            'second_trait_level': s.second_trait_level,
+                            'sigil_id': s.sigil_id,
+                            'sigil_level': s.sigil_level,
+                        } for s in self.sigils
+                    ],
+                    'is_online': self.is_online,
+                    'c_name': self.c_name,
+                    'd_name': self.d_name,
+                }*/
+                this.member_info = null;
             }
 
             get_target(data) {
@@ -681,6 +719,18 @@
                 const new_res = Vue.reactive(new ActorAction(this.name_key, action_id));
                 this.actions.push(new_res);
                 return new_res;
+            }
+
+            load_member_info(data_) {
+                const data = {...data_};
+                // make sigils id to hex string
+                data.sigils = data.sigils.map(s => {
+                    s.sigil_id = numberToHexStringWithZFill(s.sigil_id, 8).toUpperCase();
+                    s.first_trait_id = numberToHexStringWithZFill(s.first_trait_id, 8).toUpperCase();
+                    s.second_trait_id = numberToHexStringWithZFill(s.second_trait_id, 8).toUpperCase();
+                    return s;
+                });
+                this.member_info = data;
             }
         }
 
@@ -891,6 +941,17 @@
                         log(`${actor.display_name} cause ${damage} damage by ${action.display_name} to ${target_actor.name}`);
                 }
 
+                const on_load_party = (evt) => {
+                    const {time_ms, data} = evt;
+                    if (update_var.want_new) new_record(time_ms);
+                    const current_record = get_latest_record();
+                    current_record.last_record_at = time_ms;
+                    current_record.get_ex().events.push(evt);
+                    data.forEach(d => {
+                        if (d) current_record.get_actor(d.common_info).load_member_info(d);
+                    });
+                }
+
                 const evt_buffer = []
 
                 const update = (period = 1000) => {
@@ -905,6 +966,9 @@
                         switch (evt.type) {
                             case "enter_area":
                                 archive_record(get_latest_record());
+                                break;
+                            case "load_party":
+                                on_load_party(evt);
                                 break;
                             case "damage":
                                 on_damage(evt);
