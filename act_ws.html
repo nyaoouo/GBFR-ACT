@@ -250,9 +250,12 @@
                             <el-descriptions-item :label="$t('ui.user_name')">{{actor_dialog.actor.member_info.d_name}}</el-descriptions-item>
                             <el-descriptions-item :label="$t('ui.weapon')">{{$t(`game.weapons.${actor_dialog.actor.member_info.weapon.weapon_id}`)}}</el-descriptions-item>
                         </el-descriptions>
-                        <p v-if="actor_dialog.actor.member_info.weapon.bless_item !== '887AE0B0'">
-                            <el-tag type="success">
+                        <p>
+                            <el-tag type="success" v-if="actor_dialog.actor.member_info.weapon.bless_item !== '887AE0B0'">
                                 {{$t(`game.items.${actor_dialog.actor.member_info.weapon.bless_item}`)}}
+                            </el-tag>
+                            <el-tag type="info" v-else>
+                                N/A
                             </el-tag>
                             <el-tag class="mx-1" type="primary" v-if="actor_dialog.actor.member_info.weapon.skill1!=='887AE0B0'">
                                 {{$t(`game.skills.${actor_dialog.actor.member_info.weapon.skill1}`)}}
