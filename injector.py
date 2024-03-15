@@ -1,26 +1,24 @@
 import ctypes
-import ctypes.wintypes
 import ctypes.util
+import ctypes.wintypes
 import functools
 import io
 import locale
 import logging
 import os
-import tempfile
-
-import msvcrt
 import pathlib
 import pickle
 import re
 import struct
+import tempfile
 import threading
 import traceback
 import types
-
-import time
-
-import sys
 import typing
+
+import msvcrt
+import sys
+import time
 
 _NULL = type('NULL', (), {})
 _T = typing.TypeVar('_T')
@@ -1766,6 +1764,26 @@ class Actor:
     _get_type_name = VFunc(ctypes.CFUNCTYPE(ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t), 0x50)
     _get_type_id = VFunc(ctypes.CFUNCTYPE(ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t), 0x58)
 
+    class Weapon(ctypes.Structure):  # size = 0x98
+        _fields_ = [
+            ('unk1', ctypes.c_uint32),
+            ('weapon', ctypes.c_uint32),
+            ('weapon_ap_tree', ctypes.c_uint32),
+            ('unk2', ctypes.c_uint32),
+            ('exp', ctypes.c_uint32),
+            ('unk3', ctypes.c_uint32),
+            ('unk4', ctypes.c_uint32),
+            ('enhance_lv', ctypes.c_uint32),  # ?
+            ('skill1', ctypes.c_uint32),
+            ('skill1_lv', ctypes.c_uint32),
+            ('skill2', ctypes.c_uint32),
+            ('skill2_lv', ctypes.c_uint32),
+            ('skill3', ctypes.c_uint32),
+            ('skill3_lv', ctypes.c_uint32),
+            ('bless_item', ctypes.c_uint32),
+            # more unknown...
+        ]
+
     class Sigil(ctypes.Structure):
         _fields_ = [
             ('first_trait_id', ctypes.c_uint32),
@@ -1781,6 +1799,8 @@ class Actor:
 
     class Offsets:
         p_data_off = 0
+        p_data_weapon_off = 0
+        p_data_sigil_off = 0
 
     def __str__(self):
         return f"{self.type_name}#{self.address:x}"
@@ -1824,36 +1844,55 @@ class Actor:
     def canceled_action(self):
         return u32_from(self.address + 0xbff8)
 
-    # only for player?
     @property
-    def p_data(self):
-        assert self.Offsets.p_data_off
-        return size_t_from(self.address + self.Offsets.p_data_off)
+    def weapon(self):
+        p_weapon = self.address + self.Offsets.p_data_off + self.Offsets.p_data_weapon_off
+        size_t_from(p_weapon)  # test address
+        return self.Weapon.from_address(p_weapon)
 
     @property
     def sigils(self):
-        p_data = self.p_data
+        p_data = size_t_from(self.address + self.Offsets.p_data_off + self.Offsets.p_data_sigil_off)
         size_t_from(p_data)  # test address
         return (self.Sigil * 12).from_address(p_data)
 
     @property
     def is_online(self):
-        return u32_from(self.p_data + 0x1c8)
+        # TODO: should have a proper way to point to
+        p_data = size_t_from(self.address + self.Offsets.p_data_off + self.Offsets.p_data_sigil_off)
+        return u32_from(p_data + 0x1c8)
 
     @property
     def c_name(self):
-        return string_from(self.p_data + 0x1e8, 0x10).decode('utf-8', 'ignore')
+        # TODO: should have a proper way to point to
+        p_data = size_t_from(self.address + self.Offsets.p_data_off + self.Offsets.p_data_sigil_off)
+        return string_from(p_data + 0x1e8, 0x10).decode('utf-8', 'ignore')
 
     @property
     def d_name(self):
-        return string_from(self.p_data + 0x208, 0x10).decode('utf-8', 'ignore')
+        # TODO: should have a proper way to point to
+        p_data = size_t_from(self.address + self.Offsets.p_data_off + self.Offsets.p_data_sigil_off)
+        return string_from(p_data + 0x208, 0x10).decode('utf-8', 'ignore')
 
     @property
     def party_index(self):
-        return u32_from(self.p_data + 0x230)
+        # TODO: should have a proper way to point to
+        p_data = size_t_from(self.address + self.Offsets.p_data_off + self.Offsets.p_data_sigil_off)
+        return u32_from(p_data + 0x230)
 
     def member_info(self):
+        w = self.weapon
         return {
+            'weapon': {
+                'weapon_id': w.weapon,
+                'skill1': w.skill1,
+                'skill1_lv': w.skill1_lv,
+                'skill2': w.skill2,
+                'skill2_lv': w.skill2_lv,
+                'skill3': w.skill3,
+                'skill3_lv': w.skill3_lv,
+                'bless_item': w.bless_item,
+            },
             'sigils': [
                 {
                     'first_trait_id': s.first_trait_id,
@@ -1940,9 +1979,9 @@ class Act:
 
         self.p_qword_1467572B0, = scanner.find_val("48 ? ? * * * * 44 89 48")
 
-        p_data_off1, = scanner.find_val("48 ? ? <? ? ? ?> 89 86 ? ? ? ? 44 89 96")
-        p_data_off2, = scanner.find_val("49 89 84 24 <? ? ? ?> 48 ? ? 74 ? 49 ? ? ? ? ? ? ? 48 89 43 ? ")
-        Actor.Offsets.p_data_off = p_data_off1 + p_data_off2
+        Actor.Offsets.p_data_off, = scanner.find_val("48 ? ? <? ? ? ?> 89 86 ? ? ? ? 44 89 96")
+        Actor.Offsets.p_data_sigil_off, = scanner.find_val("49 89 84 24 <? ? ? ?> 48 ? ? 74 ? 49 ? ? ? ? ? ? ? 48 89 43 ? ")
+        Actor.Offsets.p_data_weapon_off, = scanner.find_val("48 ? ? <?> 48 ? ? ? 48 ? ? e8 ? ? ? ? 31 ? ")
 
         self.i_ui_comp_name = ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.c_size_t)
         self.team_map = None

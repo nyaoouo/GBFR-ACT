@@ -67,6 +67,7 @@ const i18nCfg = (() => {
                     damage_filter_desc: "过滤(包含)",
                     actor_name: "角色名",
                     user_name: "用户名",
+                    weapon: "武器",
                     sigils: "因子",
                 },
                 game: {
@@ -678,6 +679,12 @@ const i18nCfg = (() => {
                     },
                     skills: {
                         ...hash_as_key(window.dump_texts.zhs.skills),
+                    },
+                    items: {
+                        ...hash_as_key(window.dump_texts.zhs.items),
+                    },
+                    weapons: {
+                        ...hash_as_key(window.dump_texts.zhs.weapons),
                     },
                 },
             },
@@ -1358,6 +1365,12 @@ const i18nCfg = (() => {
                     skills: {
                         ...hash_as_key(window.dump_texts.zht.skills),
                     },
+                    items: {
+                        ...hash_as_key(window.dump_texts.zht.items),
+                    },
+                    weapons: {
+                        ...hash_as_key(window.dump_texts.zht.weapons),
+                    },
                 },
             },
             en: {
@@ -1822,6 +1835,12 @@ const i18nCfg = (() => {
                     },
                     skills: {
                         ...hash_as_key(window.dump_texts.en.skills),
+                    },
+                    items: {
+                        ...hash_as_key(window.dump_texts.en.items),
+                    },
+                    weapons: {
+                        ...hash_as_key(window.dump_texts.en.weapons),
                     },
                 }
             }

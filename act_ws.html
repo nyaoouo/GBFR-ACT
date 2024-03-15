@@ -248,7 +248,28 @@
                         <el-descriptions>
                             <el-descriptions-item :label="$t('ui.actor_name')">{{actor_dialog.actor.member_info.c_name}}</el-descriptions-item>
                             <el-descriptions-item :label="$t('ui.user_name')">{{actor_dialog.actor.member_info.d_name}}</el-descriptions-item>
+                            <el-descriptions-item :label="$t('ui.weapon')">{{$t(`game.weapons.${actor_dialog.actor.member_info.weapon.weapon_id}`)}}</el-descriptions-item>
                         </el-descriptions>
+                        <p v-if="actor_dialog.actor.member_info.weapon.bless_item !== '887AE0B0'">
+                            <el-tag type="success">
+                                {{$t(`game.items.${actor_dialog.actor.member_info.weapon.bless_item}`)}}
+                            </el-tag>
+                            <el-tag class="mx-1" type="primary" v-if="actor_dialog.actor.member_info.weapon.skill1!=='887AE0B0'">
+                                {{$t(`game.skills.${actor_dialog.actor.member_info.weapon.skill1}`)}}
+                                LV:{{actor_dialog.actor.member_info.weapon.skill1_lv}}
+                            </el-tag>
+                            <el-tag class="mx-1" type="primary" v-if="actor_dialog.actor.member_info.weapon.skill2!=='887AE0B0'">
+                                {{$t(`game.skills.${actor_dialog.actor.member_info.weapon.skill2}`)}}
+                                LV:{{actor_dialog.actor.member_info.weapon.skill2_lv}}
+                            </el-tag>
+                            <el-tag class="mx-1" type="primary" v-if="actor_dialog.actor.member_info.weapon.skill3!=='887AE0B0'">
+                                {{$t(`game.skills.${actor_dialog.actor.member_info.weapon.skill3}`)}}
+                                LV:{{actor_dialog.actor.member_info.weapon.skill3_lv}}
+                            </el-tag>
+                        </p>
+                        <el-divider>
+                            {{$t('ui.sigils')}}
+                        </el-divider>
                         <p v-for="(s,i) in actor_dialog.actor.member_info.sigils" :key="i">
                             <el-tag type="success" v-if="s.sigil_id!=='887AE0B0'">
                                 {{$t(`game.sigils.${s.sigil_id}`)}}
@@ -687,6 +708,16 @@
                 })();
                 this.hit = 0;
                 /*{
+                    'weapon': {
+                        'weapon_id': w.weapon,
+                        'skill1': w.skill1,
+                        'skill1_lv': w.skill1_lv,
+                        'skill2': w.skill2,
+                        'skill2_lv': w.skill2_lv,
+                        'skill3': w.skill3,
+                        'skill3_lv': w.skill3_lv,
+                        'bless_item': w.bless_item,
+                    },
                     'sigils': [
                         {
                             'first_trait_id': s.first_trait_id,
@@ -723,7 +754,12 @@
 
             load_member_info(data_) {
                 const data = {...data_};
-                // make sigils id to hex string
+                // make id to hex string
+                data.weapon.weapon_id = numberToHexStringWithZFill(data.weapon.weapon_id, 8).toUpperCase();
+                data.weapon.skill1 = numberToHexStringWithZFill(data.weapon.skill1, 8).toUpperCase();
+                data.weapon.skill2 = numberToHexStringWithZFill(data.weapon.skill2, 8).toUpperCase();
+                data.weapon.skill3 = numberToHexStringWithZFill(data.weapon.skill3, 8).toUpperCase();
+                data.weapon.bless_item = numberToHexStringWithZFill(data.weapon.bless_item, 8).toUpperCase();
                 data.sigils = data.sigils.map(s => {
                     s.sigil_id = numberToHexStringWithZFill(s.sigil_id, 8).toUpperCase();
                     s.first_trait_id = numberToHexStringWithZFill(s.first_trait_id, 8).toUpperCase();
