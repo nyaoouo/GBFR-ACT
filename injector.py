@@ -1953,7 +1953,6 @@ class Act:
     def build_team_map(self):
         if self.team_map is not None: return
         self.team_map = {}
-        self.member_info = [None, None, None, None, None, ]
         qword_1467572B0 = size_t_from(self.p_qword_1467572B0)
         p_party_base = size_t_from(qword_1467572B0 + 0x20)
         p_party_tbl = size_t_from(p_party_base + 0x10 * (size_t_from(qword_1467572B0 + 0x38) & 0x6C4F1B4D) + 8)
@@ -1966,11 +1965,17 @@ class Act:
                         (p_actor := size_t_from(a1 + 0x5f8))):
                     p_actor_data = size_t_from(p_actor + 0x70)
                     self.team_map[p_actor_data] = i
-                    actor = Actor(p_actor_data)
-                    self.member_info[i] = actor.member_info() | {
-                        'common_info': self.actor_data(actor)
-                    }
-                    print(f'[{i}] {p_actor=:#x}')
+                    print(f'[{i}] {p_actor_data=:#x}')
+
+        self.member_info = [None, None, None, None, None, ]
+        for p_member, i in self.team_map.items():
+            try:
+                actor = Actor(p_member)
+                self.member_info[i] = actor.member_info() | {
+                    'common_info': self.actor_data(actor)
+                }
+            except:
+                logging.error(f'build_team_map {i}', exc_info=True)
         self.on_load_party(self.member_info)
 
     def _on_process_damage_evt(self, hook, p_target_evt, p_source_evt, a3, a4):
@@ -1985,16 +1990,20 @@ class Act:
         res = hook.original(p_target_evt, p_source_evt, a3, a4)  # return 0 if it is non processed damage event
         if not (res and target and source): return res  # or if get target or source failed
         try:
-            source = source.parent or source
             flags_ = source_evt.flags
-            if (1 << 7 | 1 << 50) & flags_:
-                action_id = -1  # link attack
-            elif (1 << 13 | 1 << 14) & flags_:
-                action_id = -2  # limit break
+            if source.type_id == 0x2af678e8:  # 菲莉宝宝 # Pl0700Ghost
+                source = source.parent
+                action_id = -0x10  # summon attack
             else:
-                action_id = source_evt.action_id
-                if action_id == 0xFFFFFFFF:
-                    action_id = source.canceled_action
+                source = source.parent or source
+                if (1 << 7 | 1 << 50) & flags_:
+                    action_id = -1  # link attack
+                elif (1 << 13 | 1 << 14) & flags_:
+                    action_id = -2  # limit break
+                else:
+                    action_id = source_evt.action_id
+                    if action_id == 0xFFFFFFFF:
+                        action_id = source.canceled_action
             self._on_damage(source, target, source_evt.damage, flags_, action_id)
         except:
             logging.error('on_process_damage_evt', exc_info=True)
