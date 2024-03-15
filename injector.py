@@ -1743,6 +1743,7 @@ i32_from = Process.current.read_i32  # lambda a: ctypes.c_int32.from_address(a).
 u32_from = Process.current.read_u32  # lambda a: ctypes.c_uint32.from_address(a).value
 u64_from = Process.current.read_u64  # lambda a: ctypes.c_uint64.from_address(a).value
 float_from = Process.current.read_float
+string_from = Process.current.read_bytes_zero_trim
 v_func = lambda a, off: size_t_from(size_t_from(a) + off)
 
 
@@ -1841,11 +1842,11 @@ class Actor:
 
     @property
     def c_name(self):
-        return ctypes.string_at(self.p_data + 0x1e8, 0x10).split(b'\0', 1)[0].decode('utf-8')
+        return string_from(self.p_data + 0x1e8, 0x10).decode('utf-8', 'ignore')
 
     @property
     def d_name(self):
-        return ctypes.string_at(self.p_data + 0x208, 0x10).split(b'\0', 1)[0].decode('utf-8')
+        return string_from(self.p_data + 0x208, 0x10).decode('utf-8', 'ignore')
 
     @property
     def party_index(self):
