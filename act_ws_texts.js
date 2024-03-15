@@ -669,7 +669,6 @@ const i18nCfg = (() => {
                     },
                     actors: {
                         ...key_as_key(window.dump_texts.zhs.actors),
-                        "EM7001": "原型巴哈姆特#",
                         "EM7001RAGNAROKSHOT": "原巴的橙色圆盘",  //未确认
                         "EM7001LIGHTSHOT": "原巴的光球",
                         "EM7001REDLIGHTSHOT": "原巴的红色光球",
@@ -679,7 +678,6 @@ const i18nCfg = (() => {
                     },
                     skills: {
                         ...hash_as_key(window.dump_texts.zhs.skills),
-                        "1B0D9897": "钳蟹的报恩", // wrong hash calc?
                     },
                 },
             },
