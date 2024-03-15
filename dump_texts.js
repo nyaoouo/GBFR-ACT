@@ -3813,6 +3813,10 @@
         "key": "SKILL_140_00",
         "text": "钳蟹的共鸣"
       },
+      "1B0D9897": {
+        "key": null,
+        "text": "钳蟹的报恩"
+      },
       "9AD8B5E6": {
         "key": "SKILL_142_00",
         "text": "7net"
@@ -7700,6 +7704,10 @@
       "082033CB": {
         "key": "SKILL_140_00",
         "text": "蟹之共鳴"
+      },
+      "1B0D9897": {
+        "key": null,
+        "text": "蟹之報恩"
       },
       "9AD8B5E6": {
         "key": "SKILL_142_00",
@@ -11608,6 +11616,10 @@
       "082033CB": {
         "key": "SKILL_140_00",
         "text": "Crabby Resonance"
+      },
+      "1B0D9897": {
+        "key": null,
+        "text": "Crabvestment Returns"
       },
       "9AD8B5E6": {
         "key": "SKILL_142_00",
