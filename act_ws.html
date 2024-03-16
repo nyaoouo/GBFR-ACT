@@ -4,91 +4,93 @@
     <meta charset="UTF-8">
     <title>Remote</title>
     <script>
-        const cdn_loader = new Promise((resolve, reject) => {
-            const cdn_like = JSON.parse(localStorage.getItem("cdnLike") || "{}");
-            const cdn_list = [
-                {
-                    key: "css/element-plus",
-                    type: "css",
-                    choices: ["https://unpkg.com/element-plus/dist/index.css", "https://s4.zstatic.net/npm/element-plus/dist/index.css"],
-                },
-                {
-                    key: "css/bootstrap",
-                    type: "css",
-                    choices: ["https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css", "https://s4.zstatic.net/npm/bootstrap@latest/dist/css/bootstrap.min.css"],
-                },
-                {
-                    key: "js/chart.js",
-                    type: "js",
-                    choices: ["https://cdn.jsdelivr.net/npm/chart.js", "https://s4.zstatic.net/npm/chart.js"],
-                },
-                {
-                    key: "js/bootstrap",
-                    type: "js",
-                    choices: ["https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js", "https://s4.zstatic.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js"],
-                },
-                {
-                    key: "js/vue",
-                    type: "js",
-                    choices: ["https://unpkg.com/vue@3/dist/vue.global.prod.js", "https://s4.zstatic.net/npm/vue@3/dist/vue.global.prod.js"],
-                },
-                {
-                    key: "js/element-plus",
-                    type: "js",
-                    choices: ["https://unpkg.com/element-plus", "https://s4.zstatic.net/npm/element-plus@latest/dist/index.full.min.js"],
-                },
-                {
-                    key: "js/element-plus-icons-vue",
-                    type: "js",
-                    choices: ["https://unpkg.com/@element-plus/icons-vue", "https://s4.zstatic.net/npm/@element-plus/icons-vue"],
-                },
-                {
-                    key: "js/vue-i18n",
-                    type: "js",
-                    choices: ["https://unpkg.com/vue-i18n@9/dist/vue-i18n.global.prod.js", "https://s4.zstatic.net/npm/vue-i18n@9/dist/vue-i18n.global.prod.js"],
-                },
-            ];
-            const cdn_promise = cdn_list.map(({ key, type, choices }) => {
-                return new Promise((resolve_, reject_) => {
-                    choices.sort((a, b) => (cdn_like[key] === a ? -1 : cdn_like[key] === b ? 1 : 0));
-                    (function try_one_by_one(idx) {
-                        if (idx >= choices.length) {
-                            reject_(`all cdn of ${key} is not available`);
-                            return;
+        const cdn_list = [
+            {
+                key: "css/element-plus",
+                type: "css",
+                choices: ["https://unpkg.com/element-plus/dist/index.css", "https://s4.zstatic.net/npm/element-plus/dist/index.css"],
+            },
+            {
+                key: "css/bootstrap",
+                type: "css",
+                choices: ["https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css", "https://s4.zstatic.net/npm/bootstrap@latest/dist/css/bootstrap.min.css"],
+            },
+            {
+                key: "js/chart.js",
+                type: "js",
+                choices: ["https://cdn.jsdelivr.net/npm/chart.js", "https://s4.zstatic.net/npm/chart.js"],
+            },
+            {
+                key: "js/bootstrap",
+                type: "js",
+                choices: ["https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js", "https://s4.zstatic.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js"],
+            },
+            {
+                key: "js/vue",
+                type: "js",
+                choices: ["https://unpkg.com/vue@3/dist/vue.global.prod.js", "https://s4.zstatic.net/npm/vue@3/dist/vue.global.prod.js"],
+            },
+            {
+                key: "js/element-plus",
+                type: "js",
+                choices: ["https://unpkg.com/element-plus", "https://s4.zstatic.net/npm/element-plus@latest/dist/index.full.min.js"],
+            },
+            {
+                key: "js/element-plus-icons-vue",
+                type: "js",
+                choices: ["https://unpkg.com/@element-plus/icons-vue", "https://s4.zstatic.net/npm/@element-plus/icons-vue"],
+            },
+            {
+                key: "js/vue-i18n",
+                type: "js",
+                choices: ["https://unpkg.com/vue-i18n@9/dist/vue-i18n.global.prod.js", "https://s4.zstatic.net/npm/vue-i18n@9/dist/vue-i18n.global.prod.js"],
+            },
+        ];
+        const cdn_loader = ((cdn_list) => {
+            return new Promise((resolve, reject) => {
+                const cdn_like = JSON.parse(localStorage.getItem("cdnLike") || "{}");
+                const cdn_promise = cdn_list.map(({ key, type, choices }) => {
+                    return new Promise((resolve_, reject_) => {
+                        choices.sort((a, b) => (cdn_like[key] === a ? -1 : cdn_like[key] === b ? 1 : 0));
+                        (function try_one_by_one(idx) {
+                            if (idx >= choices.length) {
+                                reject_(`all cdn of ${key} is not available`);
+                                return;
+                            }
+                            fetch(choices[idx])
+                                .then((response) => {
+                                    if (response.ok) {
+                                        return response.text();
+                                    }
+                                    throw new Error("Not OK response");
+                                })
+                                .then((text) => {
+                                    cdn_like[key] = choices[idx];
+                                    localStorage.setItem("cdnLike", JSON.stringify(cdn_like));
+                                    resolve_({ key, type, url: choices[idx], text });
+                                })
+                                .catch(() => try_one_by_one(idx + 1));
+                        })(0);
+                    });
+                });
+                Promise.all(cdn_promise)
+                    .then((cdn) => {
+                        for (const { type, key, url, text } of cdn) {
+                            const el = document.createElement(type === "css" ? "style" : "script");
+                            el.type = type === "css" ? "text/css" : "text/javascript";
+                            el.setAttribute("data-key", key);
+                            el.setAttribute("data-url", url);
+                            el.textContent = text;
+                            document.head.appendChild(el);
+                            console.log(`cdn of ${key} is loaded from ${url}`);
                         }
-                        fetch(choices[idx])
-                            .then((response) => {
-                                if (response.ok) {
-                                    return response.text();
-                                }
-                                throw new Error("Not OK response");
-                            })
-                            .then((text) => {
-                                cdn_like[key] = choices[idx];
-                                localStorage.setItem("cdnLike", JSON.stringify(cdn_like));
-                                resolve_({ key, type, url: choices[idx], text });
-                            })
-                            .catch(() => try_one_by_one(idx + 1));
-                    })(0);
-                });
+                        resolve();
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
             });
-            Promise.all(cdn_promise)
-                .then((cdn) => {
-                    for (const { type, key, url, text } of cdn) {
-                        const el = document.createElement(type === "css" ? "style" : "script");
-                        el.type = type === "css" ? "text/css" : "text/javascript";
-                        el.setAttribute("data-key", key);
-                        el.setAttribute("data-url", url);
-                        el.textContent = text;
-                        document.head.appendChild(el);
-                        console.log(`cdn of ${key} is loaded from ${url}`);
-                    }
-                    resolve();
-                })
-                .catch((error) => {
-                    reject(error);
-                });
-        });
+        })(cdn_list);
     </script>
 </head>
 <style>
