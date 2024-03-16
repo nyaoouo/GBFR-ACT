@@ -1555,7 +1555,7 @@ const i18nCfg = (() => {
                             "300": "Aerial 1",
                             "301": "Aerial 2",
                             "302": "Aerial 3",
-                            "303": "Aerial(XXX) Y",
+                            "303": "Aerial 4",
                             "400": "Launch",
                             "410": "Aerial Barrage",
                         },
