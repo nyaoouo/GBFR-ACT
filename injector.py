@@ -1737,11 +1737,13 @@ def get_server() -> RpcServer:
 
 size_t_from = Process.current.read_ptr  # ctypes.c_size_t.from_address(a).value
 i8_from = Process.current.read_i8  # lambda a: ctypes.c_int8.from_address(a).value
+i64_from = Process.current.read_i64  # lambda a: ctypes.c_int8.from_address(a).value
 i32_from = Process.current.read_i32  # lambda a: ctypes.c_int32.from_address(a).value
 u32_from = Process.current.read_u32  # lambda a: ctypes.c_uint32.from_address(a).value
 u64_from = Process.current.read_u64  # lambda a: ctypes.c_uint64.from_address(a).value
 float_from = Process.current.read_float
 string_from = Process.current.read_bytes_zero_trim
+bytes_from = Process.current.read
 v_func = lambda a, off: size_t_from(size_t_from(a) + off)
 
 
@@ -1758,6 +1760,17 @@ class VFunc:
 
 
 # TODO: use aob to find the offset...
+
+class VBuffer:
+    # 20240315: 77 ? 48 89 7b ? 48 c7 43 ? ? ? ? ? 48 ? ? ? 4c ? ? 49 ? ? c5 ? ? e8 ? ? ? ? 48 ? ? ? 48 ? ? ? c6 ? ?
+    def __init__(self, address):
+        self.address = address
+
+    ptr = property(lambda self: size_t_from(self.address) if self.max_size > 0xf else self.address)  # 0x10?
+    used_size = property(lambda self: i64_from(self.address + 0x10))
+    max_size = property(lambda self: u64_from(self.address + 0x18))
+    raw = property(lambda self: bytes_from(self.ptr, self.used_size))
+
 
 class Actor:
     _get_base_name = VFunc(ctypes.CFUNCTYPE(ctypes.c_size_t, ctypes.c_size_t, ctypes.c_size_t), 0x48)
@@ -1851,34 +1864,29 @@ class Actor:
         return self.Weapon.from_address(p_weapon)
 
     @property
+    def p_sigil_data(self): # TODO: should have a proper name...
+        return size_t_from(self.address + self.Offsets.p_data_off + self.Offsets.p_data_sigil_off)
+
+    @property
     def sigils(self):
-        p_data = size_t_from(self.address + self.Offsets.p_data_off + self.Offsets.p_data_sigil_off)
-        size_t_from(p_data)  # test address
+        size_t_from(p_data := self.p_sigil_data)  # test address
         return (self.Sigil * 12).from_address(p_data)
 
     @property
     def is_online(self):
-        # TODO: should have a proper way to point to
-        p_data = size_t_from(self.address + self.Offsets.p_data_off + self.Offsets.p_data_sigil_off)
-        return u32_from(p_data + 0x1c8)
+        return u32_from(self.p_sigil_data + 0x1c8)
 
     @property
     def c_name(self):
-        # TODO: should have a proper way to point to
-        p_data = size_t_from(self.address + self.Offsets.p_data_off + self.Offsets.p_data_sigil_off)
-        return string_from(p_data + 0x1e8, 0x10).decode('utf-8', 'ignore')
+        return VBuffer(self.p_sigil_data + 0x1e8).raw.decode('utf-8', 'ignore')
 
     @property
     def d_name(self):
-        # TODO: should have a proper way to point to
-        p_data = size_t_from(self.address + self.Offsets.p_data_off + self.Offsets.p_data_sigil_off)
-        return string_from(p_data + 0x208, 0x10).decode('utf-8', 'ignore')
+        return VBuffer(self.p_sigil_data + 0x208).raw.decode('utf-8', 'ignore')
 
     @property
     def party_index(self):
-        # TODO: should have a proper way to point to
-        p_data = size_t_from(self.address + self.Offsets.p_data_off + self.Offsets.p_data_sigil_off)
-        return u32_from(p_data + 0x230)
+        return u32_from(self.p_sigil_data + 0x230)
 
     def member_info(self):
         w = self.weapon
