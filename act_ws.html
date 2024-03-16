@@ -6,7 +6,7 @@
     <script>
         const cdn_loader = new Promise((resolve, reject) => {
             const cdn_like = JSON.parse(localStorage.getItem("cdnLike") || "{}");
-            const cdnPromise = [
+            const cdn_list = [
                 {
                     key: "css/element-plus",
                     type: "css",
@@ -47,7 +47,8 @@
                     type: "js",
                     choices: ["https://unpkg.com/vue-i18n@9/dist/vue-i18n.global.prod.js", "https://s4.zstatic.net/npm/vue-i18n@9/dist/vue-i18n.global.prod.js"],
                 },
-            ].map(({ key, type, choices }) => {
+            ];
+            const cdn_promise = cdn_list.map(({ key, type, choices }) => {
                 return new Promise((resolve_, reject_) => {
                     choices.sort((a, b) => (cdn_like[key] === a ? -1 : cdn_like[key] === b ? 1 : 0));
                     (function try_one_by_one(idx) {
@@ -71,7 +72,7 @@
                     })(0);
                 });
             });
-            Promise.all(cdnPromise)
+            Promise.all(cdn_promise)
                 .then((cdn) => {
                     for (const { type, key, url, text } of cdn) {
                         const el = document.createElement(type === "css" ? "style" : "script");
