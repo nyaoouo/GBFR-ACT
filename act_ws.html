@@ -53,6 +53,7 @@
                     (function try_one_by_one(idx) {
                         if (idx >= choices.length) {
                             reject_(`all cdn of ${key} is not available`);
+                            return;
                         }
                         fetch(choices[idx])
                             .then((response) => {
