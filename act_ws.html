@@ -49,7 +49,7 @@
         const cdn_loader = ((cdn_list) => {
             return new Promise((resolve, reject) => {
                 const cdn_like = JSON.parse(localStorage.getItem("cdnLike") || "{}");
-                const cdn_promise = cdn_list.map(({ key, type, choices }) => {
+                const cdn_promise = cdn_list.map(({key, type, choices}) => {
                     return new Promise((resolve_, reject_) => {
                         choices.sort((a, b) => (cdn_like[key] === a ? -1 : cdn_like[key] === b ? 1 : 0));
                         (function try_one_by_one(idx) {
@@ -58,37 +58,37 @@
                                 return;
                             }
                             fetch(choices[idx])
-                                .then((response) => {
-                                    if (response.ok) {
-                                        return response.text();
-                                    }
-                                    throw new Error("Not OK response");
-                                })
-                                .then((text) => {
-                                    cdn_like[key] = choices[idx];
-                                    localStorage.setItem("cdnLike", JSON.stringify(cdn_like));
-                                    resolve_({ key, type, url: choices[idx], text });
-                                })
-                                .catch(() => try_one_by_one(idx + 1));
+                                    .then((response) => {
+                                        if (response.ok) {
+                                            return response.text();
+                                        }
+                                        throw new Error("Not OK response");
+                                    })
+                                    .then((text) => {
+                                        cdn_like[key] = choices[idx];
+                                        localStorage.setItem("cdnLike", JSON.stringify(cdn_like));
+                                        resolve_({key, type, url: choices[idx], text});
+                                    })
+                                    .catch(() => try_one_by_one(idx + 1));
                         })(0);
                     });
                 });
                 Promise.all(cdn_promise)
-                    .then((cdn) => {
-                        for (const { type, key, url, text } of cdn) {
-                            const el = document.createElement(type === "css" ? "style" : "script");
-                            el.type = type === "css" ? "text/css" : "text/javascript";
-                            el.setAttribute("data-key", key);
-                            el.setAttribute("data-url", url);
-                            el.textContent = text;
-                            document.head.appendChild(el);
-                            console.log(`cdn of ${key} is loaded from ${url}`);
-                        }
-                        resolve();
-                    })
-                    .catch((error) => {
-                        reject(error);
-                    });
+                        .then((cdn) => {
+                            for (const {type, key, url, text} of cdn) {
+                                const el = document.createElement(type === "css" ? "style" : "script");
+                                el.type = type === "css" ? "text/css" : "text/javascript";
+                                el.setAttribute("data-key", key);
+                                el.setAttribute("data-url", url);
+                                el.textContent = text;
+                                document.head.appendChild(el);
+                                console.log(`cdn of ${key} is loaded from ${url}`);
+                            }
+                            resolve();
+                        })
+                        .catch((error) => {
+                            reject(error);
+                        });
             });
         })(cdn_list);
     </script>
