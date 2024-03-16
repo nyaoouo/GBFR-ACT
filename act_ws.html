@@ -186,10 +186,10 @@
                     </el-tab-pane>
                     <el-tab-pane :label="$t('ui.actions')" name="actions">
                         <el-alert v-if="!actor_dialog.action_chart.selected" title="click name to show chart" type="info"></el-alert>
-                        <div :style="{display:actor_dialog.action_chart.selected?'block':'none'}">
-                            <canvas :ref="el => { actor_dialog.action_chart.canvas = el }" :height="screen.height*0.5"></canvas>
+                        <div :style="{display:actor_dialog.action_chart.selected?'block':'none',height:'50vh'}">
+                            <canvas :ref="el => { actor_dialog.action_chart.canvas = el }"></canvas>
                         </div>
-                        <el-table :data="actor_dialog.actor.actions" style="width: 100%" :height="actor_dialog.action_chart.selected?screen.height*0.3:screen.height*0.5" :default-sort="{ prop: 'damage', order: 'descending' }">
+                        <el-table :data="actor_dialog.actor.actions" style="width: 100%" :height="actor_dialog.action_chart.selected?'30vh':'50vh'" :default-sort="{ prop: 'damage', order: 'descending' }">
                             <el-table-column prop="display_name">
                                 <template #header>
                                     <span>{{$t('ui.name')}}</span>
@@ -896,10 +896,6 @@
                     },
                 });
                 const cfg = Vue.ref(JSON.parse(localStorage.getItem('act_ws_cfg') || "{}"));
-                const screen = Vue.reactive({
-                    width: window.innerWidth,
-                    height: window.innerHeight,
-                });
                 const update_var = {
                     want_new: false,
                     period: 0,
@@ -1066,10 +1062,6 @@
                         }));
                     }
                 }
-                const handleWindowResize = () => {
-                    screen.width = window.innerWidth;
-                    screen.height = window.innerHeight;
-                }
                 var update_interval = null;
                 Vue.onMounted(() => {
                     init_cfg();
@@ -1122,7 +1114,6 @@
                     create_socket();
                     update_interval = setInterval(update, 200);
                     window.addEventListener('beforeunload', handleBeforeUnloadStoreRecord);
-                    window.addEventListener('resize', handleWindowResize);
                 });
 
                 Vue.onUnmounted(() => {
@@ -1131,12 +1122,10 @@
                     handleBeforeUnloadStoreRecord();
                     clearInterval(update_interval);
                     window.removeEventListener('beforeunload', handleBeforeUnloadStoreRecord);
-                    window.removeEventListener('resize', handleWindowResize);
                 });
 
                 return {
                     cfg,
-                    screen,
                     view_record_value,
                     is_socket_connected,
                     records,
