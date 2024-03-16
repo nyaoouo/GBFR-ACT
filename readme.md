@@ -1,7 +1,9 @@
 # GBFR-ACT
 ## Granblue Fantasy Relink - Analytics for Combat Tracking
 
-![img](./demo.png)
+![img](./img/demo.jpg)
+![img](./img/demo2.jpg)
+![img](./img/demo3.jpg)
 
 ### TODO
 1. ~~Log Export~~
