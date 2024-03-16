@@ -75,6 +75,8 @@
                     for (const { type, key, url, text } of cdn) {
                         const el = document.createElement(type === "css" ? "style" : "script");
                         el.type = type === "css" ? "text/css" : "text/javascript";
+                        el.setAttribute("data-cdn", key);
+                        el.setAttribute("data-url", url);
                         el.textContent = text;
                         document.head.appendChild(el);
                         console.log(`cdn of ${key} is loaded from ${url}`);
