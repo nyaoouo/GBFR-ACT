@@ -69,6 +69,7 @@ const i18nCfg = (() => {
                     user_name: "用户名",
                     weapon: "武器",
                     sigils: "因子",
+                    show_username: "显示用户名",
                 },
                 game: {
                     actions: {
@@ -581,8 +582,8 @@ const i18nCfg = (() => {
                             "5": "以牙还牙",
                             "7": "闪空",
                             "8": "惊天动地",
-                            "17":"闪空 (连击)",
-                            "18":"闪空 (终击)",
+                            "17": "闪空 (连击)",
+                            "18": "闪空 (终击)",
                             "100": "X1",
                             "110": "X2",
                             "111": "(一循)X2",
@@ -1864,8 +1865,8 @@ const i18nCfg = (() => {
                             "5": "Tit for Tat",
                             "7": "Flashing Void",
                             "8": "Sky Shatter",
-                            "17":"Flashing Void (Combo)",
-                            "18":"Flashing Void (Finisher)",
+                            "17": "Flashing Void (Combo)",
+                            "18": "Flashing Void (Finisher)",
                         },
                     },
                     actors: {

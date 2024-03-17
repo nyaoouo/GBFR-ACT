@@ -167,7 +167,7 @@
             <div v-if="!is_socket_connected" class="p-3">
                 <el-alert title="socket is not connect, check inject status" type="error" effect="dark" :closable="false"></el-alert>
             </div>
-            <el-dialog v-model="actor_dialog.visible" :title="actor_dialog.actor?actor_dialog.actor.display_name:''" @close="set_actor_dialog()" width="80%" top="5vh">
+            <el-dialog v-model="actor_dialog.visible" :title="actor_dialog.actor?(cfg.show_username?actor_dialog.actor.display_name_user:actor_dialog.actor.display_name):''" @close="set_actor_dialog()" width="80%" top="5vh">
                 <el-tabs
                         v-model="actor_dialog.page"
                         type="card"
@@ -345,6 +345,9 @@
                                             <el-switch v-model="cfg.bool_damage_filter" :active-text="$t('ui.damage_filter_desc')"></el-switch>
                                             <el-input-number v-model="cfg.number_damage_filter" :min="0" :step="100" :disabled="!cfg.bool_damage_filter"></el-input-number>
                                         </el-form-item>
+                                        <el-form-item :label="$t('ui.show_username')">
+                                            <el-switch v-model="cfg.show_username"></el-switch>
+                                        </el-form-item>
                                     </el-form>
 
                                     <el-button class="w-100" @click="export_log(item)">
@@ -358,7 +361,7 @@
                             </template>
                             <template #default="scope">
                                 <span class="text-overflow-ellipsis">
-                                    <el-icon :style="{'color':scope.row.color}"><Avatar/></el-icon> {{scope.row.display_name}}
+                                    <el-icon :style="{'color':scope.row.color}"><Avatar/></el-icon> {{cfg.show_username?scope.row.display_name_user:scope.row.display_name}}
                                 </span>
                             </template>
                         </el-table-column>
@@ -695,7 +698,7 @@
                 this.idx = idx;
                 this.party_idx = party_idx;
                 this.name_key = type.toUpperCase(); // numberToHexStringWithZFill(id, 8);
-                this.display_name = `[${party_idx}]${actor_name(this.name_key)}#${idx}`;
+                this.display_name_user = this.display_name = `[${party_idx}]${actor_name(this.name_key)}#${idx}`;
                 this.color = Actor.colors[party_idx];
                 this.damage = 0;
                 this.damage_in_minute = 0;
@@ -754,9 +757,7 @@
                 return new_res;
             }
 
-            load_member_info(data_) {
-                const data = {...data_};
-                // make id to hex string
+            load_member_info(data) {
                 data.weapon.weapon_id = numberToHexStringWithZFill(data.weapon.weapon_id, 8).toUpperCase();
                 data.weapon.skill1 = numberToHexStringWithZFill(data.weapon.skill1, 8).toUpperCase();
                 data.weapon.skill2 = numberToHexStringWithZFill(data.weapon.skill2, 8).toUpperCase();
@@ -768,6 +769,9 @@
                     s.second_trait_id = numberToHexStringWithZFill(s.second_trait_id, 8).toUpperCase();
                     return s;
                 });
+                if (data.d_name) {
+                    this.display_name_user = `[${this.party_idx}]${data.d_name}(${actor_name(this.name_key)})#${this.idx}`;
+                }
                 this.member_info = data;
             }
         }
@@ -1054,6 +1058,7 @@
                     })
                     setdefault('bool_damage_filter', false);
                     setdefault('number_damage_filter', 0);
+                    setdefault('show_username', false);
                     cfg.value = cfg_val;
                 }
 
