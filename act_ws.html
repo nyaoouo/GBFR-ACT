@@ -270,14 +270,26 @@
                             </el-tag>
                         </p>
                         <el-divider>
+                            {{$t('ui.over_mastery')}}
+                        </el-divider>
+                        <p>
+                            <span class="mx-1"  v-for="(em,i) in actor_dialog.actor.member_info.over_mastery" :key="i">
+                                <el-tag type="primary" v-if="em.type_id!=='887AE0B0'">
+                                    {{$t(`game.over_mastery.${em.type_id}`)}}
+                                    LV:{{em.level}}
+                                </el-tag>
+                                <el-tag type="info" v-else>-</el-tag>
+                            </span>
+                        </p>
+                        <el-divider>
                             {{$t('ui.sigils')}}
                         </el-divider>
                         <p v-for="(s,i) in actor_dialog.actor.member_info.sigils" :key="i">
-                            <el-tag type="success" v-if="s.sigil_id!=='887AE0B0'">
+                            <el-tag class="mx-1"  type="success" v-if="s.sigil_id!=='887AE0B0'">
                                 {{$t(`game.sigils.${s.sigil_id}`)}}
                                 LV:{{s.sigil_level}}
                             </el-tag>
-                            <el-tag type="info" v-else>-</el-tag>
+                            <el-tag class="mx-1"  type="info" v-else>-</el-tag>
                             <el-tag class="mx-1" type="primary" v-if="s.first_trait_id!=='887AE0B0'">
                                 {{$t(`game.skills.${s.first_trait_id}`)}}
                                 LV:{{s.first_trait_level}}
@@ -713,6 +725,10 @@
                 })();
                 this.hit = 0;
                 /*{
+                    'over_mastery': [{
+                        'type_id': om.type_id,
+                        'level': om.level.bit_length(),
+                    } for om in self.over_mastery],
                     'weapon': {
                         'weapon_id': w.weapon,
                         'skill1': w.skill1,
@@ -758,6 +774,10 @@
             }
 
             load_member_info(data) {
+                data.over_mastery = data.over_mastery.map(om => {
+                    om.type_id = numberToHexStringWithZFill(om.type_id, 8).toUpperCase();
+                    return om;
+                });
                 data.weapon.weapon_id = numberToHexStringWithZFill(data.weapon.weapon_id, 8).toUpperCase();
                 data.weapon.skill1 = numberToHexStringWithZFill(data.weapon.skill1, 8).toUpperCase();
                 data.weapon.skill2 = numberToHexStringWithZFill(data.weapon.skill2, 8).toUpperCase();

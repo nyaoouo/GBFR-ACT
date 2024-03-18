@@ -1810,9 +1810,18 @@ class Actor:
             ('notification_enum', ctypes.c_uint32),
         ]
 
+    class OverMastery(ctypes.Structure):
+        _fields_ = [
+            ('type_id', ctypes.c_uint32),
+            ('level', ctypes.c_uint32),
+            ('param', ctypes.c_uint32),
+            ('param2', ctypes.c_float),
+        ]
+
     class Offsets:
         p_data_off = 0
         p_data_weapon_off = 0
+        p_data_over_mastery_off = 0
         p_data_sigil_off = 0
 
     def __str__(self):
@@ -1864,7 +1873,13 @@ class Actor:
         return self.Weapon.from_address(p_weapon)
 
     @property
-    def p_sigil_data(self): # TODO: should have a proper name...
+    def over_mastery(self):
+        p_over_mastery = self.address + self.Offsets.p_data_off + self.Offsets.p_data_over_mastery_off
+        size_t_from(p_over_mastery)
+        return (self.OverMastery * 4).from_address(p_over_mastery)
+
+    @property
+    def p_sigil_data(self):  # TODO: should have a proper name...
         return size_t_from(self.address + self.Offsets.p_data_off + self.Offsets.p_data_sigil_off)
 
     @property
@@ -1891,6 +1906,10 @@ class Actor:
     def member_info(self):
         w = self.weapon
         return {
+            'over_mastery': [{
+                'type_id': om.type_id,
+                'level': om.level.bit_length(),
+            } for om in self.over_mastery],
             'weapon': {
                 'weapon_id': w.weapon,
                 'skill1': w.skill1,
@@ -1990,6 +2009,11 @@ class Act:
         Actor.Offsets.p_data_off, = scanner.find_val("48 ? ? <? ? ? ?> 89 86 ? ? ? ? 44 89 96")
         Actor.Offsets.p_data_sigil_off, = scanner.find_val("49 89 84 24 <? ? ? ?> 48 ? ? 74 ? 49 ? ? ? ? ? ? ? 48 89 43 ? ")
         Actor.Offsets.p_data_weapon_off, = scanner.find_val("48 ? ? <?> 48 ? ? ? 48 ? ? e8 ? ? ? ? 31 ? ")
+        Actor.Offsets.p_data_over_mastery_off = scanner.find_val(
+            "49 ? ? <? ? ? ?> 49 ? ? ? ? ? ? ? e8 ? ? ? ? 49 ? ? ? ? ? ? 49 ? ? ? ? ? ? ? 41"
+        )[0] + scanner.find_val(
+            "49 ? ? ? <? ? ? ?> e8 ? ? ? ? 41 ? ? e9"
+        )[0]
 
         self.i_ui_comp_name = ctypes.CFUNCTYPE(ctypes.c_char_p, ctypes.c_size_t)
         self.team_map = None

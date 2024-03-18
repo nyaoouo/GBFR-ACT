@@ -70,6 +70,7 @@ const i18nCfg = (() => {
                     weapon: "武器",
                     sigils: "因子",
                     show_username: "显示用户名",
+                    over_mastery: "突破上限",
                 },
                 game: {
                     actions: {
@@ -688,6 +689,9 @@ const i18nCfg = (() => {
                     },
                     weapons: {
                         ...hash_as_key(window.dump_texts.zhs.weapons),
+                    },
+                    over_mastery: {
+                        ...hash_as_key(window.dump_texts.zhs.over_mastery),
                     },
                 },
             },
@@ -1376,6 +1380,9 @@ const i18nCfg = (() => {
                     weapons: {
                         ...hash_as_key(window.dump_texts.zht.weapons),
                     },
+                    over_mastery: {
+                        ...hash_as_key(window.dump_texts.zht.over_mastery),
+                    },
                 },
             },
             en: {
@@ -1883,6 +1890,9 @@ const i18nCfg = (() => {
                     },
                     weapons: {
                         ...hash_as_key(window.dump_texts.en.weapons),
+                    },
+                    over_mastery: {
+                        ...hash_as_key(window.dump_texts.en.over_mastery),
                     },
                 }
             }

@@ -6013,6 +6013,1036 @@
         "key": "ITEM_28_9999",
         "text": "隔绝之祝福"
       }
+    },
+    "over_mastery": {
+      "FA230938": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "BF44C20B": {
+        "key": null,
+        "text": "HP"
+      },
+      "2906F3ED": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "D5169339": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "8E4AF42A": {
+        "key": "LBP_EFF_AB_DMG01",
+        "text": "能力伤害"
+      },
+      "CD6542F5": {
+        "key": null,
+        "text": "奥义伤害"
+      },
+      "2989CAE9": {
+        "key": null,
+        "text": "奥义连锁伤害"
+      },
+      "ABA0FEDD": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "CAC0BEB6": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "FB4819D9": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "C4925BD7": {
+        "key": "MED_EFF_ATK01",
+        "text": "攻击力"
+      },
+      "52A207B5": {
+        "key": "MED_EFF_HP01",
+        "text": "HP"
+      },
+      "45C65767": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "6CB38EF3": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "9A97C049": {
+        "key": null,
+        "text": "能力伤害"
+      },
+      "4E42646B": {
+        "key": null,
+        "text": "奥义伤害"
+      },
+      "68B39018": {
+        "key": null,
+        "text": "奥义连锁伤害"
+      },
+      "43B7581D": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "9C555433": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "4A4C093D": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "54929589": {
+        "key": null,
+        "text": "HP回复上限"
+      },
+      "CB63BE55": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "DCBD8423": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "59DCE1E8": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "F203BB15": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "57BBC478": {
+        "key": null,
+        "text": "HP"
+      },
+      "5A51F0CB": {
+        "key": null,
+        "text": "HP"
+      },
+      "9C6375CF": {
+        "key": null,
+        "text": "HP"
+      },
+      "F004E9F2": {
+        "key": null,
+        "text": "HP"
+      },
+      "C4B86ED7": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "CEB0DBD2": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "A3545CA1": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "59FBB7D8": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "A1DC63B3": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "C2D708C1": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "874353D7": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "807E9E58": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "C6BDC7A6": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "38F656E7": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "60835D4F": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "7CCF98C5": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "A257DAC1": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "49089D4F": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "8AF65803": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "1CC2F730": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "85F0F318": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "1268B903": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "CCEF4492": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "124DB819": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "C1360291": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "BD488071": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "E056BA80": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "FE71865D": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "829B8B5C": {
+        "key": null,
+        "text": "HP"
+      },
+      "F80E3310": {
+        "key": null,
+        "text": "HP"
+      },
+      "032A5217": {
+        "key": null,
+        "text": "HP"
+      },
+      "BBE7992A": {
+        "key": null,
+        "text": "HP"
+      },
+      "F5514F81": {
+        "key": null,
+        "text": "HP"
+      },
+      "C265B03B": {
+        "key": null,
+        "text": "HP"
+      },
+      "11023C6F": {
+        "key": null,
+        "text": "HP"
+      },
+      "61D4EFA0": {
+        "key": null,
+        "text": "HP"
+      },
+      "CF24E1A2": {
+        "key": null,
+        "text": "HP"
+      },
+      "8E66B68C": {
+        "key": null,
+        "text": "HP"
+      },
+      "D51958D1": {
+        "key": null,
+        "text": "HP"
+      },
+      "437C055D": {
+        "key": null,
+        "text": "HP"
+      },
+      "EA5EAAFC": {
+        "key": null,
+        "text": "HP"
+      },
+      "15AFE5A1": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "6E13DF92": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "3B23FE95": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "699C6476": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "E50EA3D0": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "D63DD12B": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "3356DD03": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "F5C314A0": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "F87DEEB9": {
+        "key": null,
+        "text": "能力伤害"
+      },
+      "4BF827D5": {
+        "key": null,
+        "text": "能力伤害"
+      },
+      "4FC7DB58": {
+        "key": null,
+        "text": "能力伤害"
+      },
+      "F581C321": {
+        "key": null,
+        "text": "奥义伤害"
+      },
+      "2BA1549D": {
+        "key": null,
+        "text": "奥义伤害"
+      },
+      "E57F6D44": {
+        "key": null,
+        "text": "奥义伤害"
+      },
+      "CFA862BD": {
+        "key": null,
+        "text": "奥义连锁伤害"
+      },
+      "75D793BD": {
+        "key": null,
+        "text": "奥义连锁伤害"
+      },
+      "9EE4105A": {
+        "key": null,
+        "text": "奥义连锁伤害"
+      },
+      "3DABC271": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "6811123B": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "281DC5FF": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "8F505D1D": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "FC0A10F6": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "C40A90DF": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "7F69DF6B": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "CE775676": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "233A60D5": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "62289920": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "688246F9": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "3CD2F6AF": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "72ECDB4F": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "EA14FA65": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "424F95E2": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "76C83BFD": {
+        "key": null,
+        "text": "HP回复上限"
+      },
+      "524492E2": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "455D6A1C": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "CC8A39EF": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "0781C7A2": {
+        "key": null,
+        "text": "HP"
+      },
+      "C52D2245": {
+        "key": null,
+        "text": "HP"
+      },
+      "7125942E": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "403BE586": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "0F25B474": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "CF6B267A": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "EEFB4ADE": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "CD5D6315": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "4E2513DF": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "91265F66": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "FA9BCF64": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "95567556": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "B83AA115": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "13C9452A": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "EA99FA76": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "CB43FF8E": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "9B6F164C": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "60926B53": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "53D358E0": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "C5D68C62": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "DE6A367A": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "24499A25": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "DA546DFE": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "4AB91EA7": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "9BFD4548": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "DF2CAB83": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "254A08D4": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "303BECC0": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "9A0988DF": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "BE8C17D4": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "2EA457F3": {
+        "key": null,
+        "text": "HP"
+      },
+      "3CA4C8D5": {
+        "key": null,
+        "text": "HP"
+      },
+      "409DF671": {
+        "key": null,
+        "text": "HP"
+      },
+      "9A29AA64": {
+        "key": null,
+        "text": "HP"
+      },
+      "6564C02B": {
+        "key": null,
+        "text": "HP"
+      },
+      "1E2B3DB5": {
+        "key": null,
+        "text": "HP"
+      },
+      "3AC53494": {
+        "key": null,
+        "text": "HP"
+      },
+      "DFB00115": {
+        "key": null,
+        "text": "HP"
+      },
+      "AB56BDE3": {
+        "key": null,
+        "text": "HP"
+      },
+      "0DB88F30": {
+        "key": null,
+        "text": "HP"
+      },
+      "2D6C03EB": {
+        "key": null,
+        "text": "HP"
+      },
+      "5767DD9F": {
+        "key": null,
+        "text": "HP"
+      },
+      "427B5E26": {
+        "key": null,
+        "text": "HP"
+      },
+      "72296D1C": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "27927560": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "2229B810": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "9730A344": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "29938B25": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "7B498C32": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "6837E60C": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "9BF7878A": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "426B370B": {
+        "key": null,
+        "text": "能力伤害"
+      },
+      "51BCF5AE": {
+        "key": null,
+        "text": "能力伤害"
+      },
+      "0D6B32A3": {
+        "key": null,
+        "text": "能力伤害"
+      },
+      "A73CD44C": {
+        "key": null,
+        "text": "奥义伤害"
+      },
+      "0CE31E6B": {
+        "key": null,
+        "text": "奥义伤害"
+      },
+      "70BA21AD": {
+        "key": null,
+        "text": "奥义伤害"
+      },
+      "AA7247E1": {
+        "key": null,
+        "text": "奥义连锁伤害"
+      },
+      "FC942F30": {
+        "key": null,
+        "text": "奥义连锁伤害"
+      },
+      "AD5ECDD3": {
+        "key": null,
+        "text": "奥义连锁伤害"
+      },
+      "B5B62B63": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "8105C89C": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "0716AA8D": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "19E012E9": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "E16A1D0D": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "C7E54ACC": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "E742CCE0": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "0B0E4311": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "6F6B59BA": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "D4C00BAF": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "18BE125B": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "F3EE9A98": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "047B7A70": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "149593B8": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "776ADCA4": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "EC3B22FF": {
+        "key": null,
+        "text": "HP回复上限"
+      },
+      "C96005F7": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "C11FDFBD": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "287F67C9": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "4CE64874": {
+        "key": null,
+        "text": "HP"
+      },
+      "AAC23948": {
+        "key": null,
+        "text": "HP"
+      },
+      "66092BC7": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "CB6BB434": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "0B134A7F": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "5382923D": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "A2BCF523": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "FB276AFD": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "93572974": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "DF2EEF09": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "A85B4AF5": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "6FB47781": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "E7710898": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "DDC29837": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "937EFB96": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "8FE7FB0A": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "67BDE89B": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "F2111B99": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "0CF5D0F3": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "6E4F2F5E": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "A3460028": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "834892B4": {
+        "key": null,
+        "text": "攻击力"
+      },
+      "3526FECB": {
+        "key": null,
+        "text": "HP"
+      },
+      "5A57DC07": {
+        "key": null,
+        "text": "HP"
+      },
+      "3D6600D9": {
+        "key": null,
+        "text": "HP"
+      },
+      "155C25C3": {
+        "key": null,
+        "text": "HP"
+      },
+      "7E870EBE": {
+        "key": null,
+        "text": "HP"
+      },
+      "EE6100CA": {
+        "key": null,
+        "text": "HP"
+      },
+      "871D12CC": {
+        "key": null,
+        "text": "HP"
+      },
+      "7CBBB4E0": {
+        "key": null,
+        "text": "HP"
+      },
+      "44F04A7A": {
+        "key": null,
+        "text": "HP"
+      },
+      "0FEBC993": {
+        "key": null,
+        "text": "HP"
+      },
+      "911D4F18": {
+        "key": null,
+        "text": "HP"
+      },
+      "ACCBECE1": {
+        "key": null,
+        "text": "HP"
+      },
+      "394083BD": {
+        "key": null,
+        "text": "HP"
+      },
+      "45BC2345": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "1296ED4A": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "157C0614": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "C680087D": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "5E95A4A4": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "7B05E679": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "36F068FD": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "A85495BA": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "574AC06B": {
+        "key": null,
+        "text": "能力伤害"
+      },
+      "FE59F993": {
+        "key": null,
+        "text": "能力伤害"
+      },
+      "A2388DE8": {
+        "key": null,
+        "text": "能力伤害"
+      },
+      "AE39E4A1": {
+        "key": null,
+        "text": "奥义伤害"
+      },
+      "020D2C07": {
+        "key": null,
+        "text": "奥义伤害"
+      },
+      "E14A5507": {
+        "key": null,
+        "text": "奥义伤害"
+      },
+      "CD5B5B8F": {
+        "key": null,
+        "text": "奥义连锁伤害"
+      },
+      "F913D839": {
+        "key": null,
+        "text": "奥义连锁伤害"
+      },
+      "A5A1B56B": {
+        "key": null,
+        "text": "奥义连锁伤害"
+      },
+      "563F7784": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "F3883729": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "0D4295FD": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "BD612B10": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "06595C52": {
+        "key": null,
+        "text": "普通攻击伤害上限"
+      },
+      "8E175220": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "B63A15AF": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "7AFFDE77": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "9C6272CF": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "4DEE3365": {
+        "key": null,
+        "text": "能力伤害上限"
+      },
+      "2AB305F4": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "DE3F845B": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "CBC6B841": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "4B54500D": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "E5D1F9E1": {
+        "key": null,
+        "text": "奥义伤害上限"
+      },
+      "43D71E8F": {
+        "key": null,
+        "text": "HP回复上限"
+      },
+      "D83326CE": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "2C1C933D": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "1D85A640": {
+        "key": null,
+        "text": "暴击率"
+      },
+      "4C0CBD32": {
+        "key": null,
+        "text": "HP"
+      },
+      "AF0D8B97": {
+        "key": null,
+        "text": "HP"
+      },
+      "2676F9D2": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "A901E065": {
+        "key": null,
+        "text": "昏厥值"
+      },
+      "3DAE6494": {
+        "key": null,
+        "text": "昏厥值"
+      }
     }
   },
   "zht": {
@@ -12016,6 +13046,1036 @@
       "8DB0B117": {
         "key": "ITEM_28_9999",
         "text": "隔絕之加護"
+      }
+    },
+    "over_mastery": {
+      "FA230938": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "BF44C20B": {
+        "key": null,
+        "text": "HP"
+      },
+      "2906F3ED": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "D5169339": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "8E4AF42A": {
+        "key": "LBP_EFF_AB_DMG01",
+        "text": "技能的給予傷害"
+      },
+      "CD6542F5": {
+        "key": null,
+        "text": "奧義的給予傷害"
+      },
+      "2989CAE9": {
+        "key": null,
+        "text": "奧義連擊的給予傷害"
+      },
+      "ABA0FEDD": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "CAC0BEB6": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "FB4819D9": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "C4925BD7": {
+        "key": "MED_EFF_ATK01",
+        "text": "攻擊力"
+      },
+      "52A207B5": {
+        "key": "MED_EFF_HP01",
+        "text": "HP"
+      },
+      "45C65767": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "6CB38EF3": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "9A97C049": {
+        "key": null,
+        "text": "技能的給予傷害"
+      },
+      "4E42646B": {
+        "key": null,
+        "text": "奧義的給予傷害"
+      },
+      "68B39018": {
+        "key": null,
+        "text": "奧義連擊的給予傷害"
+      },
+      "43B7581D": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "9C555433": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "4A4C093D": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "54929589": {
+        "key": null,
+        "text": "HP回復上限"
+      },
+      "CB63BE55": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "DCBD8423": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "59DCE1E8": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "F203BB15": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "57BBC478": {
+        "key": null,
+        "text": "HP"
+      },
+      "5A51F0CB": {
+        "key": null,
+        "text": "HP"
+      },
+      "9C6375CF": {
+        "key": null,
+        "text": "HP"
+      },
+      "F004E9F2": {
+        "key": null,
+        "text": "HP"
+      },
+      "C4B86ED7": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "CEB0DBD2": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "A3545CA1": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "59FBB7D8": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "A1DC63B3": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "C2D708C1": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "874353D7": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "807E9E58": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "C6BDC7A6": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "38F656E7": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "60835D4F": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "7CCF98C5": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "A257DAC1": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "49089D4F": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "8AF65803": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "1CC2F730": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "85F0F318": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "1268B903": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "CCEF4492": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "124DB819": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "C1360291": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "BD488071": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "E056BA80": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "FE71865D": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "829B8B5C": {
+        "key": null,
+        "text": "HP"
+      },
+      "F80E3310": {
+        "key": null,
+        "text": "HP"
+      },
+      "032A5217": {
+        "key": null,
+        "text": "HP"
+      },
+      "BBE7992A": {
+        "key": null,
+        "text": "HP"
+      },
+      "F5514F81": {
+        "key": null,
+        "text": "HP"
+      },
+      "C265B03B": {
+        "key": null,
+        "text": "HP"
+      },
+      "11023C6F": {
+        "key": null,
+        "text": "HP"
+      },
+      "61D4EFA0": {
+        "key": null,
+        "text": "HP"
+      },
+      "CF24E1A2": {
+        "key": null,
+        "text": "HP"
+      },
+      "8E66B68C": {
+        "key": null,
+        "text": "HP"
+      },
+      "D51958D1": {
+        "key": null,
+        "text": "HP"
+      },
+      "437C055D": {
+        "key": null,
+        "text": "HP"
+      },
+      "EA5EAAFC": {
+        "key": null,
+        "text": "HP"
+      },
+      "15AFE5A1": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "6E13DF92": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "3B23FE95": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "699C6476": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "E50EA3D0": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "D63DD12B": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "3356DD03": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "F5C314A0": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "F87DEEB9": {
+        "key": null,
+        "text": "技能的給予傷害"
+      },
+      "4BF827D5": {
+        "key": null,
+        "text": "技能的給予傷害"
+      },
+      "4FC7DB58": {
+        "key": null,
+        "text": "技能的給予傷害"
+      },
+      "F581C321": {
+        "key": null,
+        "text": "奧義的給予傷害"
+      },
+      "2BA1549D": {
+        "key": null,
+        "text": "奧義的給予傷害"
+      },
+      "E57F6D44": {
+        "key": null,
+        "text": "奧義的給予傷害"
+      },
+      "CFA862BD": {
+        "key": null,
+        "text": "奧義連擊的給予傷害"
+      },
+      "75D793BD": {
+        "key": null,
+        "text": "奧義連擊的給予傷害"
+      },
+      "9EE4105A": {
+        "key": null,
+        "text": "奧義連擊的給予傷害"
+      },
+      "3DABC271": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "6811123B": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "281DC5FF": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "8F505D1D": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "FC0A10F6": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "C40A90DF": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "7F69DF6B": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "CE775676": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "233A60D5": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "62289920": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "688246F9": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "3CD2F6AF": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "72ECDB4F": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "EA14FA65": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "424F95E2": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "76C83BFD": {
+        "key": null,
+        "text": "HP回復上限"
+      },
+      "524492E2": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "455D6A1C": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "CC8A39EF": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "0781C7A2": {
+        "key": null,
+        "text": "HP"
+      },
+      "C52D2245": {
+        "key": null,
+        "text": "HP"
+      },
+      "7125942E": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "403BE586": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "0F25B474": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "CF6B267A": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "EEFB4ADE": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "CD5D6315": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "4E2513DF": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "91265F66": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "FA9BCF64": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "95567556": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "B83AA115": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "13C9452A": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "EA99FA76": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "CB43FF8E": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "9B6F164C": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "60926B53": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "53D358E0": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "C5D68C62": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "DE6A367A": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "24499A25": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "DA546DFE": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "4AB91EA7": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "9BFD4548": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "DF2CAB83": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "254A08D4": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "303BECC0": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "9A0988DF": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "BE8C17D4": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "2EA457F3": {
+        "key": null,
+        "text": "HP"
+      },
+      "3CA4C8D5": {
+        "key": null,
+        "text": "HP"
+      },
+      "409DF671": {
+        "key": null,
+        "text": "HP"
+      },
+      "9A29AA64": {
+        "key": null,
+        "text": "HP"
+      },
+      "6564C02B": {
+        "key": null,
+        "text": "HP"
+      },
+      "1E2B3DB5": {
+        "key": null,
+        "text": "HP"
+      },
+      "3AC53494": {
+        "key": null,
+        "text": "HP"
+      },
+      "DFB00115": {
+        "key": null,
+        "text": "HP"
+      },
+      "AB56BDE3": {
+        "key": null,
+        "text": "HP"
+      },
+      "0DB88F30": {
+        "key": null,
+        "text": "HP"
+      },
+      "2D6C03EB": {
+        "key": null,
+        "text": "HP"
+      },
+      "5767DD9F": {
+        "key": null,
+        "text": "HP"
+      },
+      "427B5E26": {
+        "key": null,
+        "text": "HP"
+      },
+      "72296D1C": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "27927560": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "2229B810": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "9730A344": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "29938B25": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "7B498C32": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "6837E60C": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "9BF7878A": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "426B370B": {
+        "key": null,
+        "text": "技能的給予傷害"
+      },
+      "51BCF5AE": {
+        "key": null,
+        "text": "技能的給予傷害"
+      },
+      "0D6B32A3": {
+        "key": null,
+        "text": "技能的給予傷害"
+      },
+      "A73CD44C": {
+        "key": null,
+        "text": "奧義的給予傷害"
+      },
+      "0CE31E6B": {
+        "key": null,
+        "text": "奧義的給予傷害"
+      },
+      "70BA21AD": {
+        "key": null,
+        "text": "奧義的給予傷害"
+      },
+      "AA7247E1": {
+        "key": null,
+        "text": "奧義連擊的給予傷害"
+      },
+      "FC942F30": {
+        "key": null,
+        "text": "奧義連擊的給予傷害"
+      },
+      "AD5ECDD3": {
+        "key": null,
+        "text": "奧義連擊的給予傷害"
+      },
+      "B5B62B63": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "8105C89C": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "0716AA8D": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "19E012E9": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "E16A1D0D": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "C7E54ACC": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "E742CCE0": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "0B0E4311": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "6F6B59BA": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "D4C00BAF": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "18BE125B": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "F3EE9A98": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "047B7A70": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "149593B8": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "776ADCA4": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "EC3B22FF": {
+        "key": null,
+        "text": "HP回復上限"
+      },
+      "C96005F7": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "C11FDFBD": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "287F67C9": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "4CE64874": {
+        "key": null,
+        "text": "HP"
+      },
+      "AAC23948": {
+        "key": null,
+        "text": "HP"
+      },
+      "66092BC7": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "CB6BB434": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "0B134A7F": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "5382923D": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "A2BCF523": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "FB276AFD": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "93572974": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "DF2EEF09": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "A85B4AF5": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "6FB47781": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "E7710898": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "DDC29837": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "937EFB96": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "8FE7FB0A": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "67BDE89B": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "F2111B99": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "0CF5D0F3": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "6E4F2F5E": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "A3460028": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "834892B4": {
+        "key": null,
+        "text": "攻擊力"
+      },
+      "3526FECB": {
+        "key": null,
+        "text": "HP"
+      },
+      "5A57DC07": {
+        "key": null,
+        "text": "HP"
+      },
+      "3D6600D9": {
+        "key": null,
+        "text": "HP"
+      },
+      "155C25C3": {
+        "key": null,
+        "text": "HP"
+      },
+      "7E870EBE": {
+        "key": null,
+        "text": "HP"
+      },
+      "EE6100CA": {
+        "key": null,
+        "text": "HP"
+      },
+      "871D12CC": {
+        "key": null,
+        "text": "HP"
+      },
+      "7CBBB4E0": {
+        "key": null,
+        "text": "HP"
+      },
+      "44F04A7A": {
+        "key": null,
+        "text": "HP"
+      },
+      "0FEBC993": {
+        "key": null,
+        "text": "HP"
+      },
+      "911D4F18": {
+        "key": null,
+        "text": "HP"
+      },
+      "ACCBECE1": {
+        "key": null,
+        "text": "HP"
+      },
+      "394083BD": {
+        "key": null,
+        "text": "HP"
+      },
+      "45BC2345": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "1296ED4A": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "157C0614": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "C680087D": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "5E95A4A4": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "7B05E679": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "36F068FD": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "A85495BA": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "574AC06B": {
+        "key": null,
+        "text": "技能的給予傷害"
+      },
+      "FE59F993": {
+        "key": null,
+        "text": "技能的給予傷害"
+      },
+      "A2388DE8": {
+        "key": null,
+        "text": "技能的給予傷害"
+      },
+      "AE39E4A1": {
+        "key": null,
+        "text": "奧義的給予傷害"
+      },
+      "020D2C07": {
+        "key": null,
+        "text": "奧義的給予傷害"
+      },
+      "E14A5507": {
+        "key": null,
+        "text": "奧義的給予傷害"
+      },
+      "CD5B5B8F": {
+        "key": null,
+        "text": "奧義連擊的給予傷害"
+      },
+      "F913D839": {
+        "key": null,
+        "text": "奧義連擊的給予傷害"
+      },
+      "A5A1B56B": {
+        "key": null,
+        "text": "奧義連擊的給予傷害"
+      },
+      "563F7784": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "F3883729": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "0D4295FD": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "BD612B10": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "06595C52": {
+        "key": null,
+        "text": "一般攻擊的傷害上限"
+      },
+      "8E175220": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "B63A15AF": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "7AFFDE77": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "9C6272CF": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "4DEE3365": {
+        "key": null,
+        "text": "技能的傷害上限"
+      },
+      "2AB305F4": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "DE3F845B": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "CBC6B841": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "4B54500D": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "E5D1F9E1": {
+        "key": null,
+        "text": "奧義的傷害上限"
+      },
+      "43D71E8F": {
+        "key": null,
+        "text": "HP回復上限"
+      },
+      "D83326CE": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "2C1C933D": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "1D85A640": {
+        "key": null,
+        "text": "爆擊機率"
+      },
+      "4C0CBD32": {
+        "key": null,
+        "text": "HP"
+      },
+      "AF0D8B97": {
+        "key": null,
+        "text": "HP"
+      },
+      "2676F9D2": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "A901E065": {
+        "key": null,
+        "text": "暈眩值"
+      },
+      "3DAE6494": {
+        "key": null,
+        "text": "暈眩值"
       }
     }
   },
@@ -18040,6 +20100,1036 @@
       "8DB0B117": {
         "key": "ITEM_28_9999",
         "text": "Sequestration Wrightstone"
+      }
+    },
+    "over_mastery": {
+      "FA230938": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "BF44C20B": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "2906F3ED": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "D5169339": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "8E4AF42A": {
+        "key": "LBP_EFF_AB_DMG01",
+        "text": "Skill Damage Up"
+      },
+      "CD6542F5": {
+        "key": null,
+        "text": "Skybound Art Damage Up"
+      },
+      "2989CAE9": {
+        "key": null,
+        "text": "Chain Burst Damage Up"
+      },
+      "ABA0FEDD": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "CAC0BEB6": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "FB4819D9": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "C4925BD7": {
+        "key": "MED_EFF_ATK01",
+        "text": "Attack Power Up"
+      },
+      "52A207B5": {
+        "key": "MED_EFF_HP01",
+        "text": "Health Up"
+      },
+      "45C65767": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "6CB38EF3": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "9A97C049": {
+        "key": null,
+        "text": "Skill Damage Up"
+      },
+      "4E42646B": {
+        "key": null,
+        "text": "Skybound Art Damage Up"
+      },
+      "68B39018": {
+        "key": null,
+        "text": "Chain Burst Damage Up"
+      },
+      "43B7581D": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "9C555433": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "4A4C093D": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "54929589": {
+        "key": null,
+        "text": "Healing Cap Up"
+      },
+      "CB63BE55": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "DCBD8423": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "59DCE1E8": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "F203BB15": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "57BBC478": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "5A51F0CB": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "9C6375CF": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "F004E9F2": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "C4B86ED7": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "CEB0DBD2": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "A3545CA1": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "59FBB7D8": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "A1DC63B3": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "C2D708C1": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "874353D7": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "807E9E58": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "C6BDC7A6": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "38F656E7": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "60835D4F": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "7CCF98C5": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "A257DAC1": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "49089D4F": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "8AF65803": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "1CC2F730": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "85F0F318": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "1268B903": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "CCEF4492": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "124DB819": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "C1360291": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "BD488071": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "E056BA80": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "FE71865D": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "829B8B5C": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "F80E3310": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "032A5217": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "BBE7992A": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "F5514F81": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "C265B03B": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "11023C6F": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "61D4EFA0": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "CF24E1A2": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "8E66B68C": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "D51958D1": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "437C055D": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "EA5EAAFC": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "15AFE5A1": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "6E13DF92": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "3B23FE95": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "699C6476": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "E50EA3D0": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "D63DD12B": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "3356DD03": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "F5C314A0": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "F87DEEB9": {
+        "key": null,
+        "text": "Skill Damage Up"
+      },
+      "4BF827D5": {
+        "key": null,
+        "text": "Skill Damage Up"
+      },
+      "4FC7DB58": {
+        "key": null,
+        "text": "Skill Damage Up"
+      },
+      "F581C321": {
+        "key": null,
+        "text": "Skybound Art Damage Up"
+      },
+      "2BA1549D": {
+        "key": null,
+        "text": "Skybound Art Damage Up"
+      },
+      "E57F6D44": {
+        "key": null,
+        "text": "Skybound Art Damage Up"
+      },
+      "CFA862BD": {
+        "key": null,
+        "text": "Chain Burst Damage Up"
+      },
+      "75D793BD": {
+        "key": null,
+        "text": "Chain Burst Damage Up"
+      },
+      "9EE4105A": {
+        "key": null,
+        "text": "Chain Burst Damage Up"
+      },
+      "3DABC271": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "6811123B": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "281DC5FF": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "8F505D1D": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "FC0A10F6": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "C40A90DF": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "7F69DF6B": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "CE775676": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "233A60D5": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "62289920": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "688246F9": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "3CD2F6AF": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "72ECDB4F": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "EA14FA65": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "424F95E2": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "76C83BFD": {
+        "key": null,
+        "text": "Healing Cap Up"
+      },
+      "524492E2": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "455D6A1C": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "CC8A39EF": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "0781C7A2": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "C52D2245": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "7125942E": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "403BE586": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "0F25B474": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "CF6B267A": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "EEFB4ADE": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "CD5D6315": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "4E2513DF": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "91265F66": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "FA9BCF64": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "95567556": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "B83AA115": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "13C9452A": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "EA99FA76": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "CB43FF8E": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "9B6F164C": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "60926B53": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "53D358E0": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "C5D68C62": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "DE6A367A": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "24499A25": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "DA546DFE": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "4AB91EA7": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "9BFD4548": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "DF2CAB83": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "254A08D4": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "303BECC0": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "9A0988DF": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "BE8C17D4": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "2EA457F3": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "3CA4C8D5": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "409DF671": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "9A29AA64": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "6564C02B": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "1E2B3DB5": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "3AC53494": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "DFB00115": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "AB56BDE3": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "0DB88F30": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "2D6C03EB": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "5767DD9F": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "427B5E26": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "72296D1C": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "27927560": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "2229B810": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "9730A344": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "29938B25": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "7B498C32": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "6837E60C": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "9BF7878A": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "426B370B": {
+        "key": null,
+        "text": "Skill Damage Up"
+      },
+      "51BCF5AE": {
+        "key": null,
+        "text": "Skill Damage Up"
+      },
+      "0D6B32A3": {
+        "key": null,
+        "text": "Skill Damage Up"
+      },
+      "A73CD44C": {
+        "key": null,
+        "text": "Skybound Art Damage Up"
+      },
+      "0CE31E6B": {
+        "key": null,
+        "text": "Skybound Art Damage Up"
+      },
+      "70BA21AD": {
+        "key": null,
+        "text": "Skybound Art Damage Up"
+      },
+      "AA7247E1": {
+        "key": null,
+        "text": "Chain Burst Damage Up"
+      },
+      "FC942F30": {
+        "key": null,
+        "text": "Chain Burst Damage Up"
+      },
+      "AD5ECDD3": {
+        "key": null,
+        "text": "Chain Burst Damage Up"
+      },
+      "B5B62B63": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "8105C89C": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "0716AA8D": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "19E012E9": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "E16A1D0D": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "C7E54ACC": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "E742CCE0": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "0B0E4311": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "6F6B59BA": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "D4C00BAF": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "18BE125B": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "F3EE9A98": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "047B7A70": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "149593B8": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "776ADCA4": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "EC3B22FF": {
+        "key": null,
+        "text": "Healing Cap Up"
+      },
+      "C96005F7": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "C11FDFBD": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "287F67C9": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "4CE64874": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "AAC23948": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "66092BC7": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "CB6BB434": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "0B134A7F": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "5382923D": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "A2BCF523": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "FB276AFD": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "93572974": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "DF2EEF09": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "A85B4AF5": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "6FB47781": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "E7710898": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "DDC29837": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "937EFB96": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "8FE7FB0A": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "67BDE89B": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "F2111B99": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "0CF5D0F3": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "6E4F2F5E": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "A3460028": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "834892B4": {
+        "key": null,
+        "text": "Attack Power Up"
+      },
+      "3526FECB": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "5A57DC07": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "3D6600D9": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "155C25C3": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "7E870EBE": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "EE6100CA": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "871D12CC": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "7CBBB4E0": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "44F04A7A": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "0FEBC993": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "911D4F18": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "ACCBECE1": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "394083BD": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "45BC2345": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "1296ED4A": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "157C0614": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "C680087D": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "5E95A4A4": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "7B05E679": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "36F068FD": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "A85495BA": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "574AC06B": {
+        "key": null,
+        "text": "Skill Damage Up"
+      },
+      "FE59F993": {
+        "key": null,
+        "text": "Skill Damage Up"
+      },
+      "A2388DE8": {
+        "key": null,
+        "text": "Skill Damage Up"
+      },
+      "AE39E4A1": {
+        "key": null,
+        "text": "Skybound Art Damage Up"
+      },
+      "020D2C07": {
+        "key": null,
+        "text": "Skybound Art Damage Up"
+      },
+      "E14A5507": {
+        "key": null,
+        "text": "Skybound Art Damage Up"
+      },
+      "CD5B5B8F": {
+        "key": null,
+        "text": "Chain Burst Damage Up"
+      },
+      "F913D839": {
+        "key": null,
+        "text": "Chain Burst Damage Up"
+      },
+      "A5A1B56B": {
+        "key": null,
+        "text": "Chain Burst Damage Up"
+      },
+      "563F7784": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "F3883729": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "0D4295FD": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "BD612B10": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "06595C52": {
+        "key": null,
+        "text": "Normal Attack Damage Cap Up"
+      },
+      "8E175220": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "B63A15AF": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "7AFFDE77": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "9C6272CF": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "4DEE3365": {
+        "key": null,
+        "text": "Skill Damage Cap Up"
+      },
+      "2AB305F4": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "DE3F845B": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "CBC6B841": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "4B54500D": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "E5D1F9E1": {
+        "key": null,
+        "text": "Skybound Art Damage Cap Up"
+      },
+      "43D71E8F": {
+        "key": null,
+        "text": "Healing Cap Up"
+      },
+      "D83326CE": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "2C1C933D": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "1D85A640": {
+        "key": null,
+        "text": "Critical Hit Rate Up"
+      },
+      "4C0CBD32": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "AF0D8B97": {
+        "key": null,
+        "text": "Health Up"
+      },
+      "2676F9D2": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "A901E065": {
+        "key": null,
+        "text": "Stun Power Up"
+      },
+      "3DAE6494": {
+        "key": null,
+        "text": "Stun Power Up"
       }
     }
   }
