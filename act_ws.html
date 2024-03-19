@@ -952,8 +952,17 @@
                 const remove_record = (name) => {
                     const idx = records.value.findIndex(v => v.name === name);
                     if (idx >= 0) {
+                        const remove_name = records.value[idx].name
                         records.value[idx].destroy();
                         records.value.splice(idx, 1);
+                        // if removed record is selected, select the previous one or the next one
+                        if (view_record_value.value === remove_name) {
+                            if (records.value[idx - 1]) {
+                                view_record_value.value = records.value[idx - 1].name
+                            } else if (records.value[idx]) {
+                                view_record_value.value = records.value[idx].name
+                            }
+                        }
                     }
                 }
                 const archive_record = (record, time_ms = 0) => {
