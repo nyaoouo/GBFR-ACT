@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <title>Remote</title>
     <script>
+        (() => {
+            if (window.location.search.includes('isWebView=1')) {
+                const script = document.createElement('script');
+                script.src = './assets/webview.js';
+                document.head.appendChild(script);
+            }
+
+        })()
+
         const cdn_list = [
             {
                 key: "css/element-plus",
@@ -273,7 +282,7 @@
                             {{$t('ui.over_mastery')}}
                         </el-divider>
                         <p>
-                            <span class="mx-1"  v-for="(em,i) in actor_dialog.actor.member_info.over_mastery" :key="i">
+                            <span class="mx-1" v-for="(em,i) in actor_dialog.actor.member_info.over_mastery" :key="i">
                                 <el-tag type="primary" v-if="em.type_id!=='887AE0B0'">
                                     {{$t(`game.over_mastery.${em.type_id}`)}}
                                     LV:{{em.level}}
@@ -285,11 +294,11 @@
                             {{$t('ui.sigils')}}
                         </el-divider>
                         <p v-for="(s,i) in actor_dialog.actor.member_info.sigils" :key="i">
-                            <el-tag class="mx-1"  type="success" v-if="s.sigil_id!=='887AE0B0'">
+                            <el-tag class="mx-1" type="success" v-if="s.sigil_id!=='887AE0B0'">
                                 {{$t(`game.sigils.${s.sigil_id}`)}}
                                 LV:{{s.sigil_level}}
                             </el-tag>
-                            <el-tag class="mx-1"  type="info" v-else>-</el-tag>
+                            <el-tag class="mx-1" type="info" v-else>-</el-tag>
                             <el-tag class="mx-1" type="primary" v-if="s.first_trait_id!=='887AE0B0'">
                                 {{$t(`game.skills.${s.first_trait_id}`)}}
                                 LV:{{s.first_trait_level}}
