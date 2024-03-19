@@ -1089,11 +1089,17 @@
 
                 const handleBeforeUnloadStoreRecord = (e) => {
                     if (cfg.value.keep_record) {
-                        const ex = get_latest_record().get_ex();
-                        localStorage.setItem('latest_record_events', JSON.stringify({
-                            key: ex.key,
-                            events: ex.events.concat(evt_buffer),
-                        }));
+                        for (let i = records.value.length - 1; i >= 0; i--) {
+                            const record = records.value[i];
+                            if (record.damage > 0) {
+                                const ex = record.get_ex();
+                                localStorage.setItem('latest_record_events', JSON.stringify({
+                                    key: ex.key,
+                                    events: ex.events.concat(evt_buffer),
+                                }));
+                                break;
+                            }
+                        }
                     }
                 }
                 var update_interval = null;
