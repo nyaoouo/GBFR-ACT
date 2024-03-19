@@ -94,6 +94,7 @@ class Api:
     def window_minimize(self):
         self._window.minimize()
 
+
 def main():
     current_dir = os.path.dirname(sys.executable if getattr(sys, 'frozen', False) else __file__)
     if current_dir not in sys.path: sys.path.insert(0, current_dir)
@@ -101,11 +102,12 @@ def main():
 
     args = argparse.ArgumentParser()
     args.add_argument('--debug', action='store_true', default=False)
+    args.add_argument('url', nargs='?', default=f'{current_dir}/act_ws.html?isWebView=1')
     args = args.parse_args()
 
     api = Api()
     api._window = webview.create_window(
-        'act_ws', f'{current_dir}/act_ws.html?isWebView=1',
+        'act_ws', args.url,
         easy_drag=False, frameless=True, js_api=api, on_top=True
     )
     webview.start(
