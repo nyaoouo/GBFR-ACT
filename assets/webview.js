@@ -26,20 +26,33 @@
             window.pywebview.api.window_move_start();
         }
 
-        const close_button = document.createElement('div');
-        close_button.style.position = 'absolute';
-        close_button.style.top = '7px';
+        const create_button = () => {
+            const button = document.createElement('div');
+            button.style.position = 'absolute';
+            button.style.top = '7px';
+            button.style.width = '15px';
+            button.style.height = '15px';
+            button.style.borderRadius = '50%';
+            button.style.cursor = 'pointer';
+            return button;
+        }
+
+        const close_button = create_button();
         close_button.style.right = '15px';
-        close_button.style.width = '15px';
-        close_button.style.height = '15px';
         close_button.style.backgroundColor = 'rgba(255,0,0,0.5)';
-        close_button.style.borderRadius = '50%';
-        close_button.style.cursor = 'pointer';
         close_button.onclick = () => {
             window.pywebview.api.window_close();
         }
-
         title_bar.appendChild(close_button);
+
+        const minimize_button = create_button();
+        minimize_button.style.right = '40px';
+        minimize_button.style.backgroundColor = 'rgba(255,255,0,0.5)';
+        minimize_button.onclick = () => {
+            window.pywebview.api.window_minimize();
+        }
+        title_bar.appendChild(minimize_button);
+
         document.body.appendChild(title_bar);
     }
 
@@ -58,10 +71,15 @@
             window.pywebview.api.window_resize_update()
         });
 
+        const style = document.createElement('style');
+        style.appendChild(document.createTextNode('.resize_bar_color_when_hover:hover {background-color: rgba(145,145,145,0.5);}'));
+        document.getElementsByTagName('head')[0].appendChild(style);
+
+
         const create_resize_bar = (top = false, bottom = false, left = false, right = false) => {
             const el = document.createElement('div');
             el.style.position = 'absolute';
-            el.style.backgroundColor = 'rgba(145,145,145,0.1)';
+            el.className = 'resize_bar_color_when_hover';
             const is_tb = top || bottom;
             const is_lr = left || right;
             if (is_tb) {

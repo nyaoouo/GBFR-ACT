@@ -23,9 +23,6 @@ class Api:
         self.move_start = None
         self.move_position = None
 
-    def on_web_init(self):
-        setup_all_windows_borderless()
-
     def window_resize_start(self, direction):
         self.resize_direction = direction
         self.resize_start = get_mouse_position()
@@ -94,6 +91,8 @@ class Api:
     def window_close(self):
         self._window.destroy()
 
+    def window_minimize(self):
+        self._window.minimize()
 
 def main():
     current_dir = os.path.dirname(sys.executable if getattr(sys, 'frozen', False) else __file__)
