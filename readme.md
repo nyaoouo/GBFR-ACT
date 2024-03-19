@@ -33,7 +33,7 @@
 
 3. **打开act_ws.html**
    - 建议使用Chrome浏览器打开`act_ws.html`
-
+   - 或 执行 `GbfrAct.exe` (一个打包webview的exe，不包括注入逻辑，源码在[这里](./webview/main.py))
 
 ### Remarks
 1. **About damage action composition**
@@ -55,3 +55,4 @@
 
 3. **Open act_ws.html**
    - It is recommended to use Chrome browser to open `act_ws.html`.
+   - Or run `GbfrAct.exe` (an exe that packages webview, does not include injection logic, the source code is [here](./webview/main.py))
