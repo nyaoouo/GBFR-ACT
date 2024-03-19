@@ -1,0 +1,5 @@
+lz4
+xxhash
+msgpack
+requests
+pywin32
