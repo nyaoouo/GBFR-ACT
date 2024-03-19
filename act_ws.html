@@ -318,7 +318,7 @@
                     closable @tab-remove="remove_record"
             >
                 <el-tab-pane
-                        v-for="item in records" :key="item.name" :label="item.last_record_at?`${item.name} [${fmtTime(item.last_record_at-item.time_ms)}]`:item.name" :name="item.name"
+                        v-for="item in records" :key="item.name" :label="item.last_record_at?`${item.name} [${fmtTime(item.last_record_at-item.time_ms)}]`:item.name" :name="item.unique_key"
                 >
                     <el-table :data="item.actors" style="width: 100%" :default-sort="{ prop: 'dps', order: 'descending' }">
                         <el-table-column prop="name" min-width="200">
@@ -812,6 +812,7 @@
                 this.last_record_at = 0;
                 this.last_chart_at = 0;
                 this.name = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+                this.unique_key = `${this.name}-${this.time_ms}`;
                 this.actors = [];
                 this.evt_time_over_ptr = 0;
                 this.show_chart = false;
@@ -950,17 +951,17 @@
                 }
 
                 const remove_record = (name) => {
-                    const idx = records.value.findIndex(v => v.name === name);
+                    const idx = records.value.findIndex(v => v.unique_key === name);
                     if (idx >= 0) {
-                        const remove_name = records.value[idx].name
+                        const remove_key = records.value[idx].unique_key
                         records.value[idx].destroy();
                         records.value.splice(idx, 1);
                         // if removed record is selected, select the previous one or the next one
-                        if (view_record_value.value === remove_name) {
+                        if (view_record_value.value === remove_key) {
                             if (records.value[idx - 1]) {
-                                view_record_value.value = records.value[idx - 1].name
+                                view_record_value.value = records.value[idx - 1].unique_key;
                             } else if (records.value[idx]) {
-                                view_record_value.value = records.value[idx].name
+                                view_record_value.value = records.value[idx].unique_key;
                             }
                         }
                     }
@@ -978,7 +979,7 @@
                     if (_records.length > 0) archive_record(_records[_records.length - 1], time_ms);
                     const res = Vue.reactive(new Record(time_ms));
                     _records.push(res)
-                    view_record_value.value = res.name;
+                    view_record_value.value = res.unique_key;
                     update_var.want_new = false;
                     return res;
                 }
