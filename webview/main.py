@@ -133,7 +133,8 @@ def main():
 
     args = argparse.ArgumentParser()
     args.add_argument('--debug', action='store_true', default=False)
-    args.add_argument('--no-transparent', dest='transparent', action='store_false', default=True)
+    # args.add_argument('--no-transparent', dest='transparent', action='store_false', default=True)
+    args.add_argument('--transparent', action='store_true', default=False)
     args.add_argument('url', nargs='?', default=f'{current_dir}/act_ws.html')
     args = args.parse_args()
 
