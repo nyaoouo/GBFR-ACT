@@ -1,30 +1,30 @@
 (() => {
+    document.addEventListener('DOMContentLoaded', () => {
+        const c = () => {
+            if (window.pywebview)
+                window.pywebview.api.window_init();
+            else
+                setTimeout(c, 10);
+        }
+        setTimeout(c, 10);
+    });
+    // set transparent background
+    {
+        document.body.style.backgroundColor = 'rgba(0,0,0,0)';
+    }
+
     // title_bar
     {
         const title_bar_height = '30px';
-        var is_moving = false;
 
         const title_bar = document.createElement('div');
+        title_bar.className = 'pywebview-drag-region';
         title_bar.style.position = 'absolute';
         title_bar.style.top = '0';
         title_bar.style.left = '0';
         title_bar.style.width = '100vw';
         title_bar.style.height = title_bar_height;
         title_bar.style.backgroundColor = 'rgba(145,145,145,0.5)';
-
-        document.addEventListener('mouseup', (event) => {
-            if (!is_moving) return;
-            is_moving = false;
-            window.pywebview.api.window_move_end();
-        });
-        document.addEventListener('mousemove', (event) => {
-            if (!is_moving) return;
-            window.pywebview.api.window_move_update();
-        });
-        title_bar.onmousedown = (event) => {
-            is_moving = true;
-            window.pywebview.api.window_move_start();
-        }
 
         const create_button = () => {
             const button = document.createElement('div');

@@ -1,6 +1,8 @@
 import argparse
 import ctypes.wintypes
 import os.path
+import threading
+import time
 import sys
 
 import webview
@@ -12,18 +14,10 @@ def get_mouse_pos() -> tuple[int, int]:
     return point.x, point.y
 
 
-def get_mouse_info() -> tuple[tuple[int, int], tuple[float, float]]:
-    if not ctypes.windll.user32.GetCursorPos(ctypes.byref(point := ctypes.wintypes.POINT())): raise ctypes.WinError()
-    hmontor = ctypes.windll.user32.MonitorFromPoint(point, 2)
-    if not hmontor: raise ctypes.WinError()
-    dpi_x = ctypes.wintypes.UINT(1)
-    dpi_y = ctypes.wintypes.UINT(1)
-    ctypes.windll.shcore.GetDpiForMonitor(hmontor, 0, ctypes.byref(dpi_x), ctypes.byref(dpi_y))
-    return (point.x, point.y), (dpi_x.value / 100, dpi_y.value / 100)
-
-
 class Api:
     _window: webview.Window = None
+    _guilib = None
+    _hwnds = []
 
     def __init__(self):
         self.resize_size = None
@@ -32,6 +26,12 @@ class Api:
 
         self.move_start = None
         self.move_position = None
+
+    def _set_guilib(self, _, guilib):
+        self._guilib = guilib
+
+    def window_init(self):
+        pass
 
     def window_resize_start(self, direction):
         self.resize_direction = direction
@@ -83,26 +83,48 @@ class Api:
                 return
         self._window.resize(width, height, fix)
 
-    def window_move_start(self):
-        self.move_start, (scale_x, scale_y) = get_mouse_info()
-        self.move_position = self._window.x / scale_x, self._window.y / scale_y
-
-    def window_move_end(self):
-        self.move_start = None
-        self.move_position = None
-
-    def window_move_update(self):
-        if not self.move_start: return
-        start_x, start_y = self.move_start
-        (x, y), (scale_x, scale_y) = get_mouse_info()
-        delta_x, delta_y = (x - start_x) / scale_x, (y - start_y) / scale_y
-        self._window.move(self.move_position[0] + delta_x, self.move_position[1] + delta_y)
-
     def window_close(self):
         self._window.destroy()
 
     def window_minimize(self):
         self._window.minimize()
+
+    def _check_hover_worker(self):
+        self._window.restore()
+        view = self._guilib.BrowserView.instances['master']
+        last_state = None
+        extra = 10
+        while 1:
+            win_x, win_y = self._window.x, self._window.y
+            x, y = get_mouse_pos()
+            new_state = (
+                    bool(self.resize_start) or
+                    win_x - extra <= x <= win_x + self._window.width + extra and
+                    win_y - extra <= y <= win_y + self._window.height + extra
+            )
+            if new_state != last_state:
+                if new_state:
+                    view.BackColor = self._guilib.Color.FromArgb(255, 255, 255, 255)
+                else:
+                    view.BackColor = self._guilib.Color.FromArgb(255, 255, 0, 0)
+                    view.TransparencyKey = self._guilib.Color.FromArgb(255, 255, 0, 0)
+                last_state = new_state
+            time.sleep(0.2)
+
+
+def hook_guilib_init(cb):
+    def py_hook(parent, name):
+        def wrapper(func):
+            old_func = getattr(parent, name)
+            setattr(parent, name, lambda *a, **kw: func(old_func, *a, **kw))
+
+        return wrapper
+
+    @py_hook(webview, 'initialize')
+    def hook_initialize(old, forced_gui=None):
+        res = old(forced_gui)
+        cb(forced_gui, res)
+        return res
 
 
 def main():
@@ -111,6 +133,7 @@ def main():
 
     args = argparse.ArgumentParser()
     args.add_argument('--debug', action='store_true', default=False)
+    args.add_argument('--no-transparent', dest='transparent', action='store_false', default=True)
     args.add_argument('url', nargs='?', default=f'{current_dir}/act_ws.html')
     args = args.parse_args()
 
@@ -118,13 +141,14 @@ def main():
     os.chdir(webpage_dir)
 
     api = Api()
+    hook_guilib_init(api._set_guilib)
     api._window = webview.create_window(
         'act_ws', args.url + '?isWebView=1',
-        easy_drag=False, frameless=True, js_api=api, on_top=True
+        easy_drag=False, frameless=True, js_api=api, on_top=True, transparent=args.transparent,
     )
-    webview.start(
-        debug=args.debug,
-    )
+    if args.transparent:
+        threading.Thread(target=api._check_hover_worker, daemon=True).start()
+    webview.start(debug=args.debug)
 
 
 if __name__ == '__main__':
