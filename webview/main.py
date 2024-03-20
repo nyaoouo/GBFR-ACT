@@ -89,12 +89,12 @@ class Api:
     def window_minimize(self):
         self._window.minimize()
 
-    def _check_hover_worker(self):
+    def _check_hover_worker(self, cond):
         self._window.restore()
         view = self._guilib.BrowserView.instances['master']
         last_state = None
         extra = 10
-        while 1:
+        while cond:
             win_x, win_y = self._window.x, self._window.y
             x, y = get_mouse_pos()
             new_state = (
@@ -146,9 +146,13 @@ def main():
         'act_ws', args.url + '?isWebView=1',
         easy_drag=False, frameless=True, js_api=api, on_top=True, transparent=args.transparent,
     )
+    working = [1]
     if args.transparent:
-        threading.Thread(target=api._check_hover_worker, daemon=True).start()
+        (t := threading.Thread(target=api._check_hover_worker, args=(working,))).start()
     webview.start(debug=args.debug)
+    working.clear()
+    if args.transparent:
+        t.join()
 
 
 if __name__ == '__main__':
