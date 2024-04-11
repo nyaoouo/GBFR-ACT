@@ -73,6 +73,16 @@ class ActWs(Act):
             'time_ms': int(time.time() * 1000),
             'type': 'enter_area'
         })
+    
+    def on_inc_death_cnt(self, actor, death_cnt):
+        BroadcastHandler.broadcast({
+            'time_ms': int(time.time() * 1000),
+            'type': 'inc_death_cnt',
+            'data': {
+                'actor': actor,
+                'death_cnt': death_cnt
+            }
+        })
 
     def install(self):
         super().install()

@@ -406,6 +406,11 @@
                                 <span>{{numberWithComma(scope.row.dps_in_minute)}}</span>
                             </template>
                         </el-table-column>
+                        <el-table-column v-if="cfg.main_tbl_cols_display.death_cnt" prop="death_cnt" :label="$t('ui.death_cnt')" align="right" min-width="100" sortable>
+                            <template #default="scope">
+                                <span>{{numberWithComma(scope.row.death_cnt)}}</span>
+                            </template>
+                        </el-table-column>
                         <el-table-column v-if="cfg.main_tbl_cols_display.detail" :label="$t('ui.detail')" align="center" min-width="80">
                             <template #default="scope">
                                 <el-button @click="set_actor_dialog(scope.row)" type="text" size="small">detail</el-button>
@@ -725,6 +730,7 @@
                 this.damage_in_minute = 0;
                 this.dps = 0;
                 this.dps_in_minute = 0;
+                this.death_cnt = 0;
                 this.targets = [];
                 this.actions = [];
                 this.action_desc = (() => {
@@ -1031,6 +1037,19 @@
                     });
                 }
 
+                const on_inc_death_cnt = (evt) => {
+                    const {time_ms, data} = evt;
+                    if (update_var.want_new) new_record(time_ms);
+                    const {actor, death_cnt} = data;
+                    const [actor_type, actor_idx, actor_id, actor_party_idx, ..._] = actor;
+                    const current_record = get_latest_record();
+                    current_record.last_record_at = time_ms;
+                    if (actor_party_idx === -1) return;
+                    current_record.get_ex().events.push(evt);
+                    const actor_record = current_record.get_actor(actor);
+                    actor_record.death_cnt = death_cnt;
+                }
+
                 const evt_buffer = []
 
                 const update = (period = 1000) => {
@@ -1051,6 +1070,9 @@
                                 break;
                             case "damage":
                                 on_damage(evt);
+                                break;
+                            case "inc_death_cnt":
+                                on_inc_death_cnt(evt);
                                 break;
                         }
                     }
@@ -1090,7 +1112,7 @@
                     setdefault('chart', 'dps_min');
                     setdefault('keep_record', false);
                     setdefault('main_tbl_cols_display', {});
-                    ['damage', 'damage_in_minute', 'dps', 'dps_in_minute', 'detail'].map(k => {
+                    ['damage', 'damage_in_minute', 'dps', 'dps_in_minute', 'death_cnt', 'detail'].map(k => {
                         if (!(k in cfg_val.main_tbl_cols_display)) cfg_val.main_tbl_cols_display[k] = true;
                     })
                     setdefault('bool_damage_filter', false);
