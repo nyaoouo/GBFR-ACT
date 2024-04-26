@@ -131,6 +131,7 @@ class DataArchive:
         for fn in get_file_list():
             if fn.startswith(prefix) and fn.endswith('.msg'):
                 if fn == f'{prefix}text_steam.msg': continue  # skip steam text
+                if fn == f'{prefix}text_temp.msg': continue  # skip temp text
                 msg = self.get_file(fn)
                 if 'rows_' in msg:
                     for row_ in msg['rows_']:
@@ -143,7 +144,7 @@ class DataArchive:
                         else:
                             int_hash_sub = 0
                         if int_hash in texts:
-                            self.logger.warning(f'duplicate hash {int_hash:08x}: {texts[int_hash]!r} / {text!r}')
+                            self.logger.warning(f'duplicate hash {int_hash:08x}#{fn}: {texts[int_hash]!r} / {text!r}')
                         texts[int_hash] = text
                         if text_id.startswith('TXT_'):
                             texts[(int_hash_sub << 32) | self.xxhash32(text_id[4:])] = text

@@ -40,11 +40,11 @@ class Act:
             ctypes.c_uint64,
         ])
 
-        self.p_qword_1467572B0, = scanner.find_val("48 ? ? * * * * 44 89 48")
-
+        self.p_qword_1467572B0, = scanner.find_val("48 ? ? * * * * 83 49 ? ? e8 ? ? ? ?")
+        self._ui_actor_off, = scanner.find_val("48 ? ? <? ? ? ?> 48 ? ? ? ? ? ? 75 ? 48 ? ? ? ? ? ? 48 39 86")
         Actor.Offsets.p_data_off, = scanner.find_val("48 ? ? <? ? ? ?> 89 86 ? ? ? ? 44 89 96")
-        Actor.Offsets.p_data_sigil_off, = scanner.find_val("49 89 84 24 <? ? ? ?> 48 ? ? 74 ? 49 ? ? ? ? ? ? ? 48 89 43 ? ")
-        Actor.Offsets.p_data_weapon_off, = scanner.find_val("48 ? ? <?> 48 ? ? ? 48 ? ? e8 ? ? ? ? 31 ? ")
+        Actor.Offsets.p_data_sigil_off, = scanner.find_val("49 89 84 24 <? ? ? ?> 48 ? ? 74 ? 49 ? ? ? ? ? ? ? 48 89 43 ? 48 89 8b ? ? ? ?")
+        Actor.Offsets.p_data_weapon_off, = scanner.find_val("48 ? ? <?> 48 ? ? ? 48 ? ? e8 ? ? ? ? 31 ? 83 bf ? ? ? ? ?")
         Actor.Offsets.p_data_over_mastery_off = scanner.find_val(
             "49 ? ? <? ? ? ?> 49 ? ? ? ? ? ? ? e8 ? ? ? ? 49 ? ? ? ? ? ? 49 ? ? ? ? ? ? ? 41"
         )[0] + scanner.find_val(
@@ -70,7 +70,7 @@ class Act:
             for i, p_data in enumerate(range(party_start, party_end, 0x10)):
                 a1 = size_t_from(p_data + 8)
                 if (self.i_ui_comp_name(v_func(a1, 0x8))(a1) == b'ui::component::ControllerPlParameter01' and
-                        (p_actor := size_t_from(a1 + 0x5f8))):
+                        (p_actor := size_t_from(a1 + self._ui_actor_off))):
                     p_actor_data = size_t_from(p_actor + 0x70)
                     self.team_map[p_actor_data] = i
                     print(f'[{i}] {p_actor_data=:#x}')

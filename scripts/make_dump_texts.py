@@ -29,8 +29,8 @@ def load_by_tbl(lang_key):
 
     sigils = {}
     for row in archive.get_file(r'system/table/gem.tbl'):
-        id_ = row[2]
-        name = row[3]
+        id_ = row[4]
+        name = row[6]
         sigils[f"{id_.value:08X}"] = {
             'key': id_.hash_id,
             'text': name.text,
