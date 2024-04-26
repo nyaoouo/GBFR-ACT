@@ -39,6 +39,10 @@ class Act:
             ctypes.c_uint64,
             ctypes.c_uint64,
         ])
+        p_on_inc_death_cnt, = scanner.find_val('66 41 C7 84 24 ? ? 00 00 00 01 E9 ? ? ? ? E8 * * * * 49 8B 0E')
+        self.on_inc_death_cnt_hook = Hook(p_on_inc_death_cnt, self._on_inc_death_cnt, None, [
+            ctypes.c_void_p
+        ])
 
         self.p_qword_1467572B0, = scanner.find_val("48 ? ? * * * * 83 49 ? ? e8 ? ? ? ?")
         self._ui_actor_off, = scanner.find_val("48 ? ? <? ? ? ?> 48 ? ? ? ? ? ? 75 ? 48 ? ? ? ? ? ? 48 39 86")
@@ -139,6 +143,15 @@ class Act:
             logging.error('on_enter_area', exc_info=True)
         return res
 
+    def _on_inc_death_cnt(self, hook, a1):
+        hook.original(a1)
+        try:
+            actor = Actor(size_t_from(a1 + 0x10))
+            death_cnt = u32_from(a1 + 0xEC)
+            self.on_inc_death_cnt(self.actor_data(actor), death_cnt)
+        except:
+            logging.error('on_inc_death_cnt', exc_info=True)
+
     def _on_damage(self, source, target, damage, flags, action_id):
         return self.on_damage(self.actor_data(source), self.actor_data(target), damage, flags, action_id)
 
@@ -151,11 +164,15 @@ class Act:
     def on_enter_area(self):
         pass
 
+    def on_inc_death_cnt(self, actor, death_cnt):
+        pass
+
     def install(self):
         assert not hasattr(sys, self._sys_key), 'Act already installed'
         self.process_damage_evt_hook.install_and_enable()
         self.process_dot_evt_hook.install_and_enable()
         self.on_enter_area_hook.install_and_enable()
+        self.on_inc_death_cnt_hook.install_and_enable()
         setattr(sys, self._sys_key, self)
         return self
 
@@ -164,6 +181,7 @@ class Act:
         self.process_damage_evt_hook.uninstall()
         self.process_dot_evt_hook.uninstall()
         self.on_enter_area_hook.uninstall()
+        self.on_inc_death_cnt_hook.uninstall()
         delattr(sys, self._sys_key)
         return self
 
