@@ -39,7 +39,7 @@ class Act:
             ctypes.c_uint64,
             ctypes.c_uint64,
         ])
-        p_on_inc_death_cnt, = scanner.find_val('66 41 C7 84 24 ? ? 00 00 00 01 E9 ? ? ? ? E8 * * * * 49 8B 0E')
+        p_on_inc_death_cnt, = scanner.find_val('e8 * * * * 49 ? ? 48 ? ? ? ? ? ? 83 78 ? ?')
         self.on_inc_death_cnt_hook = Hook(p_on_inc_death_cnt, self._on_inc_death_cnt, None, [
             ctypes.c_void_p
         ])

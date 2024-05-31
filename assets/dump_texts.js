@@ -2103,6 +2103,18 @@
         "key": "GEEN_171_64",
         "text": "魔眼的战气"
       },
+      "C9D8BD97": {
+        "key": "GEEN_172_04",
+        "text": "天司长的灵威"
+      },
+      "AB4F7D56": {
+        "key": "GEEN_172_54",
+        "text": "天司长的风雅"
+      },
+      "CCE507E7": {
+        "key": "GEEN_172_64",
+        "text": "天司长的战气"
+      },
       "ABFA79F2": {
         "key": "GEEN_133_02",
         "text": "强健甘露"
@@ -2426,6 +2438,38 @@
       "FB5092F2": {
         "key": "GEEN_167_04",
         "text": "自动药水"
+      },
+      "ACA7FB5A": {
+        "key": "GEEN_168_00",
+        "text": "契约"
+      },
+      "83111A4B": {
+        "key": "GEEN_168_01",
+        "text": "契约Ⅱ"
+      },
+      "43088191": {
+        "key": "GEEN_168_02",
+        "text": "契约Ⅲ"
+      },
+      "73B77D4F": {
+        "key": "GEEN_168_03",
+        "text": "契约Ⅳ"
+      },
+      "23E7990D": {
+        "key": "GEEN_168_04",
+        "text": "契约Ⅴ"
+      },
+      "BCF91F80": {
+        "key": "GEEN_233_04",
+        "text": "狂战士"
+      },
+      "346EDD73": {
+        "key": "GEEN_234_04",
+        "text": "斯巴达"
+      },
+      "9393D637": {
+        "key": "GEEN_235_04",
+        "text": "超终极精准躲避"
       },
       "F1839306": {
         "key": "GEEN_000_12",
@@ -2766,6 +2810,10 @@
       "1CD1D367": {
         "key": "GEEN_151_14",
         "text": "追击Ⅴ＋"
+      },
+      "97CF485D": {
+        "key": null,
+        "text": "万能药＋"
       },
       "3976136F": {
         "key": "GEEN_152_12",
@@ -3283,6 +3331,174 @@
         "key": "GEEN_166_24",
         "text": "金刚Ⅴ＋"
       },
+      "C6B50FEA": {
+        "key": "GEEN_168_22",
+        "text": "契约Ⅲ＋"
+      },
+      "8BF28309": {
+        "key": "GEEN_168_23",
+        "text": "契约Ⅳ＋"
+      },
+      "B5170056": {
+        "key": "GEEN_168_24",
+        "text": "契约Ⅴ＋"
+      },
+      "332E9B30": {
+        "key": "GEEN_233_24",
+        "text": "狂战士＋"
+      },
+      "938DB625": {
+        "key": "GEEN_234_24",
+        "text": "斯巴达＋"
+      },
+      "BBE831B2": {
+        "key": "GEEN_235_24",
+        "text": "超终极精准躲避＋"
+      },
+      "26DDCD39": {
+        "key": "GEEN_044_24",
+        "text": "霸体＋"
+      },
+      "91AC1DDD": {
+        "key": "GEEN_045_24",
+        "text": "豪胆Ⅴ＋"
+      },
+      "176FE02C": {
+        "key": "GEEN_046_24",
+        "text": "中毒抗性Ⅴ＋"
+      },
+      "27F0408A": {
+        "key": "GEEN_047_24",
+        "text": "灼热抗性Ⅴ＋"
+      },
+      "614FB550": {
+        "key": "GEEN_051_24",
+        "text": "泥沙抗性Ⅴ＋"
+      },
+      "EF70CA76": {
+        "key": "GEEN_052_24",
+        "text": "冰冻抗性Ⅴ＋"
+      },
+      "20BCDB1B": {
+        "key": "GEEN_054_24",
+        "text": "昏迷抗性Ⅴ＋"
+      },
+      "6AC327A2": {
+        "key": "GEEN_055_24",
+        "text": "麻痹抗性Ⅴ＋"
+      },
+      "19CB4EB9": {
+        "key": "GEEN_057_24",
+        "text": "能力封印抗性Ⅴ＋"
+      },
+      "464099CD": {
+        "key": "GEEN_058_24",
+        "text": "奥义封印抗性Ⅴ＋"
+      },
+      "7E13A72D": {
+        "key": "GEEN_065_24",
+        "text": "回复性能Ⅴ＋"
+      },
+      "1E69C3D0": {
+        "key": "GEEN_066_24",
+        "text": "自愈Ⅴ＋"
+      },
+      "95C88E4F": {
+        "key": "GEEN_067_24",
+        "text": "HP吸收Ⅴ＋"
+      },
+      "2D5F3437": {
+        "key": "GEEN_068_24",
+        "text": "自动复活Ⅴ＋"
+      },
+      "65909E04": {
+        "key": "GEEN_069_24",
+        "text": "迅捷能力Ⅴ＋"
+      },
+      "6FD12E61": {
+        "key": "GEEN_070_24",
+        "text": "怒涛Ⅴ＋"
+      },
+      "E5C9F685": {
+        "key": "GEEN_072_24",
+        "text": "激昂Ⅴ＋"
+      },
+      "23C84E82": {
+        "key": "GEEN_073_24",
+        "text": "药水携带数Ⅴ＋"
+      },
+      "FF2CBCD0": {
+        "key": "GEEN_077_24",
+        "text": "匿踪Ⅴ＋"
+      },
+      "C63C8DDF": {
+        "key": "GEEN_078_24",
+        "text": "挑衅Ⅴ＋"
+      },
+      "D7ABBDCA": {
+        "key": "GEEN_079_24",
+        "text": "获得经验值Ⅴ＋"
+      },
+      "9E62759D": {
+        "key": "GEEN_080_24",
+        "text": "获得金币Ⅴ＋"
+      },
+      "22115F71": {
+        "key": "GEEN_086_24",
+        "text": "缓速抗性Ⅴ＋"
+      },
+      "B1CCC211": {
+        "key": "GEEN_087_24",
+        "text": "不动Ⅴ＋"
+      },
+      "AA45CD2D": {
+        "key": "GEEN_088_24",
+        "text": "灾祸抗性Ⅴ＋"
+      },
+      "0B456DEF": {
+        "key": "GEEN_094_24",
+        "text": "蓄力强化Ⅴ＋"
+      },
+      "295219F9": {
+        "key": "GEEN_106_24",
+        "text": "明镜止水Ⅴ＋"
+      },
+      "CE6C62CF": {
+        "key": "GEEN_109_24",
+        "text": "怒发冲冠Ⅴ＋"
+      },
+      "EF5D0D16": {
+        "key": "GEEN_136_24",
+        "text": "水牢抗性Ⅴ＋"
+      },
+      "D3071D85": {
+        "key": "GEEN_137_24",
+        "text": "异能耐受Ⅴ＋"
+      },
+      "7291A3F9": {
+        "key": "GEEN_138_24",
+        "text": "攻击DOWN抗性Ⅴ＋"
+      },
+      "5048C546": {
+        "key": "GEEN_139_24",
+        "text": "防御DOWN抗性Ⅴ＋"
+      },
+      "00612B10": {
+        "key": "GEEN_146_24",
+        "text": "属性克制转换＋"
+      },
+      "2E3351E3": {
+        "key": "GEEN_147_24",
+        "text": "获得MSPⅤ＋"
+      },
+      "9D4F66D7": {
+        "key": "GEEN_167_24",
+        "text": "自动药水＋"
+      },
+      "4AA48417": {
+        "key": "GEEN_156_24",
+        "text": "万能药＋"
+      },
       "52A6E299": {
         "key": "GEEN_114_90",
         "text": "英勇之魂＋"
@@ -3367,6 +3583,10 @@
         "key": "GEEN_171_90",
         "text": "魔眼之觉醒＋"
       },
+      "B8C44D5E": {
+        "key": "GEEN_172_90",
+        "text": "天司长之觉醒＋"
+      },
       "33F01810": {
         "key": "GEEN_114_91",
         "text": "英勇神速＋"
@@ -3374,6 +3594,10 @@
       "380A3CA8": {
         "key": "GEEN_114_92",
         "text": "英勇灵气＋"
+      },
+      "0713D928": {
+        "key": "GEEN_114_93",
+        "text": "英勇之心＋"
       },
       "522004AB": {
         "key": "GEEN_115_91",
@@ -3383,6 +3607,10 @@
         "key": "GEEN_115_92",
         "text": "守护者的骄傲＋"
       },
+      "AC175924": {
+        "key": "GEEN_115_93",
+        "text": "守护者的战气＋"
+      },
       "9F08F697": {
         "key": "GEEN_116_91",
         "text": "舵手的指引＋"
@@ -3390,6 +3618,10 @@
       "D48ABDDA": {
         "key": "GEEN_116_92",
         "text": "舵手的坚持＋"
+      },
+      "BC53CE24": {
+        "key": "GEEN_116_93",
+        "text": "舵手的战气＋"
       },
       "9D88DEA1": {
         "key": "GEEN_117_91",
@@ -3399,6 +3631,10 @@
         "key": "GEEN_117_92",
         "text": "魔法师的伶利＋"
       },
+      "43F26A91": {
+        "key": "GEEN_117_93",
+        "text": "魔法师的战气＋"
+      },
       "64D63823": {
         "key": "GEEN_118_91",
         "text": "老兵的智慧＋"
@@ -3406,6 +3642,10 @@
       "05ACA892": {
         "key": "GEEN_118_92",
         "text": "老兵的天眼＋"
+      },
+      "CAAE3F9C": {
+        "key": "GEEN_118_93",
+        "text": "老兵的战气＋"
       },
       "01D1A6CE": {
         "key": "GEEN_119_91",
@@ -3415,6 +3655,10 @@
         "key": "GEEN_119_92",
         "text": "玫瑰缤纷＋"
       },
+      "515E693C": {
+        "key": "GEEN_119_93",
+        "text": "玫瑰的战气＋"
+      },
       "A0F94F69": {
         "key": "GEEN_125_91",
         "text": "圣骑士的剑辉＋"
@@ -3422,6 +3666,10 @@
       "7C8580CA": {
         "key": "GEEN_125_92",
         "text": "圣骑士的威光＋"
+      },
+      "4C28585A": {
+        "key": "GEEN_125_93",
+        "text": "圣骑士的战气＋"
       },
       "7D318FF7": {
         "key": "GEEN_128_91",
@@ -3431,6 +3679,10 @@
         "key": "GEEN_128_92",
         "text": "古今无双的强者＋"
       },
+      "3069C2FE": {
+        "key": "GEEN_128_93",
+        "text": "古今无双的战气＋"
+      },
       "E073EA65": {
         "key": "GEEN_120_91",
         "text": "幽幻之谊＋"
@@ -3438,6 +3690,10 @@
       "BF714A8A": {
         "key": "GEEN_120_92",
         "text": "幽幻之应＋"
+      },
+      "E496D882": {
+        "key": "GEEN_120_93",
+        "text": "幽幻的战气＋"
       },
       "B143DAE6": {
         "key": "GEEN_127_91",
@@ -3447,6 +3703,10 @@
         "key": "GEEN_127_92",
         "text": "斩姬武艺＋"
       },
+      "CEF31894": {
+        "key": "GEEN_127_93",
+        "text": "斩姬的战气＋"
+      },
       "85D7B335": {
         "key": "GEEN_121_91",
         "text": "白龙的誓约＋"
@@ -3454,6 +3714,10 @@
       "B5DA3E80": {
         "key": "GEEN_121_92",
         "text": "白龙的荣耀＋"
+      },
+      "8A3819C0": {
+        "key": "GEEN_121_93",
+        "text": "白龙的战气＋"
       },
       "9D5BC5BF": {
         "key": "GEEN_122_91",
@@ -3463,6 +3727,10 @@
         "key": "GEEN_122_92",
         "text": "勇士的毅力＋"
       },
+      "A490BADF": {
+        "key": "GEEN_122_93",
+        "text": "勇士的战气＋"
+      },
       "B5725272": {
         "key": "GEEN_123_91",
         "text": "王者行进＋"
@@ -3470,6 +3738,10 @@
       "C06F4708": {
         "key": "GEEN_123_92",
         "text": "王者一心＋"
+      },
+      "4CDCE25B": {
+        "key": "GEEN_123_93",
+        "text": "王者的战气＋"
       },
       "C0B5128E": {
         "key": "GEEN_124_91",
@@ -3479,6 +3751,10 @@
         "key": "GEEN_124_92",
         "text": "屠龙者的才智＋"
       },
+      "E21A4170": {
+        "key": "GEEN_124_93",
+        "text": "屠龙者的战气＋"
+      },
       "14C58BF1": {
         "key": "GEEN_129_91",
         "text": "极致谋略＋"
@@ -3486,6 +3762,10 @@
       "147DA58B": {
         "key": "GEEN_129_92",
         "text": "极致真理＋"
+      },
+      "66F1B128": {
+        "key": "GEEN_129_93",
+        "text": "极致的战气＋"
       },
       "E7624711": {
         "key": "GEEN_126_91",
@@ -3495,6 +3775,10 @@
         "key": "GEEN_126_92",
         "text": "变幻自如的妖剑士＋"
       },
+      "76D4716B": {
+        "key": "GEEN_126_93",
+        "text": "变幻自如的战气＋"
+      },
       "B74C207B": {
         "key": "GEEN_131_91",
         "text": "真红烈焰＋"
@@ -3502,6 +3786,10 @@
       "44D48479": {
         "key": "GEEN_131_92",
         "text": "真红翔舞＋"
+      },
+      "BFDF838C": {
+        "key": "GEEN_131_93",
+        "text": "真红的战气＋"
       },
       "FB0F9037": {
         "key": "GEEN_132_91",
@@ -3511,6 +3799,10 @@
         "key": "GEEN_132_92",
         "text": "冥暗自若＋"
       },
+      "B3AB43F3": {
+        "key": "GEEN_132_93",
+        "text": "冥暗的战气＋"
+      },
       "B98A0F22": {
         "key": "GEEN_130_91",
         "text": "异能增长＋"
@@ -3518,6 +3810,10 @@
       "EAA911B2": {
         "key": "GEEN_130_92",
         "text": "异能战意＋"
+      },
+      "98E9E6EF": {
+        "key": "GEEN_130_93",
+        "text": "异能之心＋"
       },
       "12DFD310": {
         "key": "GEEN_170_91",
@@ -3527,6 +3823,10 @@
         "key": "GEEN_170_92",
         "text": "剑圣的闪刃＋"
       },
+      "9F72BAE0": {
+        "key": "GEEN_170_93",
+        "text": "剑圣的战气＋"
+      },
       "EB4AD96D": {
         "key": "GEEN_171_91",
         "text": "魔眼的万箭＋"
@@ -3535,6 +3835,22 @@
         "key": "GEEN_171_92",
         "text": "魔眼的凛翔＋"
       },
+      "AD8CAEFB": {
+        "key": "GEEN_171_93",
+        "text": "魔眼的战气＋"
+      },
+      "3EA4134B": {
+        "key": "GEEN_172_91",
+        "text": "天司长的灵威＋"
+      },
+      "7E3A52A3": {
+        "key": "GEEN_172_92",
+        "text": "天司长的风雅＋"
+      },
+      "5D592FDD": {
+        "key": "GEEN_172_93",
+        "text": "天司长的战气＋"
+      },
       "C4DD863A": {
         "key": "GEEN_170_74",
         "text": "涯之七星＋"
@@ -3542,6 +3858,10 @@
       "43DDE5DD": {
         "key": "GEEN_171_74",
         "text": "涯之二王＋"
+      },
+      "F1267035": {
+        "key": "GEEN_172_74",
+        "text": "无态＋"
       },
       "1FC0C1A5": {
         "key": "GEEN_085_94",
@@ -3574,6 +3894,10 @@
       "65B73B3F": {
         "key": "GEEN_222_94",
         "text": "药水携带数Ⅴ＋"
+      },
+      "2DB5D969": {
+        "key": null,
+        "text": "契约Ⅴ"
       }
     },
     "skills": {
@@ -4208,6 +4532,34 @@
       "F71F8997": {
         "key": "SKILL_167_00",
         "text": "自动药水"
+      },
+      "EE85CD1F": {
+        "key": "SKILL_233_00",
+        "text": "狂战士"
+      },
+      "3D8153A1": {
+        "key": "SKILL_234_00",
+        "text": "斯巴达"
+      },
+      "51C115D2": {
+        "key": "SKILL_235_00",
+        "text": "超终极精准躲避"
+      },
+      "D40D1E9B": {
+        "key": "SKILL_172_00",
+        "text": "天司长的灵威"
+      },
+      "15806DFC": {
+        "key": "SKILL_172_01",
+        "text": "天司长的风雅"
+      },
+      "4E5F6706": {
+        "key": "SKILL_172_02",
+        "text": "天司长的战气"
+      },
+      "1A2EF59E": {
+        "key": "SKILL_172_03",
+        "text": "无态"
       }
     },
     "weapons": {
@@ -5207,6 +5559,26 @@
         "key": "WEP_PL1900_06_03",
         "text": "[祖龙剑]巴哈姆特之剑"
       },
+      "F7D69475": {
+        "key": "WEP_PL2100_01",
+        "text": "传承之剑"
+      },
+      "AD915067": {
+        "key": "WEP_PL2100_07",
+        "text": "世界终焉"
+      },
+      "8E2E15EB": {
+        "key": "WEP_PL2100_07_01",
+        "text": "世界终焉"
+      },
+      "D21F4078": {
+        "key": "WEP_PL2100_07_02",
+        "text": "世界终焉"
+      },
+      "1E8011EB": {
+        "key": "WEP_PL2100_07_03",
+        "text": "[天纺刃]世界终焉"
+      },
       "DB8ED674": {
         "key": "WEP_PL2200_01",
         "text": "七之宝剑"
@@ -5250,6 +5622,10 @@
       "CDE3B884": {
         "key": "WEP_PL1900_A0",
         "text": "诸神黄昏"
+      },
+      "B1C0E0C2": {
+        "key": "WEP_PL2100_A0",
+        "text": "传承之剑"
       },
       "D2DFBE87": {
         "key": "WEP_PL1000_A0",
@@ -5745,6 +6121,10 @@
         "key": "ITEM_18_0001",
         "text": "终焉暗晶"
       },
+      "A9CBB5AF": {
+        "key": "ITEM_18_0002",
+        "text": "迦南白花"
+      },
       "F42D8C01": {
         "key": "ITEM_19_0001",
         "text": "遗物"
@@ -5832,6 +6212,10 @@
       "FE52F7CB": {
         "key": "ITEM_23_0002",
         "text": "索恩专用解锁券"
+      },
+      "5B5B8603": {
+        "key": "ITEM_23_0003",
+        "text": "圣德芬专用解锁券"
       },
       "41776DFD": {
         "key": "ITEM_30_0000",
@@ -6197,6 +6581,10 @@
         "key": "ITEM_70_0016",
         "text": "角色颜色包4"
       },
+      "5AF14960": {
+        "key": "ITEM_70_0017",
+        "text": "角色颜色包5"
+      },
       "78FE6E2C": {
         "key": "ITEM_80_0000",
         "text": "苍银之钥"
@@ -6400,23 +6788,55 @@
       "8DB0B117": {
         "key": "ITEM_28_9999",
         "text": "隔绝之祝福"
+      },
+      "BCDBC4B6": {
+        "key": null,
+        "text": "畏惧之祝福"
+      },
+      "3EF6DEF5": {
+        "key": null,
+        "text": "生机之祝福"
+      },
+      "BE6124AD": {
+        "key": null,
+        "text": "镇守之祝福"
+      },
+      "0BD373A4": {
+        "key": null,
+        "text": "隔绝之祝福"
+      },
+      "09E6F629": {
+        "key": null,
+        "text": "畏惧之祝福"
+      },
+      "71173866": {
+        "key": null,
+        "text": "生机之祝福"
+      },
+      "667EE1D3": {
+        "key": null,
+        "text": "镇守之祝福"
+      },
+      "202A0DB9": {
+        "key": null,
+        "text": "隔绝之祝福"
       }
     },
     "over_mastery": {
       "FA230938": {
-        "key": null,
+        "key": "LBP_EFF_ATK01",
         "text": "攻击力"
       },
       "BF44C20B": {
-        "key": null,
+        "key": "LBP_EFF_HP01",
         "text": "HP"
       },
       "2906F3ED": {
-        "key": null,
+        "key": "LBP_EFF_CRITICAL01",
         "text": "暴击率"
       },
       "D5169339": {
-        "key": null,
+        "key": "LBP_EFF_BREAK01",
         "text": "昏厥值"
       },
       "8E4AF42A": {
@@ -6424,23 +6844,23 @@
         "text": "能力伤害"
       },
       "CD6542F5": {
-        "key": null,
+        "key": "LBP_EFF_ARTS_DMG01",
         "text": "奥义伤害"
       },
       "2989CAE9": {
-        "key": null,
+        "key": "LBP_EFF_BURST_DMG01",
         "text": "奥义连锁伤害"
       },
       "ABA0FEDD": {
-        "key": null,
+        "key": "LBP_EFF_ATK_LIMIT01",
         "text": "普通攻击伤害上限"
       },
       "CAC0BEB6": {
-        "key": null,
+        "key": "LBP_EFF_AB_LIMIT01",
         "text": "能力伤害上限"
       },
       "FB4819D9": {
-        "key": null,
+        "key": "LBP_EFF_ARTS_LIMIT01",
         "text": "奥义伤害上限"
       },
       "C4925BD7": {
@@ -6452,87 +6872,87 @@
         "text": "HP"
       },
       "45C65767": {
-        "key": null,
+        "key": "MED_EFF_CRITICAL01",
         "text": "暴击率"
       },
       "6CB38EF3": {
-        "key": null,
+        "key": "MED_EFF_BREAK01",
         "text": "昏厥值"
       },
       "9A97C049": {
-        "key": null,
+        "key": "MED_EFF_ABILITY_DAMAGE01",
         "text": "能力伤害"
       },
       "4E42646B": {
-        "key": null,
+        "key": "MED_EFF_ARTS_DAMAGE01",
         "text": "奥义伤害"
       },
       "68B39018": {
-        "key": null,
+        "key": "MED_EFF_BURST_DAMAGE01",
         "text": "奥义连锁伤害"
       },
       "43B7581D": {
-        "key": null,
+        "key": "MED_EFF_ATTACK_LIMIT01",
         "text": "普通攻击伤害上限"
       },
       "9C555433": {
-        "key": null,
+        "key": "MED_EFF_ABILITY_LIMIT01",
         "text": "能力伤害上限"
       },
       "4A4C093D": {
-        "key": null,
+        "key": "MED_EFF_ARTS_LIMIT01",
         "text": "奥义伤害上限"
       },
       "54929589": {
-        "key": null,
+        "key": "MED_EFF_RECOVERY_LIMIT01",
         "text": "HP回复上限"
       },
       "CB63BE55": {
-        "key": null,
+        "key": "MED_EFF_ATK01_02",
         "text": "攻击力"
       },
       "DCBD8423": {
-        "key": null,
+        "key": "MED_EFF_ATK01_03",
         "text": "攻击力"
       },
       "59DCE1E8": {
-        "key": null,
+        "key": "MED_EFF_ATK01_04",
         "text": "攻击力"
       },
       "F203BB15": {
-        "key": null,
+        "key": "MED_EFF_ATK01_05",
         "text": "攻击力"
       },
       "57BBC478": {
-        "key": null,
+        "key": "MED_EFF_HP01_02",
         "text": "HP"
       },
       "5A51F0CB": {
-        "key": null,
+        "key": "MED_EFF_HP01_03",
         "text": "HP"
       },
       "9C6375CF": {
-        "key": null,
+        "key": "MED_EFF_HP01_04",
         "text": "HP"
       },
       "F004E9F2": {
-        "key": null,
+        "key": "MED_EFF_HP01_05",
         "text": "HP"
       },
       "C4B86ED7": {
-        "key": null,
+        "key": "MED_EFF_CRITICAL01_02",
         "text": "暴击率"
       },
       "CEB0DBD2": {
-        "key": null,
+        "key": "MED_EFF_CRITICAL01_03",
         "text": "暴击率"
       },
       "A3545CA1": {
-        "key": null,
+        "key": "MED_EFF_BREAK01_02",
         "text": "昏厥值"
       },
       "59FBB7D8": {
-        "key": null,
+        "key": "MED_EFF_BREAK01_03",
         "text": "昏厥值"
       },
       "A1DC63B3": {
@@ -9541,6 +9961,18 @@
         "key": "GEEN_171_64",
         "text": "魔眼的戰氣"
       },
+      "C9D8BD97": {
+        "key": "GEEN_172_04",
+        "text": "天司長的靈威"
+      },
+      "AB4F7D56": {
+        "key": "GEEN_172_54",
+        "text": "天司長的風雅"
+      },
+      "CCE507E7": {
+        "key": "GEEN_172_64",
+        "text": "天司長的戰氣"
+      },
       "ABFA79F2": {
         "key": "GEEN_133_02",
         "text": "強健之露"
@@ -9864,6 +10296,38 @@
       "FB5092F2": {
         "key": "GEEN_167_04",
         "text": "自動藥水"
+      },
+      "ACA7FB5A": {
+        "key": "GEEN_168_00",
+        "text": "約定"
+      },
+      "83111A4B": {
+        "key": "GEEN_168_01",
+        "text": "約定 II"
+      },
+      "43088191": {
+        "key": "GEEN_168_02",
+        "text": "約定 III"
+      },
+      "73B77D4F": {
+        "key": "GEEN_168_03",
+        "text": "約定 IV"
+      },
+      "23E7990D": {
+        "key": "GEEN_168_04",
+        "text": "約定 V"
+      },
+      "BCF91F80": {
+        "key": "GEEN_233_04",
+        "text": "狂戰士"
+      },
+      "346EDD73": {
+        "key": "GEEN_234_04",
+        "text": "斯巴達"
+      },
+      "9393D637": {
+        "key": "GEEN_235_04",
+        "text": "超究極精準閃避"
       },
       "F1839306": {
         "key": "GEEN_000_12",
@@ -10204,6 +10668,10 @@
       "1CD1D367": {
         "key": "GEEN_151_14",
         "text": "追擊 V＋"
+      },
+      "97CF485D": {
+        "key": null,
+        "text": "萬能藥＋"
       },
       "3976136F": {
         "key": "GEEN_152_12",
@@ -10721,6 +11189,174 @@
         "key": "GEEN_166_24",
         "text": "金剛 V＋"
       },
+      "C6B50FEA": {
+        "key": "GEEN_168_22",
+        "text": "約定 III＋"
+      },
+      "8BF28309": {
+        "key": "GEEN_168_23",
+        "text": "約定 IV＋"
+      },
+      "B5170056": {
+        "key": "GEEN_168_24",
+        "text": "約定 V＋"
+      },
+      "332E9B30": {
+        "key": "GEEN_233_24",
+        "text": "狂戰士＋"
+      },
+      "938DB625": {
+        "key": "GEEN_234_24",
+        "text": "斯巴達＋"
+      },
+      "BBE831B2": {
+        "key": "GEEN_235_24",
+        "text": "超究極精準閃避＋"
+      },
+      "26DDCD39": {
+        "key": "GEEN_044_24",
+        "text": "畏怯無效＋"
+      },
+      "91AC1DDD": {
+        "key": "GEEN_045_24",
+        "text": "堅毅 V＋"
+      },
+      "176FE02C": {
+        "key": "GEEN_046_24",
+        "text": "中毒抗性 V＋"
+      },
+      "27F0408A": {
+        "key": "GEEN_047_24",
+        "text": "灼熱抗性 V＋"
+      },
+      "614FB550": {
+        "key": "GEEN_051_24",
+        "text": "纏沙抗性 V＋"
+      },
+      "EF70CA76": {
+        "key": "GEEN_052_24",
+        "text": "冰結抗性 V＋"
+      },
+      "20BCDB1B": {
+        "key": "GEEN_054_24",
+        "text": "昏厥抗性 V＋"
+      },
+      "6AC327A2": {
+        "key": "GEEN_055_24",
+        "text": "麻痺抗性 V＋"
+      },
+      "19CB4EB9": {
+        "key": "GEEN_057_24",
+        "text": "技能封印抗性 V＋"
+      },
+      "464099CD": {
+        "key": "GEEN_058_24",
+        "text": "奧義封印抗性 V＋"
+      },
+      "7E13A72D": {
+        "key": "GEEN_065_24",
+        "text": "回復性能 V＋"
+      },
+      "1E69C3D0": {
+        "key": "GEEN_066_24",
+        "text": "淨癒再生 V＋"
+      },
+      "95C88E4F": {
+        "key": "GEEN_067_24",
+        "text": "HP吸收 V＋"
+      },
+      "2D5F3437": {
+        "key": "GEEN_068_24",
+        "text": "自動復活 V＋"
+      },
+      "65909E04": {
+        "key": "GEEN_069_24",
+        "text": "技能加速 V＋"
+      },
+      "6FD12E61": {
+        "key": "GEEN_070_24",
+        "text": "怒濤 V＋"
+      },
+      "E5C9F685": {
+        "key": "GEEN_072_24",
+        "text": "高揚 V＋"
+      },
+      "23C84E82": {
+        "key": "GEEN_073_24",
+        "text": "藥水持有數量 V＋"
+      },
+      "FF2CBCD0": {
+        "key": "GEEN_077_24",
+        "text": "隱匿 V＋"
+      },
+      "C63C8DDF": {
+        "key": "GEEN_078_24",
+        "text": "挑釁 V＋"
+      },
+      "D7ABBDCA": {
+        "key": "GEEN_079_24",
+        "text": "取得經驗值 V＋"
+      },
+      "9E62759D": {
+        "key": "GEEN_080_24",
+        "text": "取得盧比 V＋"
+      },
+      "22115F71": {
+        "key": "GEEN_086_24",
+        "text": "緩速抗性 V＋"
+      },
+      "B1CCC211": {
+        "key": "GEEN_087_24",
+        "text": "不動 V＋"
+      },
+      "AA45CD2D": {
+        "key": "GEEN_088_24",
+        "text": "災禍抗性 V＋"
+      },
+      "0B456DEF": {
+        "key": "GEEN_094_24",
+        "text": "蓄力強化 V＋"
+      },
+      "295219F9": {
+        "key": "GEEN_106_24",
+        "text": "明鏡止水 V＋"
+      },
+      "CE6C62CF": {
+        "key": "GEEN_109_24",
+        "text": "怒髮衝冠 V＋"
+      },
+      "EF5D0D16": {
+        "key": "GEEN_136_24",
+        "text": "水牢抗性 V＋"
+      },
+      "D3071D85": {
+        "key": "GEEN_137_24",
+        "text": "抵禦異靈 V＋"
+      },
+      "7291A3F9": {
+        "key": "GEEN_138_24",
+        "text": "攻擊DOWN抗性 V＋"
+      },
+      "5048C546": {
+        "key": "GEEN_139_24",
+        "text": "防禦DOWN抗性 V＋"
+      },
+      "00612B10": {
+        "key": "GEEN_146_24",
+        "text": "有利屬性轉換＋"
+      },
+      "2E3351E3": {
+        "key": "GEEN_147_24",
+        "text": "取得MSP V＋"
+      },
+      "9D4F66D7": {
+        "key": "GEEN_167_24",
+        "text": "自動藥水＋"
+      },
+      "4AA48417": {
+        "key": "GEEN_156_24",
+        "text": "萬能藥＋"
+      },
       "52A6E299": {
         "key": "GEEN_114_90",
         "text": "英勇之魂＋"
@@ -10805,6 +11441,10 @@
         "key": "GEEN_171_90",
         "text": "魔眼的覺醒＋"
       },
+      "B8C44D5E": {
+        "key": "GEEN_172_90",
+        "text": "天司長的覺醒＋"
+      },
       "33F01810": {
         "key": "GEEN_114_91",
         "text": "英勇強驅＋"
@@ -10812,6 +11452,10 @@
       "380A3CA8": {
         "key": "GEEN_114_92",
         "text": "英勇氣場＋"
+      },
+      "0713D928": {
+        "key": "GEEN_114_93",
+        "text": "英勇之心＋"
       },
       "522004AB": {
         "key": "GEEN_115_91",
@@ -10821,6 +11465,10 @@
         "key": "GEEN_115_92",
         "text": "守護者的傲氣＋"
       },
+      "AC175924": {
+        "key": "GEEN_115_93",
+        "text": "守護者的戰氣＋"
+      },
       "9F08F697": {
         "key": "GEEN_116_91",
         "text": "操舵士的引領＋"
@@ -10828,6 +11476,10 @@
       "D48ABDDA": {
         "key": "GEEN_116_92",
         "text": "操舵士的骨氣＋"
+      },
+      "BC53CE24": {
+        "key": "GEEN_116_93",
+        "text": "操舵士的戰氣＋"
       },
       "9D88DEA1": {
         "key": "GEEN_117_91",
@@ -10837,6 +11489,10 @@
         "key": "GEEN_117_92",
         "text": "魔導士的機智＋"
       },
+      "43F26A91": {
+        "key": "GEEN_117_93",
+        "text": "魔導士的戰氣＋"
+      },
       "64D63823": {
         "key": "GEEN_118_91",
         "text": "老兵的智慧＋"
@@ -10844,6 +11500,10 @@
       "05ACA892": {
         "key": "GEEN_118_92",
         "text": "老兵的慧眼＋"
+      },
+      "CAAE3F9C": {
+        "key": "GEEN_118_93",
+        "text": "老兵的戰氣＋"
       },
       "01D1A6CE": {
         "key": "GEEN_119_91",
@@ -10853,6 +11513,10 @@
         "key": "GEEN_119_92",
         "text": "薔薇繚亂＋"
       },
+      "515E693C": {
+        "key": "GEEN_119_93",
+        "text": "薔薇的戰氣＋"
+      },
       "A0F94F69": {
         "key": "GEEN_125_91",
         "text": "聖騎士的劍光＋"
@@ -10860,6 +11524,10 @@
       "7C8580CA": {
         "key": "GEEN_125_92",
         "text": "聖騎士的威風＋"
+      },
+      "4C28585A": {
+        "key": "GEEN_125_93",
+        "text": "聖騎士的戰氣＋"
       },
       "7D318FF7": {
         "key": "GEEN_128_91",
@@ -10869,6 +11537,10 @@
         "key": "GEEN_128_92",
         "text": "古今無雙的能人＋"
       },
+      "3069C2FE": {
+        "key": "GEEN_128_93",
+        "text": "古今無雙的戰氣＋"
+      },
       "E073EA65": {
         "key": "GEEN_120_91",
         "text": "幽幻羈絆＋"
@@ -10876,6 +11548,10 @@
       "BF714A8A": {
         "key": "GEEN_120_92",
         "text": "幽幻呼應＋"
+      },
+      "E496D882": {
+        "key": "GEEN_120_93",
+        "text": "幽幻的戰氣＋"
       },
       "B143DAE6": {
         "key": "GEEN_127_91",
@@ -10885,6 +11561,10 @@
         "key": "GEEN_127_92",
         "text": "斬姬武藝＋"
       },
+      "CEF31894": {
+        "key": "GEEN_127_93",
+        "text": "斬姬的戰氣＋"
+      },
       "85D7B335": {
         "key": "GEEN_121_91",
         "text": "白龍的誓約＋"
@@ -10892,6 +11572,10 @@
       "B5DA3E80": {
         "key": "GEEN_121_92",
         "text": "白龍的驕傲＋"
+      },
+      "8A3819C0": {
+        "key": "GEEN_121_93",
+        "text": "白龍的戰氣＋"
       },
       "9D5BC5BF": {
         "key": "GEEN_122_91",
@@ -10901,6 +11585,10 @@
         "key": "GEEN_122_92",
         "text": "勇士的毅力＋"
       },
+      "A490BADF": {
+        "key": "GEEN_122_93",
+        "text": "勇士的戰氣＋"
+      },
       "B5725272": {
         "key": "GEEN_123_91",
         "text": "王者的行進＋"
@@ -10908,6 +11596,10 @@
       "C06F4708": {
         "key": "GEEN_123_92",
         "text": "王者的堅定＋"
+      },
+      "4CDCE25B": {
+        "key": "GEEN_123_93",
+        "text": "王者的戰氣＋"
       },
       "C0B5128E": {
         "key": "GEEN_124_91",
@@ -10917,6 +11609,10 @@
         "key": "GEEN_124_92",
         "text": "屠龍的才智＋"
       },
+      "E21A4170": {
+        "key": "GEEN_124_93",
+        "text": "屠龍的戰氣＋"
+      },
       "14C58BF1": {
         "key": "GEEN_129_91",
         "text": "極致計略＋"
@@ -10924,6 +11620,10 @@
       "147DA58B": {
         "key": "GEEN_129_92",
         "text": "極致真理＋"
+      },
+      "66F1B128": {
+        "key": "GEEN_129_93",
+        "text": "極致的戰氣＋"
       },
       "E7624711": {
         "key": "GEEN_126_91",
@@ -10933,6 +11633,10 @@
         "key": "GEEN_126_92",
         "text": "變化自如的妖劍士＋"
       },
+      "76D4716B": {
+        "key": "GEEN_126_93",
+        "text": "變化自如的戰氣＋"
+      },
       "B74C207B": {
         "key": "GEEN_131_91",
         "text": "鮮紅的氣焰＋"
@@ -10940,6 +11644,10 @@
       "44D48479": {
         "key": "GEEN_131_92",
         "text": "鮮紅的翔舞＋"
+      },
+      "BFDF838C": {
+        "key": "GEEN_131_93",
+        "text": "鮮紅的戰氣＋"
       },
       "FB0F9037": {
         "key": "GEEN_132_91",
@@ -10949,6 +11657,10 @@
         "key": "GEEN_132_92",
         "text": "冥闇的自若＋"
       },
+      "B3AB43F3": {
+        "key": "GEEN_132_93",
+        "text": "冥闇的戰氣＋"
+      },
       "B98A0F22": {
         "key": "GEEN_130_91",
         "text": "替身增長＋"
@@ -10956,6 +11668,10 @@
       "EAA911B2": {
         "key": "GEEN_130_92",
         "text": "替身破敵＋"
+      },
+      "98E9E6EF": {
+        "key": "GEEN_130_93",
+        "text": "替身之心＋"
       },
       "12DFD310": {
         "key": "GEEN_170_91",
@@ -10965,6 +11681,10 @@
         "key": "GEEN_170_92",
         "text": "劍聖的閃刃＋"
       },
+      "9F72BAE0": {
+        "key": "GEEN_170_93",
+        "text": "劍聖的戰氣＋"
+      },
       "EB4AD96D": {
         "key": "GEEN_171_91",
         "text": "魔眼的萬箭＋"
@@ -10973,6 +11693,22 @@
         "key": "GEEN_171_92",
         "text": "魔眼的凜翔＋"
       },
+      "AD8CAEFB": {
+        "key": "GEEN_171_93",
+        "text": "魔眼的戰氣＋"
+      },
+      "3EA4134B": {
+        "key": "GEEN_172_91",
+        "text": "天司長的靈威＋"
+      },
+      "7E3A52A3": {
+        "key": "GEEN_172_92",
+        "text": "天司長的風雅＋"
+      },
+      "5D592FDD": {
+        "key": "GEEN_172_93",
+        "text": "天司長的戰氣＋"
+      },
       "C4DD863A": {
         "key": "GEEN_170_74",
         "text": "盡涯的七星＋"
@@ -10980,6 +11716,10 @@
       "43DDE5DD": {
         "key": "GEEN_171_74",
         "text": "盡涯的二王＋"
+      },
+      "F1267035": {
+        "key": "GEEN_172_74",
+        "text": "Ain＋"
       },
       "1FC0C1A5": {
         "key": "GEEN_085_94",
@@ -11012,6 +11752,10 @@
       "65B73B3F": {
         "key": "GEEN_222_94",
         "text": "藥水持有數量 V＋"
+      },
+      "2DB5D969": {
+        "key": null,
+        "text": "約定 V"
       }
     },
     "skills": {
@@ -11646,6 +12390,34 @@
       "F71F8997": {
         "key": "SKILL_167_00",
         "text": "自動藥水"
+      },
+      "EE85CD1F": {
+        "key": "SKILL_233_00",
+        "text": "狂戰士"
+      },
+      "3D8153A1": {
+        "key": "SKILL_234_00",
+        "text": "斯巴達"
+      },
+      "51C115D2": {
+        "key": "SKILL_235_00",
+        "text": "超究極精準閃避"
+      },
+      "D40D1E9B": {
+        "key": "SKILL_172_00",
+        "text": "天司長的靈威"
+      },
+      "15806DFC": {
+        "key": "SKILL_172_01",
+        "text": "天司長的風雅"
+      },
+      "4E5F6706": {
+        "key": "SKILL_172_02",
+        "text": "天司長的戰氣"
+      },
+      "1A2EF59E": {
+        "key": "SKILL_172_03",
+        "text": "Ain"
       }
     },
     "weapons": {
@@ -12645,6 +13417,26 @@
         "key": "WEP_PL1900_06_03",
         "text": "［祖龍劍］巴哈姆特之劍"
       },
+      "F7D69475": {
+        "key": "WEP_PL2100_01",
+        "text": "承襲之劍"
+      },
+      "AD915067": {
+        "key": "WEP_PL2100_07",
+        "text": "世界末日"
+      },
+      "8E2E15EB": {
+        "key": "WEP_PL2100_07_01",
+        "text": "世界末日"
+      },
+      "D21F4078": {
+        "key": "WEP_PL2100_07_02",
+        "text": "世界末日"
+      },
+      "1E8011EB": {
+        "key": "WEP_PL2100_07_03",
+        "text": "［天紡刃］世界末日"
+      },
       "DB8ED674": {
         "key": "WEP_PL2200_01",
         "text": "七重之劍"
@@ -12688,6 +13480,10 @@
       "CDE3B884": {
         "key": "WEP_PL1900_A0",
         "text": "諸神黃昏"
+      },
+      "B1C0E0C2": {
+        "key": "WEP_PL2100_A0",
+        "text": "承襲之劍"
       },
       "D2DFBE87": {
         "key": "WEP_PL1000_A0",
@@ -13183,6 +13979,10 @@
         "key": "ITEM_18_0001",
         "text": "終末之暗晶"
       },
+      "A9CBB5AF": {
+        "key": "ITEM_18_0002",
+        "text": "迦南的白花"
+      },
       "F42D8C01": {
         "key": "ITEM_19_0001",
         "text": "遺物"
@@ -13270,6 +14070,10 @@
       "FE52F7CB": {
         "key": "ITEM_23_0002",
         "text": "蘇恩專屬解放券"
+      },
+      "5B5B8603": {
+        "key": "ITEM_23_0003",
+        "text": "聖德芬專屬解放券"
       },
       "41776DFD": {
         "key": "ITEM_30_0000",
@@ -13623,6 +14427,10 @@
         "key": "ITEM_70_0016",
         "text": "角色色彩禮包4"
       },
+      "5AF14960": {
+        "key": "ITEM_70_0017",
+        "text": "角色色彩禮包5"
+      },
       "78FE6E2C": {
         "key": "ITEM_80_0000",
         "text": "蒼銀之鑰"
@@ -13826,23 +14634,55 @@
       "8DB0B117": {
         "key": "ITEM_28_9999",
         "text": "隔絕之加護"
+      },
+      "BCDBC4B6": {
+        "key": null,
+        "text": "畏懼之加護"
+      },
+      "3EF6DEF5": {
+        "key": null,
+        "text": "風息之加護"
+      },
+      "BE6124AD": {
+        "key": null,
+        "text": "鎮守之加護"
+      },
+      "0BD373A4": {
+        "key": null,
+        "text": "隔絕之加護"
+      },
+      "09E6F629": {
+        "key": null,
+        "text": "畏懼之加護"
+      },
+      "71173866": {
+        "key": null,
+        "text": "風息之加護"
+      },
+      "667EE1D3": {
+        "key": null,
+        "text": "鎮守之加護"
+      },
+      "202A0DB9": {
+        "key": null,
+        "text": "隔絕之加護"
       }
     },
     "over_mastery": {
       "FA230938": {
-        "key": null,
+        "key": "LBP_EFF_ATK01",
         "text": "攻擊力"
       },
       "BF44C20B": {
-        "key": null,
+        "key": "LBP_EFF_HP01",
         "text": "HP"
       },
       "2906F3ED": {
-        "key": null,
+        "key": "LBP_EFF_CRITICAL01",
         "text": "爆擊機率"
       },
       "D5169339": {
-        "key": null,
+        "key": "LBP_EFF_BREAK01",
         "text": "暈眩值"
       },
       "8E4AF42A": {
@@ -13850,23 +14690,23 @@
         "text": "技能的給予傷害"
       },
       "CD6542F5": {
-        "key": null,
+        "key": "LBP_EFF_ARTS_DMG01",
         "text": "奧義的給予傷害"
       },
       "2989CAE9": {
-        "key": null,
+        "key": "LBP_EFF_BURST_DMG01",
         "text": "奧義連擊的給予傷害"
       },
       "ABA0FEDD": {
-        "key": null,
+        "key": "LBP_EFF_ATK_LIMIT01",
         "text": "一般攻擊的傷害上限"
       },
       "CAC0BEB6": {
-        "key": null,
+        "key": "LBP_EFF_AB_LIMIT01",
         "text": "技能的傷害上限"
       },
       "FB4819D9": {
-        "key": null,
+        "key": "LBP_EFF_ARTS_LIMIT01",
         "text": "奧義的傷害上限"
       },
       "C4925BD7": {
@@ -13878,87 +14718,87 @@
         "text": "HP"
       },
       "45C65767": {
-        "key": null,
+        "key": "MED_EFF_CRITICAL01",
         "text": "爆擊機率"
       },
       "6CB38EF3": {
-        "key": null,
+        "key": "MED_EFF_BREAK01",
         "text": "暈眩值"
       },
       "9A97C049": {
-        "key": null,
+        "key": "MED_EFF_ABILITY_DAMAGE01",
         "text": "技能的給予傷害"
       },
       "4E42646B": {
-        "key": null,
+        "key": "MED_EFF_ARTS_DAMAGE01",
         "text": "奧義的給予傷害"
       },
       "68B39018": {
-        "key": null,
+        "key": "MED_EFF_BURST_DAMAGE01",
         "text": "奧義連擊的給予傷害"
       },
       "43B7581D": {
-        "key": null,
+        "key": "MED_EFF_ATTACK_LIMIT01",
         "text": "一般攻擊的傷害上限"
       },
       "9C555433": {
-        "key": null,
+        "key": "MED_EFF_ABILITY_LIMIT01",
         "text": "技能的傷害上限"
       },
       "4A4C093D": {
-        "key": null,
+        "key": "MED_EFF_ARTS_LIMIT01",
         "text": "奧義的傷害上限"
       },
       "54929589": {
-        "key": null,
+        "key": "MED_EFF_RECOVERY_LIMIT01",
         "text": "HP回復上限"
       },
       "CB63BE55": {
-        "key": null,
+        "key": "MED_EFF_ATK01_02",
         "text": "攻擊力"
       },
       "DCBD8423": {
-        "key": null,
+        "key": "MED_EFF_ATK01_03",
         "text": "攻擊力"
       },
       "59DCE1E8": {
-        "key": null,
+        "key": "MED_EFF_ATK01_04",
         "text": "攻擊力"
       },
       "F203BB15": {
-        "key": null,
+        "key": "MED_EFF_ATK01_05",
         "text": "攻擊力"
       },
       "57BBC478": {
-        "key": null,
+        "key": "MED_EFF_HP01_02",
         "text": "HP"
       },
       "5A51F0CB": {
-        "key": null,
+        "key": "MED_EFF_HP01_03",
         "text": "HP"
       },
       "9C6375CF": {
-        "key": null,
+        "key": "MED_EFF_HP01_04",
         "text": "HP"
       },
       "F004E9F2": {
-        "key": null,
+        "key": "MED_EFF_HP01_05",
         "text": "HP"
       },
       "C4B86ED7": {
-        "key": null,
+        "key": "MED_EFF_CRITICAL01_02",
         "text": "爆擊機率"
       },
       "CEB0DBD2": {
-        "key": null,
+        "key": "MED_EFF_CRITICAL01_03",
         "text": "爆擊機率"
       },
       "A3545CA1": {
-        "key": null,
+        "key": "MED_EFF_BREAK01_02",
         "text": "暈眩值"
       },
       "59FBB7D8": {
-        "key": null,
+        "key": "MED_EFF_BREAK01_03",
         "text": "暈眩值"
       },
       "A1DC63B3": {
@@ -16987,6 +17827,18 @@
         "key": "GEEN_171_64",
         "text": "Dark Huntress's Warpath"
       },
+      "C9D8BD97": {
+        "key": "GEEN_172_04",
+        "text": "Supreme Primarch's Awe"
+      },
+      "AB4F7D56": {
+        "key": "GEEN_172_54",
+        "text": "Supreme Primarch's Nimbus"
+      },
+      "CCE507E7": {
+        "key": "GEEN_172_64",
+        "text": "Supreme Primarch's Warpath"
+      },
       "ABFA79F2": {
         "key": "GEEN_133_02",
         "text": "Fortifying Vigor"
@@ -17310,6 +18162,38 @@
       "FB5092F2": {
         "key": "GEEN_167_04",
         "text": "Auto Potion"
+      },
+      "ACA7FB5A": {
+        "key": "GEEN_168_00",
+        "text": "Enhanced Damage"
+      },
+      "83111A4B": {
+        "key": "GEEN_168_01",
+        "text": "Enhanced Damage II"
+      },
+      "43088191": {
+        "key": "GEEN_168_02",
+        "text": "Enhanced Damage III"
+      },
+      "73B77D4F": {
+        "key": "GEEN_168_03",
+        "text": "Enhanced Damage IV"
+      },
+      "23E7990D": {
+        "key": "GEEN_168_04",
+        "text": "Enhanced Damage V"
+      },
+      "BCF91F80": {
+        "key": "GEEN_233_04",
+        "text": "Berserker Echo"
+      },
+      "346EDD73": {
+        "key": "GEEN_234_04",
+        "text": "Spartan Echo"
+      },
+      "9393D637": {
+        "key": "GEEN_235_04",
+        "text": "Super Ultimate Perfect Dodge"
       },
       "F1839306": {
         "key": "GEEN_000_12",
@@ -17650,6 +18534,10 @@
       "1CD1D367": {
         "key": "GEEN_151_14",
         "text": "Supplementary Damage V+"
+      },
+      "97CF485D": {
+        "key": null,
+        "text": "Potent Greens+"
       },
       "3976136F": {
         "key": "GEEN_152_12",
@@ -18167,6 +19055,174 @@
         "key": "GEEN_166_24",
         "text": "Greater Aegis V+"
       },
+      "C6B50FEA": {
+        "key": "GEEN_168_22",
+        "text": "Enhanced Damage III+"
+      },
+      "8BF28309": {
+        "key": "GEEN_168_23",
+        "text": "Enhanced Damage IV+"
+      },
+      "B5170056": {
+        "key": "GEEN_168_24",
+        "text": "Enhanced Damage V+"
+      },
+      "332E9B30": {
+        "key": "GEEN_233_24",
+        "text": "Berserker Echo+"
+      },
+      "938DB625": {
+        "key": "GEEN_234_24",
+        "text": "Spartan Echo+"
+      },
+      "BBE831B2": {
+        "key": "GEEN_235_24",
+        "text": "Super Ultimate Perfect Dodge+"
+      },
+      "26DDCD39": {
+        "key": "GEEN_044_24",
+        "text": "Stout Heart+"
+      },
+      "91AC1DDD": {
+        "key": "GEEN_045_24",
+        "text": "Guts V+"
+      },
+      "176FE02C": {
+        "key": "GEEN_046_24",
+        "text": "Poison Resistance V+"
+      },
+      "27F0408A": {
+        "key": "GEEN_047_24",
+        "text": "Burn Resistance V+"
+      },
+      "614FB550": {
+        "key": "GEEN_051_24",
+        "text": "Sandtomb Resistance V+"
+      },
+      "EF70CA76": {
+        "key": "GEEN_052_24",
+        "text": "Glaciate Resistance V+"
+      },
+      "20BCDB1B": {
+        "key": "GEEN_054_24",
+        "text": "Dizzy Resistance V+"
+      },
+      "6AC327A2": {
+        "key": "GEEN_055_24",
+        "text": "Paralysis Resistance V+"
+      },
+      "19CB4EB9": {
+        "key": "GEEN_057_24",
+        "text": "Skill Sealed Resistance V+"
+      },
+      "464099CD": {
+        "key": "GEEN_058_24",
+        "text": "SBA Sealed Resistance V+"
+      },
+      "7E13A72D": {
+        "key": "GEEN_065_24",
+        "text": "Improved Healing V+"
+      },
+      "1E69C3D0": {
+        "key": "GEEN_066_24",
+        "text": "Regen V+"
+      },
+      "95C88E4F": {
+        "key": "GEEN_067_24",
+        "text": "Drain V+"
+      },
+      "2D5F3437": {
+        "key": "GEEN_068_24",
+        "text": "Autorevive V+"
+      },
+      "65909E04": {
+        "key": "GEEN_069_24",
+        "text": "Quick Cooldown V+"
+      },
+      "6FD12E61": {
+        "key": "GEEN_070_24",
+        "text": "Cascade V+"
+      },
+      "E5C9F685": {
+        "key": "GEEN_072_24",
+        "text": "Uplift V+"
+      },
+      "23C84E82": {
+        "key": "GEEN_073_24",
+        "text": "Potion Hoarder V+"
+      },
+      "FF2CBCD0": {
+        "key": "GEEN_077_24",
+        "text": "Low Profile V+"
+      },
+      "C63C8DDF": {
+        "key": "GEEN_078_24",
+        "text": "Provoke V+"
+      },
+      "D7ABBDCA": {
+        "key": "GEEN_079_24",
+        "text": "Fast Learner V+"
+      },
+      "9E62759D": {
+        "key": "GEEN_080_24",
+        "text": "Rupie Tycoon V+"
+      },
+      "22115F71": {
+        "key": "GEEN_086_24",
+        "text": "Slow Resistance V+"
+      },
+      "B1CCC211": {
+        "key": "GEEN_087_24",
+        "text": "Firm Stance V+"
+      },
+      "AA45CD2D": {
+        "key": "GEEN_088_24",
+        "text": "Blight Resistance V+"
+      },
+      "0B456DEF": {
+        "key": "GEEN_094_24",
+        "text": "Steady Focus V+"
+      },
+      "295219F9": {
+        "key": "GEEN_106_24",
+        "text": "Nimble Onslaught V+"
+      },
+      "CE6C62CF": {
+        "key": "GEEN_109_24",
+        "text": "Precise Wrath V+"
+      },
+      "EF5D0D16": {
+        "key": "GEEN_136_24",
+        "text": "Held Under Resistance V+"
+      },
+      "D3071D85": {
+        "key": "GEEN_137_24",
+        "text": "Darkflame Resistance V+"
+      },
+      "7291A3F9": {
+        "key": "GEEN_138_24",
+        "text": "Attack Down Resistance V+"
+      },
+      "5048C546": {
+        "key": "GEEN_139_24",
+        "text": "Defense Down Resistance V+"
+      },
+      "00612B10": {
+        "key": "GEEN_146_24",
+        "text": "War Elemental+"
+      },
+      "2E3351E3": {
+        "key": "GEEN_147_24",
+        "text": "Path to Mastery V+"
+      },
+      "9D4F66D7": {
+        "key": "GEEN_167_24",
+        "text": "Auto Potion+"
+      },
+      "4AA48417": {
+        "key": "GEEN_156_24",
+        "text": "Potent Greens+"
+      },
       "52A6E299": {
         "key": "GEEN_114_90",
         "text": "Fearless Soul+"
@@ -18251,6 +19307,10 @@
         "key": "GEEN_171_90",
         "text": "Dark Huntress's Awakening+"
       },
+      "B8C44D5E": {
+        "key": "GEEN_172_90",
+        "text": "Supreme Primarch's Awakening+"
+      },
       "33F01810": {
         "key": "GEEN_114_91",
         "text": "Fearless Drive+"
@@ -18258,6 +19318,10 @@
       "380A3CA8": {
         "key": "GEEN_114_92",
         "text": "Fearless Spirit+"
+      },
+      "0713D928": {
+        "key": "GEEN_114_93",
+        "text": "Fearless Heart+"
       },
       "522004AB": {
         "key": "GEEN_115_91",
@@ -18267,6 +19331,10 @@
         "key": "GEEN_115_92",
         "text": "Guardian's Honor+"
       },
+      "AC175924": {
+        "key": "GEEN_115_93",
+        "text": "Guardian's Warpath+"
+      },
       "9F08F697": {
         "key": "GEEN_116_91",
         "text": "Helmsman's Navigation+"
@@ -18274,6 +19342,10 @@
       "D48ABDDA": {
         "key": "GEEN_116_92",
         "text": "Helmsman's Tenacity+"
+      },
+      "BC53CE24": {
+        "key": "GEEN_116_93",
+        "text": "Helmsman's Warpath+"
       },
       "9D88DEA1": {
         "key": "GEEN_117_91",
@@ -18283,6 +19355,10 @@
         "key": "GEEN_117_92",
         "text": "Mage's Savvy+"
       },
+      "43F26A91": {
+        "key": "GEEN_117_93",
+        "text": "Mage's Warpath+"
+      },
       "64D63823": {
         "key": "GEEN_118_91",
         "text": "Veteran's Insight+"
@@ -18290,6 +19366,10 @@
       "05ACA892": {
         "key": "GEEN_118_92",
         "text": "Veteran's Vision+"
+      },
+      "CAAE3F9C": {
+        "key": "GEEN_118_93",
+        "text": "Veteran's Warpath+"
       },
       "01D1A6CE": {
         "key": "GEEN_119_91",
@@ -18299,6 +19379,10 @@
         "key": "GEEN_119_92",
         "text": "Rose's Profusion+"
       },
+      "515E693C": {
+        "key": "GEEN_119_93",
+        "text": "Rose's Warpath+"
+      },
       "A0F94F69": {
         "key": "GEEN_125_91",
         "text": "Holy Knight's Luster+"
@@ -18306,6 +19390,10 @@
       "7C8580CA": {
         "key": "GEEN_125_92",
         "text": "Holy Knight's Grandeur+"
+      },
+      "4C28585A": {
+        "key": "GEEN_125_93",
+        "text": "Holy Knight's Warpath+"
       },
       "7D318FF7": {
         "key": "GEEN_128_91",
@@ -18315,6 +19403,10 @@
         "key": "GEEN_128_92",
         "text": "Eternal Rage's Ethos+"
       },
+      "3069C2FE": {
+        "key": "GEEN_128_93",
+        "text": "Eternal Rage's Warpath+"
+      },
       "E073EA65": {
         "key": "GEEN_120_91",
         "text": "Phantasm's Concord+"
@@ -18322,6 +19414,10 @@
       "BF714A8A": {
         "key": "GEEN_120_92",
         "text": "Phantasm's Harmony+"
+      },
+      "E496D882": {
+        "key": "GEEN_120_93",
+        "text": "Phantasm's Warpath+"
       },
       "B143DAE6": {
         "key": "GEEN_127_91",
@@ -18331,6 +19427,10 @@
         "key": "GEEN_127_92",
         "text": "Butterfly's Valor+"
       },
+      "CEF31894": {
+        "key": "GEEN_127_93",
+        "text": "Butterfly's Warpath+"
+      },
       "85D7B335": {
         "key": "GEEN_121_91",
         "text": "White Dragon's Oath+"
@@ -18338,6 +19438,10 @@
       "B5DA3E80": {
         "key": "GEEN_121_92",
         "text": "White Dragon's Glory+"
+      },
+      "8A3819C0": {
+        "key": "GEEN_121_93",
+        "text": "White Dragon's Warpath+"
       },
       "9D5BC5BF": {
         "key": "GEEN_122_91",
@@ -18347,6 +19451,10 @@
         "key": "GEEN_122_92",
         "text": "Hero's Will+"
       },
+      "A490BADF": {
+        "key": "GEEN_122_93",
+        "text": "Hero's Warpath+"
+      },
       "B5725272": {
         "key": "GEEN_123_91",
         "text": "Lord's Procession+"
@@ -18354,6 +19462,10 @@
       "C06F4708": {
         "key": "GEEN_123_92",
         "text": "Lord's Ambition+"
+      },
+      "4CDCE25B": {
+        "key": "GEEN_123_93",
+        "text": "Lord's Warpath+"
       },
       "C0B5128E": {
         "key": "GEEN_124_91",
@@ -18363,6 +19475,10 @@
         "key": "GEEN_124_92",
         "text": "Dragonslayer's Ingenuity+"
       },
+      "E21A4170": {
+        "key": "GEEN_124_93",
+        "text": "Dragonslayer's Warpath+"
+      },
       "14C58BF1": {
         "key": "GEEN_129_91",
         "text": "Founder's Strategy+"
@@ -18370,6 +19486,10 @@
       "147DA58B": {
         "key": "GEEN_129_92",
         "text": "Founder's Truth+"
+      },
+      "66F1B128": {
+        "key": "GEEN_129_93",
+        "text": "Founder's Warpath+"
       },
       "E7624711": {
         "key": "GEEN_126_91",
@@ -18379,6 +19499,10 @@
         "key": "GEEN_126_92",
         "text": "Swordmaster's Art+"
       },
+      "76D4716B": {
+        "key": "GEEN_126_93",
+        "text": "Swordmaster's Warpath+"
+      },
       "B74C207B": {
         "key": "GEEN_131_91",
         "text": "Crimson's Clout+"
@@ -18386,6 +19510,10 @@
       "44D48479": {
         "key": "GEEN_131_92",
         "text": "Crimson's Flight+"
+      },
+      "BFDF838C": {
+        "key": "GEEN_131_93",
+        "text": "Crimson's Warpath+"
       },
       "FB0F9037": {
         "key": "GEEN_132_91",
@@ -18395,6 +19523,10 @@
         "key": "GEEN_132_92",
         "text": "Ebony's Poise+"
       },
+      "B3AB43F3": {
+        "key": "GEEN_132_93",
+        "text": "Ebony's Warpath+"
+      },
       "B98A0F22": {
         "key": "GEEN_130_91",
         "text": "Versalis Foundation+"
@@ -18402,6 +19534,10 @@
       "EAA911B2": {
         "key": "GEEN_130_92",
         "text": "Versalis Ignition+"
+      },
+      "98E9E6EF": {
+        "key": "GEEN_130_93",
+        "text": "Versalis Heart+"
       },
       "12DFD310": {
         "key": "GEEN_170_91",
@@ -18411,6 +19547,10 @@
         "key": "GEEN_170_92",
         "text": "Spirit Edge's Fury+"
       },
+      "9F72BAE0": {
+        "key": "GEEN_170_93",
+        "text": "Spirit Edge's Warpath+"
+      },
       "EB4AD96D": {
         "key": "GEEN_171_91",
         "text": "Dark Huntress's Volley+"
@@ -18419,6 +19559,22 @@
         "key": "GEEN_171_92",
         "text": "Dark Huntress's Surge+"
       },
+      "AD8CAEFB": {
+        "key": "GEEN_171_93",
+        "text": "Dark Huntress's Warpath+"
+      },
+      "3EA4134B": {
+        "key": "GEEN_172_91",
+        "text": "Supreme Primarch's Awe+"
+      },
+      "7E3A52A3": {
+        "key": "GEEN_172_92",
+        "text": "Supreme Primarch's Nimbus+"
+      },
+      "5D592FDD": {
+        "key": "GEEN_172_93",
+        "text": "Supreme Primarch's Warpath+"
+      },
       "C4DD863A": {
         "key": "GEEN_170_74",
         "text": "Seven-Star Boundary+"
@@ -18426,6 +19582,10 @@
       "43DDE5DD": {
         "key": "GEEN_171_74",
         "text": "Two-Crown Boundary+"
+      },
+      "F1267035": {
+        "key": "GEEN_172_74",
+        "text": "Ain+"
       },
       "1FC0C1A5": {
         "key": "GEEN_085_94",
@@ -18458,6 +19618,10 @@
       "65B73B3F": {
         "key": "GEEN_222_94",
         "text": "Potion Hoarder V+"
+      },
+      "2DB5D969": {
+        "key": null,
+        "text": "Enhanced Damage V"
       }
     },
     "skills": {
@@ -19092,6 +20256,34 @@
       "F71F8997": {
         "key": "SKILL_167_00",
         "text": "Auto Potion"
+      },
+      "EE85CD1F": {
+        "key": "SKILL_233_00",
+        "text": "Berserker Echo"
+      },
+      "3D8153A1": {
+        "key": "SKILL_234_00",
+        "text": "Spartan Echo"
+      },
+      "51C115D2": {
+        "key": "SKILL_235_00",
+        "text": "Super Ultimate Perfect Dodge"
+      },
+      "D40D1E9B": {
+        "key": "SKILL_172_00",
+        "text": "Supreme Primarch's Awe"
+      },
+      "15806DFC": {
+        "key": "SKILL_172_01",
+        "text": "Supreme Primarch's Nimbus"
+      },
+      "4E5F6706": {
+        "key": "SKILL_172_02",
+        "text": "Supreme Primarch's Warpath"
+      },
+      "1A2EF59E": {
+        "key": "SKILL_172_03",
+        "text": "Ain"
       }
     },
     "weapons": {
@@ -20091,6 +21283,26 @@
         "key": "WEP_PL1900_06_03",
         "text": "Primal Sword of Bahamut"
       },
+      "F7D69475": {
+        "key": "WEP_PL2100_01",
+        "text": "Apprentice"
+      },
+      "AD915067": {
+        "key": "WEP_PL2100_07",
+        "text": "World Ender"
+      },
+      "8E2E15EB": {
+        "key": "WEP_PL2100_07_01",
+        "text": "World Ender"
+      },
+      "D21F4078": {
+        "key": "WEP_PL2100_07_02",
+        "text": "World Ender"
+      },
+      "1E8011EB": {
+        "key": "WEP_PL2100_07_03",
+        "text": "World Ender, the Fated Edge"
+      },
       "DB8ED674": {
         "key": "WEP_PL2200_01",
         "text": "Sette di Spade"
@@ -20134,6 +21346,10 @@
       "CDE3B884": {
         "key": "WEP_PL1900_A0",
         "text": "Ragnarok"
+      },
+      "B1C0E0C2": {
+        "key": "WEP_PL2100_A0",
+        "text": "Apprentice"
       },
       "D2DFBE87": {
         "key": "WEP_PL1000_A0",
@@ -20629,6 +21845,10 @@
         "key": "ITEM_18_0001",
         "text": "Tears of the Apocalypse"
       },
+      "A9CBB5AF": {
+        "key": "ITEM_18_0002",
+        "text": "Canaan Whitebloom"
+      },
       "F42D8C01": {
         "key": "ITEM_19_0001",
         "text": "Curio"
@@ -20716,6 +21936,10 @@
       "FE52F7CB": {
         "key": "ITEM_23_0002",
         "text": "Crewmate Card: Tweyen"
+      },
+      "5B5B8603": {
+        "key": "ITEM_23_0003",
+        "text": "Crewmate Card: Sandalphon"
       },
       "41776DFD": {
         "key": "ITEM_30_0000",
@@ -21069,6 +22293,10 @@
         "key": "ITEM_70_0016",
         "text": "Color Pack 4"
       },
+      "5AF14960": {
+        "key": "ITEM_70_0017",
+        "text": "Color Pack 5"
+      },
       "78FE6E2C": {
         "key": "ITEM_80_0000",
         "text": "Silver Key"
@@ -21272,23 +22500,55 @@
       "8DB0B117": {
         "key": "ITEM_28_9999",
         "text": "Sequestration Wrightstone"
+      },
+      "BCDBC4B6": {
+        "key": null,
+        "text": "Dread Wrightstone"
+      },
+      "3EF6DEF5": {
+        "key": null,
+        "text": "Vitality Wrightstone"
+      },
+      "BE6124AD": {
+        "key": null,
+        "text": "Fortification Wrightstone"
+      },
+      "0BD373A4": {
+        "key": null,
+        "text": "Sequestration Wrightstone"
+      },
+      "09E6F629": {
+        "key": null,
+        "text": "Dread Wrightstone"
+      },
+      "71173866": {
+        "key": null,
+        "text": "Vitality Wrightstone"
+      },
+      "667EE1D3": {
+        "key": null,
+        "text": "Fortification Wrightstone"
+      },
+      "202A0DB9": {
+        "key": null,
+        "text": "Sequestration Wrightstone"
       }
     },
     "over_mastery": {
       "FA230938": {
-        "key": null,
+        "key": "LBP_EFF_ATK01",
         "text": "Attack Power Up"
       },
       "BF44C20B": {
-        "key": null,
+        "key": "LBP_EFF_HP01",
         "text": "Health Up"
       },
       "2906F3ED": {
-        "key": null,
+        "key": "LBP_EFF_CRITICAL01",
         "text": "Critical Hit Rate Up"
       },
       "D5169339": {
-        "key": null,
+        "key": "LBP_EFF_BREAK01",
         "text": "Stun Power Up"
       },
       "8E4AF42A": {
@@ -21296,23 +22556,23 @@
         "text": "Skill Damage Up"
       },
       "CD6542F5": {
-        "key": null,
+        "key": "LBP_EFF_ARTS_DMG01",
         "text": "Skybound Art Damage Up"
       },
       "2989CAE9": {
-        "key": null,
+        "key": "LBP_EFF_BURST_DMG01",
         "text": "Chain Burst Damage Up"
       },
       "ABA0FEDD": {
-        "key": null,
+        "key": "LBP_EFF_ATK_LIMIT01",
         "text": "Normal Attack Damage Cap Up"
       },
       "CAC0BEB6": {
-        "key": null,
+        "key": "LBP_EFF_AB_LIMIT01",
         "text": "Skill Damage Cap Up"
       },
       "FB4819D9": {
-        "key": null,
+        "key": "LBP_EFF_ARTS_LIMIT01",
         "text": "Skybound Art Damage Cap Up"
       },
       "C4925BD7": {
@@ -21324,87 +22584,87 @@
         "text": "Health Up"
       },
       "45C65767": {
-        "key": null,
+        "key": "MED_EFF_CRITICAL01",
         "text": "Critical Hit Rate Up"
       },
       "6CB38EF3": {
-        "key": null,
+        "key": "MED_EFF_BREAK01",
         "text": "Stun Power Up"
       },
       "9A97C049": {
-        "key": null,
+        "key": "MED_EFF_ABILITY_DAMAGE01",
         "text": "Skill Damage Up"
       },
       "4E42646B": {
-        "key": null,
+        "key": "MED_EFF_ARTS_DAMAGE01",
         "text": "Skybound Art Damage Up"
       },
       "68B39018": {
-        "key": null,
+        "key": "MED_EFF_BURST_DAMAGE01",
         "text": "Chain Burst Damage Up"
       },
       "43B7581D": {
-        "key": null,
+        "key": "MED_EFF_ATTACK_LIMIT01",
         "text": "Normal Attack Damage Cap Up"
       },
       "9C555433": {
-        "key": null,
+        "key": "MED_EFF_ABILITY_LIMIT01",
         "text": "Skill Damage Cap Up"
       },
       "4A4C093D": {
-        "key": null,
+        "key": "MED_EFF_ARTS_LIMIT01",
         "text": "Skybound Art Damage Cap Up"
       },
       "54929589": {
-        "key": null,
+        "key": "MED_EFF_RECOVERY_LIMIT01",
         "text": "Healing Cap Up"
       },
       "CB63BE55": {
-        "key": null,
+        "key": "MED_EFF_ATK01_02",
         "text": "Attack Power Up"
       },
       "DCBD8423": {
-        "key": null,
+        "key": "MED_EFF_ATK01_03",
         "text": "Attack Power Up"
       },
       "59DCE1E8": {
-        "key": null,
+        "key": "MED_EFF_ATK01_04",
         "text": "Attack Power Up"
       },
       "F203BB15": {
-        "key": null,
+        "key": "MED_EFF_ATK01_05",
         "text": "Attack Power Up"
       },
       "57BBC478": {
-        "key": null,
+        "key": "MED_EFF_HP01_02",
         "text": "Health Up"
       },
       "5A51F0CB": {
-        "key": null,
+        "key": "MED_EFF_HP01_03",
         "text": "Health Up"
       },
       "9C6375CF": {
-        "key": null,
+        "key": "MED_EFF_HP01_04",
         "text": "Health Up"
       },
       "F004E9F2": {
-        "key": null,
+        "key": "MED_EFF_HP01_05",
         "text": "Health Up"
       },
       "C4B86ED7": {
-        "key": null,
+        "key": "MED_EFF_CRITICAL01_02",
         "text": "Critical Hit Rate Up"
       },
       "CEB0DBD2": {
-        "key": null,
+        "key": "MED_EFF_CRITICAL01_03",
         "text": "Critical Hit Rate Up"
       },
       "A3545CA1": {
-        "key": null,
+        "key": "MED_EFF_BREAK01_02",
         "text": "Stun Power Up"
       },
       "59FBB7D8": {
-        "key": null,
+        "key": "MED_EFF_BREAK01_03",
         "text": "Stun Power Up"
       },
       "A1DC63B3": {

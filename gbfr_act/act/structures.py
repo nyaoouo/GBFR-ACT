@@ -119,7 +119,7 @@ class Actor:
             case 0xc9f45042:  # 老男人武器 # Wp1890
                 return Actor(size_t_from(size_t_from(self.address + 0x578) + 0x70))
             case 0xf5755c0e:  # 龙人化 # Pl2000
-                return Actor(size_t_from(size_t_from(self.address + 0xd338) + 0x70))
+                return Actor(size_t_from(size_t_from(self.address + 0xd488) + 0x70))
 
     @property
     def canceled_action(self):
